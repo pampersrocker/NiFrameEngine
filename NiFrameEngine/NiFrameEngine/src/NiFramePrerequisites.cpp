@@ -1,11 +1,9 @@
-#include "NiFrameRendererPCH.h"
-
+#include "NiFrameEnginePCH.h"
+#include "NiFramePrerequisites.h"
 
 namespace NiFrame
 {
-	namespace Renderer
-	{
-#ifdef USE_DOUBLE_PRECISSIOM
+#ifdef USE_DOUBLE_PRECISION
 	const Real RealHelper::ZERO = 0.0;
 	const Real RealHelper::ONE = 1.0;
 	const Real RealHelper::NEGATIVE_ONE = -1.0;
@@ -15,9 +13,5 @@ namespace NiFrame
 	const Real RealHelper::ONE = 1.0f;
 	const Real RealHelper::NEGATIVE_ONE = -1.0f;
 
-#endif // USE_DOUBLE_PRECISSIOM
-
-	}
+#endif // USE_DOUBLE_PRECISSION
 }
-
-
