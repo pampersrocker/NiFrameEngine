@@ -1,7 +1,9 @@
 #Special Folders
-MathLib/bin
-MathLib/tmp
-MathLib/lib
+NiFrameEngine/bin32
+NiFrameEngine/bin64
+NiFrameEngine/tmp
+NiFrameEngine/lib32
+NiFrameEngine/lib64
 ipch
 
 #Visual Studio 
