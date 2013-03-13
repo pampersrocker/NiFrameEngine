@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{29351d7c-c574-4ce5-bbe4-5b2693873b0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{4fec5879-6efa-48ac-9b8c-e1e97bb822b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\NiFrameRendererPCH.h">
@@ -21,6 +27,9 @@
     <ClInclude Include="inc\NiFrameRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\ColourValue.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
@@ -28,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="src\NiFrameRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ColourValue.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

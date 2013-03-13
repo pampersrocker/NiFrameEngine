@@ -4,3 +4,10 @@
 
 #include "NiFrameRenderer.h"
 
+namespace NiFrame
+{
+	namespace Renderer
+	{
+	}
+}
+
