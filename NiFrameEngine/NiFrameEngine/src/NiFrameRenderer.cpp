@@ -20,13 +20,13 @@ namespace NiFrame
 	{
 		if ( apiName == "DirectX" )
 		{
-			m_hDLL = LoadLibraryEx( L"NiFrameD3DX.dll", nullptr, 0 );
+			m_hDLL = LoadLibraryEx( "NiFrameD3DX.dll", nullptr, 0 );
 			if ( !m_hDLL )
 			{
 				MessageBox( 
 					nullptr, 
-					L"Loading NiFrameD3DX.dll failed, is it present?",
-					L"Error Loading D3D DLL", 
+					"Loading NiFrameD3DX.dll failed, is it present?",
+					"Error Loading D3D DLL", 
 					MB_OK | MB_ICONERROR);
 			} 
 		} 
@@ -35,8 +35,8 @@ namespace NiFrame
 			//TODO: Better Error text
 			MessageBox( 
 				nullptr, 
-				L"The given api is not supported",
-				L"Error Loading D3D DLL", 
+				"The given api is not supported",
+				"Error Loading D3D DLL", 
 				MB_OK | MB_ICONERROR);
 
 			throw new std::exception("Failed to create RenderDevice");
@@ -55,8 +55,8 @@ namespace NiFrame
 			//TODO: Better Error text
 			MessageBox( 
 				nullptr, 
-				L"Failed to Create the Render Device",
-				L"Error Creating Render Device", 
+				"Failed to Create the Render Device",
+				"Error Creating Render Device", 
 				MB_OK | MB_ICONERROR);
 
 			throw new std::exception("Failed to create RenderDevice");

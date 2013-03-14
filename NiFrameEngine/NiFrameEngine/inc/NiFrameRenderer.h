@@ -9,7 +9,7 @@ namespace NiFrame
 
 	class NiFrameRenderDevice;
 
-	class NiFrameRenderer
+	class NIFRAME_DLL_EXPORT NiFrameRenderer
 	{
 	public:
 		NiFrameRenderer();

@@ -31,21 +31,21 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>false</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>false</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>false</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -53,7 +53,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>false</CLRSupport>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -62,18 +62,22 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Default32_64BitBuild.props" />
+    <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Default32_64BitBuild.props" />
+    <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Default32_64BitBuild.props" />
+    <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Default32_64BitBuild.props" />
+    <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -105,16 +109,16 @@
       <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,14 +130,14 @@
       <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,13 +153,13 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -171,13 +175,13 @@
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <FloatingPointModel>Fast</FloatingPointModel>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -190,6 +194,7 @@
     <ClInclude Include="inc\NiFrameRendererPCH.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\DirectXRenderDevice.cpp" />
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

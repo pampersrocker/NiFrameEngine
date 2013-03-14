@@ -46,6 +46,7 @@ namespace NiFrame
 
 
 	typedef std::string String;
+	typedef std::stringbuf StringBuffer;
 
 	typedef uint64_t uint64;
 	typedef uint32_t uint32;
@@ -56,6 +57,10 @@ namespace NiFrame
 	typedef int32_t int32;
 	typedef int16_t int16;
 	typedef int8_t int8;
+
+
+
+	typedef std::exception exception;
 
 }
 #endif // NiFramePrerequisites_h__

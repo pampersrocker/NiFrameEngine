@@ -36,6 +36,9 @@
     <ClCompile Include="src\NiFrameRenderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\NiFrameRenderDeviceParameters.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\NiFrameEnginePCH.h">
@@ -51,6 +54,12 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="inc\NiFrameRenderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameSTLTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameRenderDeviceParameters.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>

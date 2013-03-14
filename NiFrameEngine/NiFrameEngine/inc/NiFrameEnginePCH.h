@@ -7,7 +7,20 @@
 // Windows Header Files:
 #include <windows.h>
 
+#define NIFRAME_DLL_EXPORT __declspec( dllexport )
+#define NIFRAME_DLL_IMPORT __declspec( dllimport )
+
+#define SAFE_DELETE(pointer)	\
+	if( pointer != nullptr )	\
+	{							\
+		delete pointer;			\
+		pointer = nullptr;		\
+	}							\
+
 #include "NiFramePrerequisites.h"
+#include "NiFrameSTLTypes.h"
+
+
 
 
 // TODO: reference additional headers your program requires here
