@@ -1,11 +1,7 @@
 #include "NiFrameRendererPCH.h"
 
 
-namespace NiFrame
-{
-	namespace Renderer
-	{
-	}
-}
-
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
 

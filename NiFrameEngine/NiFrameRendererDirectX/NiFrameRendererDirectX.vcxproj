@@ -109,17 +109,20 @@
       <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -130,15 +133,18 @@
       <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -192,8 +198,10 @@
   <ItemGroup>
     <ClInclude Include="inc\DirectXRenderDevice.h" />
     <ClInclude Include="inc\NiFrameRendererPCH.h" />
+    <ClInclude Include="inc\NiFrameD3DResolution.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NiFrameD3DResolution.cpp" />
     <ClCompile Include="src\DirectXRenderDevice.cpp" />
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

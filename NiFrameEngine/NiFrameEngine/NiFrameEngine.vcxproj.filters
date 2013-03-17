@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Rendering">
       <UniqueIdentifier>{c144540b-5e99-4c4e-b2be-d4209fa31acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{d3056fa5-253c-4a82-9f56-7268e7c72c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{ceb61359-e054-4be8-b93c-59099a3eb786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameEnginePCH.cpp">
@@ -37,6 +43,12 @@
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\NiFrameRenderDeviceParameters.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="inc\StringUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NiFrameResolution.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\NiFrameRenderDeviceParameters.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StringUtils.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StringableObject.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameResolution.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>

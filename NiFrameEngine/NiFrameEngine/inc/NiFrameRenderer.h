@@ -7,26 +7,27 @@
 namespace NiFrame
 {
 
-	class NiFrameRenderDevice;
+	class RenderDevice;
 
-	class NIFRAME_DLL_EXPORT NiFrameRenderer
+	class NIFRAME_DLL_EXPORT Renderer
 	{
 	public:
-		NiFrameRenderer();
-		~NiFrameRenderer();
+		Renderer();
+		~Renderer();
 
 		void CreateDevice( const String& apiName );
 
-		void Release();
-
 		HINSTANCE GetModule() const;
 
-		NiFrameRenderDevice* GetDevice() const;
+		RenderDevice* GetDevice() const;
 
 
 
 	private:
-		NiFrameRenderDevice* m_RenderDevice;
+
+		void Release();
+
+		RenderDevice* m_RenderDevice;
 
 		HMODULE m_hDLL;
 	};

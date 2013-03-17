@@ -46,7 +46,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_NIFRAMETESTAPPLICATION));
 
-	NiFrameRenderer* renderer = new NiFrameRenderer();
+	Renderer* renderer = new Renderer();
 
 	renderer->CreateDevice("DirectX");
 
@@ -62,6 +62,8 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 			DispatchMessage(&msg);
 		}
 	}
+
+	delete renderer;
 
 	return (int) msg.wParam;
 }

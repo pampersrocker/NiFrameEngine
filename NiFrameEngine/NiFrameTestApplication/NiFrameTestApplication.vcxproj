@@ -92,13 +92,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -106,13 +110,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -174,6 +182,11 @@
   <ItemGroup>
     <Image Include="NiFrameTestApplication.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NiFrameEngine\NiFrameEngine.vcxproj">
+      <Project>{cc0e65dc-d25c-4d6a-bed4-1031849881b7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,5 +17,10 @@
 #include <memory.h>
 #include <tchar.h>
 
+#ifdef _DEBUG
+#include "vld.h"
+#endif // _DEBUG
+
+
 
 // TODO: reference additional headers your program requires here

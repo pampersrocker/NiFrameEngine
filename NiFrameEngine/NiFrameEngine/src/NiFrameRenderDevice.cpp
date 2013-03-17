@@ -5,5 +5,11 @@
 
 namespace NiFrame
 {
+
+	RenderDevice::~RenderDevice()
+	{
+
+	}
+
 }
 

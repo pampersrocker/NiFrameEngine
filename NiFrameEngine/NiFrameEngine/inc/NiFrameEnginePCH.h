@@ -20,6 +20,11 @@
 #include "NiFramePrerequisites.h"
 #include "NiFrameSTLTypes.h"
 
+#ifdef _DEBUG
+#include "vld.h"
+#endif // DEBUG
+
+
 
 
 

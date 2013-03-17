@@ -6,9 +6,9 @@
 
 namespace NiFrame
 {
-	class NiFrameRenderDeviceParams;
+	class RenderDeviceParams;
 
-	class NIFRAME_DLL_EXPORT NiFrameRenderDevice
+	class NIFRAME_DLL_EXPORT RenderDevice
 	{
 	public:
 
@@ -22,7 +22,7 @@ namespace NiFrame
 
 		virtual void Initialize() = 0;
 
-		virtual NiFrameRenderDeviceParams GetRenderParams( void ) const = 0;
+		virtual RenderDeviceParams GetRenderParams( void ) const = 0;
 
 		virtual bool IsRunning() const = 0;
 
@@ -34,19 +34,23 @@ namespace NiFrame
 
 		virtual void Clear( bool clearPixel , bool clearDepth ) = 0;
 
+		virtual ~RenderDevice() = 0;
+
 
 	private:
 
 	};
+
+	
 }
 
 extern "C"
 {
-	HRESULT __declspec( dllexport ) CreateRenderDevice(HINSTANCE hdll, NiFrame::NiFrameRenderDevice** renderDevice);
-	typedef HRESULT (*CREATERENDERDEVICE)(HINSTANCE hdll, NiFrame::NiFrameRenderDevice** renderDevice);
+	HRESULT __declspec( dllexport ) CreateRenderDevice(HINSTANCE hdll, NiFrame::RenderDevice** renderDevice);
+	typedef HRESULT (*CREATERENDERDEVICE)(HINSTANCE hdll, NiFrame::RenderDevice** renderDevice);
 
-	HRESULT __declspec( dllexport ) ReleaseRenderDevice( NiFrame::NiFrameRenderDevice** renderDevice);
-	typedef HRESULT (*RELEASERENDERDEVICE)( NiFrame::NiFrameRenderDevice** renderDevice);
+	HRESULT __declspec( dllexport ) ReleaseRenderDevice( NiFrame::RenderDevice** renderDevice);
+	typedef HRESULT (*RELEASERENDERDEVICE)( NiFrame::RenderDevice** renderDevice);
 };
 
 #endif // NiFrameRenderDevice_h__

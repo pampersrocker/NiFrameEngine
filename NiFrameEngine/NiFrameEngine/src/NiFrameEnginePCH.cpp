@@ -1,4 +1,6 @@
 #include "NiFrameEnginePCH.h"
 
-// TODO: reference any additional headers you need in STDAFX.H
-// and not in this file
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif

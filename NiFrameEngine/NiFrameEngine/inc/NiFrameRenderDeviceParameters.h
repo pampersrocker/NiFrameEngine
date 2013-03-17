@@ -6,22 +6,24 @@
 
 namespace NiFrame
 {
-	typedef map< String, vector<String>::type* >::type* RenderDeviceParameterList;
+	class IStringableObject;
 
-	class NIFRAME_DLL_EXPORT NiFrameRenderDeviceParams
+	typedef map< String, vector<IStringableObject*>::type* >::type RenderDeviceParameterList;
+
+	class NIFRAME_DLL_EXPORT RenderDeviceParams
 	{
 	public:
-		NiFrameRenderDeviceParams( RenderDeviceParameterList paramList = nullptr );
-		~NiFrameRenderDeviceParams();
+		RenderDeviceParams( RenderDeviceParameterList* paramList = nullptr );
+		~RenderDeviceParams();
 
-		RenderDeviceParameterList GetParameters( ) const;
-		void SetParameters( RenderDeviceParameterList val );
+		RenderDeviceParameterList* GetParameters( ) const;
+		void SetParameters( RenderDeviceParameterList* val );
 
 		vector< String >::type* GetParametersNames() const;
-		vector< String >::type* GetParamterValues( const String& parameterName ) const;
+		vector< IStringableObject* >::type* GetParamterValues( const String& parameterName ) const;
 
 	private:
-		map< String, vector<String>::type* >::type* m_Parameters;
+		RenderDeviceParameterList* m_Parameters;
 
 	};
 }

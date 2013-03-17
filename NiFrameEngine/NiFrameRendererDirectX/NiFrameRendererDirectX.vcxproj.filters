@@ -21,12 +21,18 @@
     <ClInclude Include="inc\DirectXRenderDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\NiFrameD3DResolution.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\DirectXRenderDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NiFrameD3DResolution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

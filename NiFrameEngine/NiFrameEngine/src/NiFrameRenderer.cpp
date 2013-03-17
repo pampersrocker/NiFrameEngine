@@ -6,17 +6,17 @@
 
 namespace NiFrame
 {
-	NiFrameRenderer::~NiFrameRenderer()
+	Renderer::~Renderer()
+	{
+		Release();
+	}
+
+	Renderer::Renderer()
 	{
 
 	}
 
-	NiFrameRenderer::NiFrameRenderer()
-	{
-
-	}
-
-	void NiFrameRenderer::CreateDevice( const String& apiName )
+	void Renderer::CreateDevice( const String& apiName )
 	{
 		if ( apiName == "DirectX" )
 		{
@@ -65,17 +65,32 @@ namespace NiFrame
 
 	}
 
-	void NiFrameRenderer::Release()
+	void Renderer::Release()
 	{
-			
+		if (m_RenderDevice != nullptr)
+		{
+			RELEASERENDERDEVICE _ReleaseRenderDevice = 0;
+			HRESULT hr;
+			_ReleaseRenderDevice = (RELEASERENDERDEVICE) GetProcAddress(m_hDLL, "ReleaseRenderDevice");
+			if ( _ReleaseRenderDevice != nullptr )
+			{
+				hr = _ReleaseRenderDevice( &m_RenderDevice );
+				if ( FAILED(hr) )
+				{
+					MessageBox(nullptr, "Failed to destroy renderDevice", "Error", MB_OK | MB_ICONERROR );
+				}
+			} 
+
+			m_RenderDevice = nullptr;
+		}
 	}
 
-	HINSTANCE NiFrameRenderer::GetModule() const
+	HINSTANCE Renderer::GetModule() const
 	{
 		return m_hDLL;
 	}
 
-	NiFrameRenderDevice* NiFrameRenderer::GetDevice() const
+	RenderDevice* Renderer::GetDevice() const
 	{
 		return m_RenderDevice;
 	}
