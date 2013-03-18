@@ -9,6 +9,9 @@
 namespace NiFrame
 {
 	class D3DResolution;
+	class StringableBool;
+	class D3DDevTypeStringable;
+	class BufferTypeStringable;
 
 	class D3DRenderDevice : public RenderDevice
 	{
@@ -33,7 +36,12 @@ namespace NiFrame
 		virtual void EndRendering();
 
 		virtual void Clear( bool clearPixel , bool clearDepth );
-
+		void LoadFullScreenSelection( RenderDeviceParameterList* paramList );
+		void LoadMultiSamples( uint32 i, RenderDeviceParameterList* paramList );
+		void LoadDeviceTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
+		void LoadBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
+		void LoadZBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
+		void LoadMultiSampleQualities( uint32 i, RenderDeviceParameterList* paramList );
 	private:
 
 		vector< D3DADAPTER_IDENTIFIER9 >::type* m_AdpaterIdentifier;
@@ -41,6 +49,10 @@ namespace NiFrame
 		IDirect3D9 * m_pD3D;
 		vector< RenderDeviceParams* >::type m_AdapterParameters;
 		vector< vector< D3DResolution* >::type*>::type* m_DeviceResolutions;
+		vector< vector< StringableBool* >::type*>::type* m_FullScreen;
+		vector< vector< D3DDevTypeStringable* >::type*>::type* m_D3DDevTypes;		
+		vector< vector< BufferTypeStringable* >::type*>::type* m_BufferTypes;
+
 	};
 }
 

@@ -3,6 +3,9 @@
 #include "NiFrameRenderDeviceParameters.h"
 #include "StringUtils.h"
 #include "NiFrameD3DResolution.h"
+#include "NiFrameStringableBool.h"
+#include "NiFrameD3DDevTypeStringable.h"
+#include "..\inc\NiFrameBufferTypeStringable.h"
 
 extern "C"
 {
@@ -33,7 +36,10 @@ namespace NiFrame
 		m_pD3D( nullptr ),
 		m_AdpaterIdentifier( new vector<D3DADAPTER_IDENTIFIER9>::type() ),
 		m_AdapterParameters ( vector< RenderDeviceParams* >::type() ),
-		m_DeviceResolutions( new vector< vector< D3DResolution* >::type*>::type() )
+		m_DeviceResolutions( new vector< vector< D3DResolution* >::type*>::type() ),
+		m_FullScreen( new vector< vector< StringableBool* >::type*>::type() ),
+		m_D3DDevTypes( new vector< vector< D3DDevTypeStringable*>::type*>::type() ),
+		m_BufferTypes( new vector< vector< BufferTypeStringable*>::type*>::type() )
 	{
 	}
 
@@ -58,7 +64,52 @@ namespace NiFrame
 			}
 			delete *d3dResolutions;
 		}
-		 delete m_DeviceResolutions;
+		SAFE_DELETE(m_DeviceResolutions);
+
+		for(vector< vector< StringableBool*>::type* >::iterator iterator = m_FullScreen->begin(); 
+			iterator != m_FullScreen->end(); 
+			++iterator )
+		{
+			for(vector< StringableBool*>::iterator fullScreenIter = (*iterator)->begin(); 
+				fullScreenIter != (*iterator)->end(); 
+				++fullScreenIter )
+			{
+				delete *fullScreenIter;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_FullScreen);
+
+		for(vector< vector< D3DDevTypeStringable*>::type* >::iterator iterator = m_D3DDevTypes->begin(); 
+			iterator != m_D3DDevTypes->end(); 
+			++iterator )
+		{
+			for(vector< D3DDevTypeStringable*>::iterator devTypesIterator = (*iterator)->begin(); 
+				devTypesIterator != (*iterator)->end(); 
+				++devTypesIterator )
+			{
+				delete *devTypesIterator;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_D3DDevTypes);
+
+		for(vector< vector< BufferTypeStringable*>::type* >::iterator iterator = m_BufferTypes->begin(); 
+			iterator != m_BufferTypes->end(); 
+			++iterator )
+		{
+			for(vector< BufferTypeStringable*>::iterator BufferTypesIterator = (*iterator)->begin(); 
+				BufferTypesIterator != (*iterator)->end(); 
+				++BufferTypesIterator )
+			{
+				delete *BufferTypesIterator;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_BufferTypes);
 
 		m_AdpaterIdentifier = nullptr;
 		m_hDLL = nullptr;
@@ -134,7 +185,20 @@ namespace NiFrame
 				m_AdapterParameters.push_back( new RenderDeviceParams() );
 				RenderDeviceParameterList* paramList = m_AdapterParameters[i]->GetParameters();
 
+				LoadDeviceTypeSelection( i, paramList );
+
+				LoadFullScreenSelection( paramList );
+
+				//Load Resolutions
 				LoadDeviceResolutions(i, paramList);
+
+				LoadBufferTypeSelection( i, paramList );
+
+				LoadZBufferTypeSelection( i, paramList );
+
+				LoadMultiSamples( i, paramList );
+
+				LoadMultiSampleQualities( i, paramList );
 
 			}
 		}
@@ -162,9 +226,83 @@ namespace NiFrame
 
 		m_DeviceResolutions->push_back( d3dResolutions );
 
-		(*paramList)["VideMode"] = modeVector;
+		(*paramList)["Video Mode"] = modeVector;
 
 		delete displayModes;
+	}
+
+	void D3DRenderDevice::LoadFullScreenSelection( RenderDeviceParameterList* paramList )
+	{
+		vector< StringableBool* >::type* modes = new vector< StringableBool* >::type();
+
+		vector< IStringableObject* >::type* paramListMember = new vector< IStringableObject* >::type();
+
+		modes->push_back( new StringableBool( false ) );
+		modes->push_back( new StringableBool( true ) );
+
+		for(auto iterator = modes->begin(); iterator != modes->end(); ++iterator )
+		{
+			paramListMember->push_back( *iterator );
+		}
+
+		( *paramList )[ "Full screen" ] = paramListMember;
+
+		m_FullScreen->push_back(modes);
+	}
+
+
+
+	void D3DRenderDevice::LoadDeviceTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	{
+		vector< D3DDevTypeStringable* >::type* devType = new vector< D3DDevTypeStringable* >::type();
+
+		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
+
+		devType->push_back( new D3DDevTypeStringable( D3DDEVTYPE_HAL ) );
+		devType->push_back( new D3DDevTypeStringable( D3DDEVTYPE_REF ) );
+
+		for(auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
+		{
+			paramListVector->push_back( *iterator );
+		}
+
+		( *paramList )[ "Device Type" ] = paramListVector;
+
+		m_D3DDevTypes->push_back( devType );
+	}
+
+	void D3DRenderDevice::LoadBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	{
+		vector< BufferTypeStringable* >::type* devType = new vector< BufferTypeStringable* >::type();
+
+		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
+
+		devType->push_back( new BufferTypeStringable( D3DFMT_X8R8G8B8 ) );
+		devType->push_back( new BufferTypeStringable( D3DFMT_R5G6B5 ) );
+
+		for(auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
+		{
+			paramListVector->push_back( *iterator );
+		}
+
+		( *paramList )[ "Buffer Type" ] = paramListVector;
+
+		m_BufferTypes->push_back( devType );
+	}
+
+	void D3DRenderDevice::LoadZBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	{
+		//throw std::exception( "The method or operation is not implemented." );
+	}
+
+	void D3DRenderDevice::LoadMultiSamples( uint32 i, RenderDeviceParameterList* paramList )
+	{
+		//m_pD3D->CheckDeviceMultiSampleType(i, D3DDEVTY)
+	}
+
+	void D3DRenderDevice::LoadMultiSampleQualities( uint32 i, RenderDeviceParameterList* paramList )
+	{
+		//throw std::exception( "The method or operation is not implemented." );
 	}
 
 
