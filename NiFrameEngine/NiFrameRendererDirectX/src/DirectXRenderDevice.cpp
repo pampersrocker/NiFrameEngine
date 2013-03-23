@@ -245,7 +245,7 @@ namespace NiFrame
 
 		m_DeviceResolutions->push_back( d3dResolutions );
 
-		(*paramList)["Video Mode"] = modeVector;
+		(*paramList)[ VIDEOMODE ] = modeVector;
 
 		delete displayModes;
 	}
@@ -264,7 +264,7 @@ namespace NiFrame
 			paramListMember->push_back( *iterator );
 		}
 
-		( *paramList )[ "Full screen" ] = paramListMember;
+		( *paramList )[ WINDOWED ] = paramListMember;
 
 		m_Windowed->push_back(modes);
 	}
@@ -285,7 +285,7 @@ namespace NiFrame
 			paramListVector->push_back( *iterator );
 		}
 
-		( *paramList )[ "Device Type" ] = paramListVector;
+		( *paramList )[ DEVICE_TYPE ] = paramListVector;
 
 		m_D3DDevTypes->push_back( devType );
 	}
@@ -299,24 +299,27 @@ namespace NiFrame
 		vector<D3DFORMAT>::type* vec = new vector<D3DFORMAT>::type();
 
 		FillBufferTypeVector( vec );
+		D3DDISPLAYMODE mode = D3DDISPLAYMODE();
+		m_pD3D->GetAdapterDisplayMode(i, &mode);
 
 		for(vector<D3DFORMAT>::iterator iterator = vec->begin(); iterator != vec->end(); ++iterator )
 		{
-			D3DDISPLAYMODE* mode = new D3DDISPLAYMODE();
-			m_pD3D->GetAdapterDisplayMode(i, mode);
+			
 			//Check if BackBuffer is valid
-			if (m_pD3D->CheckDeviceType(i, GetCurrentDevType(), mode->Format, *iterator, GetWindowed()) == S_OK)
+			if (m_pD3D->CheckDeviceType(i, GetCurrentDevType(), mode.Format, *iterator, GetWindowed()) == S_OK)
 			{
 				devType->push_back( new BufferTypeStringable( *iterator ) );
 			}
 		}
+
+		SAFE_DELETE( vec )
 
 		for(auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
 
-		( *paramList )[ "Buffer Type" ] = paramListVector;
+		( *paramList )[ BUFFERTYPE ] = paramListVector;
 
 		m_BufferTypes->push_back( devType );
 	}
