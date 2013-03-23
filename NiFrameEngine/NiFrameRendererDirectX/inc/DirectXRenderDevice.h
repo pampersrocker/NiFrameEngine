@@ -23,7 +23,7 @@ namespace NiFrame
 
 		virtual void Initialize();
 
-		void LoadDeviceResolutions( uint32 i, RenderDeviceParameterList* paramList );
+		
 
 		virtual RenderDeviceParams GetRenderParams( void ) const;
 
@@ -36,20 +36,65 @@ namespace NiFrame
 		virtual void EndRendering();
 
 		virtual void Clear( bool clearPixel , bool clearDepth );
+		void LoadDeviceResolutions( uint32 i, RenderDeviceParameterList* paramList );
 		void LoadFullScreenSelection( RenderDeviceParameterList* paramList );
 		void LoadMultiSamples( uint32 i, RenderDeviceParameterList* paramList );
 		void LoadDeviceTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
 		void LoadBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
 		void LoadZBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
 		void LoadMultiSampleQualities( uint32 i, RenderDeviceParameterList* paramList );
+		void FillBufferTypeVector( vector<D3DFORMAT>::type* vec );
+		const String GetGetVideoModeID( ) const 
+		{ 
+			return VIDEOMODE; 
+		}
+		const String GetGetBufferID( ) const 
+		{ 
+			return ZBUFFERTYPE; 
+		}
+		const String GetGetZBufferTypeID( ) const 
+		{ 
+			return ZBUFFERTYPE; 
+		}
+		const String GetGetWindowedID( ) const 
+		{ 
+			return WINDOWED; 
+		}
+		const String GetGetMultisampleID( ) const 
+		{ 
+			return MULTISAMPLE_TYPE; 
+		}
+
+		const String GetGetDeviceTypeID( ) const 
+		{ 
+			return DEVICE_TYPE; 
+		}
 	private:
+
+		map< String, uint32>::type* m_SelectedValues;
+
+		const String DEVICE_TYPE;
+		const String VIDEOMODE;
+		const String BUFFERTYPE;
+		const String ZBUFFERTYPE;
+		const String WINDOWED;
+		const String MULTISAMPLE_TYPE;
+		const String MULTISAMPLE_QUALITY;
+		const String GetGetMultisampleQualityID( ) const 
+		{ 
+			return MULTISAMPLE_QUALITY; 
+		}
+		_D3DDEVTYPE GetCurrentDevType();
+		D3DFORMAT GetCurrentBufferFormat();
+		bool GetWindowed();
+		uint32 m_CurrentDevice;
 
 		vector< D3DADAPTER_IDENTIFIER9 >::type* m_AdpaterIdentifier;
 		HINSTANCE m_hDLL;
 		IDirect3D9 * m_pD3D;
 		vector< RenderDeviceParams* >::type m_AdapterParameters;
 		vector< vector< D3DResolution* >::type*>::type* m_DeviceResolutions;
-		vector< vector< StringableBool* >::type*>::type* m_FullScreen;
+		vector< vector< StringableBool* >::type*>::type* m_Windowed;
 		vector< vector< D3DDevTypeStringable* >::type*>::type* m_D3DDevTypes;		
 		vector< vector< BufferTypeStringable* >::type*>::type* m_BufferTypes;
 

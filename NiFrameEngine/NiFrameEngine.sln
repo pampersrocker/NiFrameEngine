@@ -10,6 +10,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NiFrameEngine", "NiFrameEng
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NiFrameTestApplication", "NiFrameTestApplication\NiFrameTestApplication.vcxproj", "{C4750875-817A-4F5E-86FB-427924D47AB3}"
 	ProjectSection(ProjectDependencies) = postProject
+		{CF53209C-32C2-480E-935B-756BD7FDEC70} = {CF53209C-32C2-480E-935B-756BD7FDEC70}
 		{CC0E65DC-D25C-4D6A-BED4-1031849881B7} = {CC0E65DC-D25C-4D6A-BED4-1031849881B7}
 	EndProjectSection
 EndProject

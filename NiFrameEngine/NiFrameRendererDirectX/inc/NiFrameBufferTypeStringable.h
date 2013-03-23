@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #ifndef BufferTypeStringable_h__
 #define BufferTypeStringable_h__
 
@@ -28,6 +27,10 @@ namespace NiFrame
 
 	private:
 		_D3DFORMAT m_Format;
+
+		static map< D3DFORMAT, String >::type* D3DFormatToStringMap;
+
+		static map< D3DFORMAT, String >::type* PopulateMap();
 		
 	};
 

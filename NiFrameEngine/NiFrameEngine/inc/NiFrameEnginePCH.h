@@ -7,8 +7,14 @@
 // Windows Header Files:
 #include <windows.h>
 
+#ifdef NIFRAME_DLL_BUILD
 #define NIFRAME_DLL_EXPORT __declspec( dllexport )
-#define NIFRAME_DLL_IMPORT __declspec( dllimport )
+#else
+#define NIFRAME_DLL_EXPORT __declspec( dllimport )
+#endif
+
+
+
 
 #define SAFE_DELETE(pointer)	\
 	if( pointer != nullptr )	\

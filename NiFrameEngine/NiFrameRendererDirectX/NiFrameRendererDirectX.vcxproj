@@ -199,7 +199,6 @@
     <ClInclude Include="inc\NiFrameBufferTypeStringable.h" />
     <ClInclude Include="inc\DirectXRenderDevice.h" />
     <ClInclude Include="inc\NiFrameD3DDevTypeStringable.h" />
-    <ClInclude Include="inc\NiFrameStringableBool.h" />
     <ClInclude Include="inc\NiFrameRendererPCH.h" />
     <ClInclude Include="inc\NiFrameD3DResolution.h" />
   </ItemGroup>
@@ -218,7 +217,6 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\NiFrameStringableBool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
