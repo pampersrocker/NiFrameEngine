@@ -594,5 +594,40 @@ namespace NiFrame
 		return (*((*m_MultiSampleTypes)[m_CurrentDevice]))[(*m_SelectedValues)[MULTISAMPLE_TYPE]]->GetMultiSampleType();
 	}
 
+	const String D3DRenderDevice::GetGetMultisampleQualityID() const
+	{
+		return MULTISAMPLE_QUALITY;
+	}
+
+	const String D3DRenderDevice::GetGetDeviceTypeID() const
+	{
+		return DEVICE_TYPE;
+	}
+
+	const String D3DRenderDevice::GetGetMultisampleID() const
+	{
+		return MULTISAMPLE_TYPE;
+	}
+
+	const String D3DRenderDevice::GetGetWindowedID() const
+	{
+		return WINDOWED;
+	}
+
+	const String D3DRenderDevice::GetGetZBufferTypeID() const
+	{
+		return ZBUFFERTYPE;
+	}
+
+	const String D3DRenderDevice::GetGetBufferID() const
+	{
+		return ZBUFFERTYPE;
+	}
+
+	const String D3DRenderDevice::GetGetVideoModeID() const
+	{
+		return VIDEOMODE;
+	}
+
 
 }

@@ -25,8 +25,6 @@ namespace NiFrame
 
 		virtual void Initialize();
 
-		
-
 		virtual RenderDeviceParams GetRenderParams( void ) const;
 
 		virtual bool IsRunning() const;
@@ -38,43 +36,14 @@ namespace NiFrame
 		virtual void EndRendering();
 
 		virtual void Clear( bool clearPixel , bool clearDepth );
-		void LoadDeviceResolutions( uint32 i, RenderDeviceParameterList* paramList );
-		void LoadFullScreenSelection( RenderDeviceParameterList* paramList );
-		void LoadMultiSamples( uint32 i, RenderDeviceParameterList* paramList );
-		void LoadDeviceTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
-		void LoadBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
-		void LoadZBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList );
-		void LoadMultiSampleQualities( uint32 i, RenderDeviceParameterList* paramList );
-		void FillBufferTypeVector( vector<D3DFORMAT>::type* vec );
-		const String GetGetVideoModeID( ) const 
-		{ 
-			return VIDEOMODE; 
-		}
-		const String GetGetBufferID( ) const 
-		{ 
-			return ZBUFFERTYPE; 
-		}
-		const String GetGetZBufferTypeID( ) const 
-		{ 
-			return ZBUFFERTYPE; 
-		}
-		const String GetGetWindowedID( ) const 
-		{ 
-			return WINDOWED; 
-		}
-		const String GetGetMultisampleID( ) const 
-		{ 
-			return MULTISAMPLE_TYPE; 
-		}
+		const String GetGetVideoModeID( ) const;
+		const String GetGetBufferID( ) const;
+		const String GetGetZBufferTypeID( ) const;
+		const String GetGetWindowedID( ) const;
+		const String GetGetMultisampleID( ) const;
 
-		const String GetGetDeviceTypeID( ) const 
-		{ 
-			return DEVICE_TYPE; 
-		}
-		const String GetGetMultisampleQualityID( ) const 
-		{ 
-			return MULTISAMPLE_QUALITY; 
-		}
+		const String GetGetDeviceTypeID( ) const;
+		const String GetGetMultisampleQualityID( ) const;
 	private:
 
 		map< String, uint32>::type* m_SelectedValues;
@@ -105,6 +74,14 @@ namespace NiFrame
 		vector< vector< D3DMultiSample* >::type*>::type* m_MultiSampleTypes;
 		vector< vector< D3DMultiSampleQuality* >::type*>::type* m_MultiSampleQualities;
 
+		void LoadDeviceResolutions( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void LoadFullScreenSelection( RenderDeviceParameterList* paramList );
+		void LoadMultiSamples( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void LoadDeviceTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void LoadBufferTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void LoadZBufferTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void LoadMultiSampleQualities( uint32 adapterID, RenderDeviceParameterList* paramList );
+		void FillBufferTypeVector( vector<D3DFORMAT>::type* vec );
 	};
 }
 
