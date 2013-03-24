@@ -6,6 +6,8 @@
 #include "NiFrameStringableBool.h"
 #include "NiFrameD3DDevTypeStringable.h"
 #include "..\inc\NiFrameBufferTypeStringable.h"
+#include "NiFrameMultiSample.h"
+#include "NiFrameD3DMultiSampleQuality.h"
 
 extern "C"
 {
@@ -40,6 +42,9 @@ namespace NiFrame
 		m_Windowed( new vector< vector< StringableBool* >::type*>::type() ),
 		m_D3DDevTypes( new vector< vector< D3DDevTypeStringable*>::type*>::type() ),
 		m_BufferTypes( new vector< vector< BufferTypeStringable*>::type*>::type() ),
+		m_ZBufferTypes( new vector< vector< BufferTypeStringable*>::type*>::type() ),
+		m_MultiSampleTypes( new vector< vector< D3DMultiSample*>::type*>::type() ),
+		m_MultiSampleQualities( new vector< vector< D3DMultiSampleQuality*>::type*>::type() ),
 		m_SelectedValues( new map< String, uint32>::type() ),
 		VIDEOMODE( "VideoMode" ),
 		BUFFERTYPE( "BackBufferType" ),
@@ -128,6 +133,51 @@ namespace NiFrame
 		}
 		SAFE_DELETE(m_BufferTypes)
 
+		for(vector< vector< BufferTypeStringable*>::type* >::iterator iterator = m_ZBufferTypes->begin(); 
+			iterator != m_ZBufferTypes->end(); 
+			++iterator )
+		{
+			for(vector< BufferTypeStringable*>::iterator BufferTypesIterator = (*iterator)->begin(); 
+				BufferTypesIterator != (*iterator)->end(); 
+				++BufferTypesIterator )
+			{
+				delete *BufferTypesIterator;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_ZBufferTypes)
+
+		for(vector< vector< D3DMultiSample*>::type* >::iterator iterator = m_MultiSampleTypes->begin(); 
+			iterator != m_MultiSampleTypes->end(); 
+			++iterator )
+		{
+			for(vector< D3DMultiSample*>::iterator BufferTypesIterator = (*iterator)->begin(); 
+				BufferTypesIterator != (*iterator)->end(); 
+				++BufferTypesIterator )
+			{
+				delete *BufferTypesIterator;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_MultiSampleTypes)
+
+		for(vector< vector< D3DMultiSampleQuality*>::type* >::iterator iterator = m_MultiSampleQualities->begin(); 
+			iterator != m_MultiSampleQualities->end(); 
+			++iterator )
+		{
+			for(vector< D3DMultiSampleQuality*>::iterator BufferTypesIterator = (*iterator)->begin(); 
+				BufferTypesIterator != (*iterator)->end(); 
+				++BufferTypesIterator )
+			{
+				delete *BufferTypesIterator;
+			}
+
+			delete *iterator;
+		}
+		SAFE_DELETE(m_MultiSampleQualities)
+
 		m_AdpaterIdentifier = nullptr;
 		m_hDLL = nullptr;
 	}
@@ -211,8 +261,6 @@ namespace NiFrame
 				//Load Resolutions
 				LoadDeviceResolutions(i, paramList);
 
-				
-
 				LoadZBufferTypeSelection( i, paramList );
 
 				LoadMultiSamples( i, paramList );
@@ -271,7 +319,7 @@ namespace NiFrame
 
 
 
-	void D3DRenderDevice::LoadDeviceTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	void D3DRenderDevice::LoadDeviceTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
 		vector< D3DDevTypeStringable* >::type* devType = new vector< D3DDevTypeStringable* >::type();
 
@@ -290,9 +338,9 @@ namespace NiFrame
 		m_D3DDevTypes->push_back( devType );
 	}
 
-	void D3DRenderDevice::LoadBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	void D3DRenderDevice::LoadBufferTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
-		vector< BufferTypeStringable* >::type* devType = new vector< BufferTypeStringable* >::type();
+		vector< BufferTypeStringable* >::type* bufferTypes = new vector< BufferTypeStringable* >::type();
 
 		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
 
@@ -300,43 +348,133 @@ namespace NiFrame
 
 		FillBufferTypeVector( vec );
 		D3DDISPLAYMODE mode = D3DDISPLAYMODE();
-		m_pD3D->GetAdapterDisplayMode(i, &mode);
+		m_pD3D->GetAdapterDisplayMode(adapterID, &mode);
 
 		for(vector<D3DFORMAT>::iterator iterator = vec->begin(); iterator != vec->end(); ++iterator )
 		{
-			
-			//Check if BackBuffer is valid
-			if (m_pD3D->CheckDeviceType(i, GetCurrentDevType(), mode.Format, *iterator, GetWindowed()) == S_OK)
+			if (
+				m_pD3D->CheckDeviceFormat(
+				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_RENDERTARGET, D3DRTYPE_SURFACE, *iterator) == D3D_OK
+				)
 			{
-				devType->push_back( new BufferTypeStringable( *iterator ) );
+				//Check if BackBuffer is valid
+				if (m_pD3D->CheckDeviceType(adapterID, GetCurrentDevType(), mode.Format, *iterator, GetWindowed()) == D3D_OK)
+				{
+					bufferTypes->push_back( new BufferTypeStringable( *iterator ) );
+				}
 			}
 		}
 
 		SAFE_DELETE( vec )
 
-		for(auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
+		for(auto iterator = bufferTypes->begin(); iterator != bufferTypes->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
 
 		( *paramList )[ BUFFERTYPE ] = paramListVector;
 
-		m_BufferTypes->push_back( devType );
+		m_BufferTypes->push_back( bufferTypes );
 	}
 
-	void D3DRenderDevice::LoadZBufferTypeSelection( uint32 i, RenderDeviceParameterList* paramList )
+	void D3DRenderDevice::LoadZBufferTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
-		//throw std::exception( "The method or operation is not implemented." );
+		vector< BufferTypeStringable* >::type* zBufferTypes = new vector< BufferTypeStringable* >::type();
+
+		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
+
+		vector<D3DFORMAT>::type vec = vector<D3DFORMAT>::type();
+
+		FillBufferTypeVector( &vec );
+		D3DDISPLAYMODE mode = D3DDISPLAYMODE();
+		m_pD3D->GetAdapterDisplayMode(adapterID, &mode);
+
+		for(vector<D3DFORMAT>::iterator iterator = vec.begin(); iterator != vec.end(); ++iterator )
+		{
+			//Check if ZBuffer is valid
+			if (
+				m_pD3D->CheckDeviceFormat(
+				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, *iterator) == 
+				D3D_OK
+				)
+			{
+				if (
+					m_pD3D->CheckDepthStencilMatch(
+					adapterID, GetCurrentDevType(), mode.Format, GetCurrentBufferFormat(), *iterator) == D3D_OK
+					)
+				{
+					zBufferTypes->push_back( new BufferTypeStringable( *iterator ) );
+				}
+			}
+		}
+
+		for(auto iterator = zBufferTypes->begin(); iterator != zBufferTypes->end(); ++iterator )
+		{
+			paramListVector->push_back( *iterator );
+		}
+
+		( *paramList )[ ZBUFFERTYPE ] = paramListVector;
+
+		m_ZBufferTypes->push_back( zBufferTypes );
 	}
 
-	void D3DRenderDevice::LoadMultiSamples( uint32 i, RenderDeviceParameterList* paramList )
+	void D3DRenderDevice::LoadMultiSamples( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
-		//m_pD3D->CheckDeviceMultiSampleType(i, D3DDEVTY)
+		vector< D3DMultiSample* >::type* multiSampleTypes = new vector< D3DMultiSample* >::type();
+
+		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
+
+		for( uint32 typeCount = D3DMULTISAMPLE_NONE; typeCount <= D3DMULTISAMPLE_16_SAMPLES; ++typeCount )
+		{
+			D3DMULTISAMPLE_TYPE type = static_cast<D3DMULTISAMPLE_TYPE>( typeCount ); 
+			DWORD qualityLevels;
+			if (
+				m_pD3D->CheckDeviceMultiSampleType(
+				adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), type, &qualityLevels) == D3D_OK
+				)
+			{
+				multiSampleTypes->push_back( new D3DMultiSample( type ) );
+			}
+		}
+
+		for(auto iterator = multiSampleTypes->begin(); iterator != multiSampleTypes->end(); ++iterator )
+		{
+			paramListVector->push_back( *iterator );
+		}
+
+		( *paramList )[ MULTISAMPLE_TYPE ] = paramListVector;
+
+		m_MultiSampleTypes->push_back( multiSampleTypes );
 	}
 
-	void D3DRenderDevice::LoadMultiSampleQualities( uint32 i, RenderDeviceParameterList* paramList )
+	void D3DRenderDevice::LoadMultiSampleQualities( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
-		//throw std::exception( "The method or operation is not implemented." );
+		vector< D3DMultiSampleQuality* >::type* multiSampleQualities = new vector< D3DMultiSampleQuality* >::type();
+
+		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
+
+		D3DMULTISAMPLE_TYPE mSType = GetCurrentMultiSampleType();
+		DWORD qualityLevels;
+		if (
+			m_pD3D->CheckDeviceMultiSampleType(
+			adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), mSType, &qualityLevels) == D3D_OK
+			)
+		{
+			for (DWORD i = 0; i < qualityLevels; i++)
+			{
+				multiSampleQualities->push_back( new D3DMultiSampleQuality( i ) );
+			}
+			
+		}
+
+		for(auto iterator = multiSampleQualities->begin(); iterator != multiSampleQualities->end(); ++iterator )
+		{
+			paramListVector->push_back( *iterator );
+		}
+
+		( *paramList )[ MULTISAMPLE_QUALITY ] = paramListVector;
+
+		m_MultiSampleQualities->push_back( multiSampleQualities );
 	}
 
 	void D3DRenderDevice::FillBufferTypeVector( vector<D3DFORMAT>::type* vec )
@@ -449,6 +587,11 @@ namespace NiFrame
 	bool D3DRenderDevice::GetWindowed()
 	{
 		return (*((*m_Windowed)[m_CurrentDevice]))[(*m_SelectedValues)[WINDOWED]]->GetBool();
+	}
+
+	D3DMULTISAMPLE_TYPE D3DRenderDevice::GetCurrentMultiSampleType()
+	{
+		return (*((*m_MultiSampleTypes)[m_CurrentDevice]))[(*m_SelectedValues)[MULTISAMPLE_TYPE]]->GetMultiSampleType();
 	}
 
 

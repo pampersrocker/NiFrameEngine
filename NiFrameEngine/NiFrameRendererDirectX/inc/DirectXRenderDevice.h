@@ -12,6 +12,8 @@ namespace NiFrame
 	class StringableBool;
 	class D3DDevTypeStringable;
 	class BufferTypeStringable;
+	class D3DMultiSample;
+	class D3DMultiSampleQuality;
 
 	class D3DRenderDevice : public RenderDevice
 	{
@@ -69,6 +71,10 @@ namespace NiFrame
 		{ 
 			return DEVICE_TYPE; 
 		}
+		const String GetGetMultisampleQualityID( ) const 
+		{ 
+			return MULTISAMPLE_QUALITY; 
+		}
 	private:
 
 		map< String, uint32>::type* m_SelectedValues;
@@ -80,13 +86,11 @@ namespace NiFrame
 		const String WINDOWED;
 		const String MULTISAMPLE_TYPE;
 		const String MULTISAMPLE_QUALITY;
-		const String GetGetMultisampleQualityID( ) const 
-		{ 
-			return MULTISAMPLE_QUALITY; 
-		}
+		
 		_D3DDEVTYPE GetCurrentDevType();
 		D3DFORMAT GetCurrentBufferFormat();
 		bool GetWindowed();
+		D3DMULTISAMPLE_TYPE GetCurrentMultiSampleType();
 		uint32 m_CurrentDevice;
 
 		vector< D3DADAPTER_IDENTIFIER9 >::type* m_AdpaterIdentifier;
@@ -96,7 +100,10 @@ namespace NiFrame
 		vector< vector< D3DResolution* >::type*>::type* m_DeviceResolutions;
 		vector< vector< StringableBool* >::type*>::type* m_Windowed;
 		vector< vector< D3DDevTypeStringable* >::type*>::type* m_D3DDevTypes;		
-		vector< vector< BufferTypeStringable* >::type*>::type* m_BufferTypes;
+		vector< vector< BufferTypeStringable* >::type*>::type* m_BufferTypes;		
+		vector< vector< BufferTypeStringable* >::type*>::type* m_ZBufferTypes;
+		vector< vector< D3DMultiSample* >::type*>::type* m_MultiSampleTypes;
+		vector< vector< D3DMultiSampleQuality* >::type*>::type* m_MultiSampleQualities;
 
 	};
 }
