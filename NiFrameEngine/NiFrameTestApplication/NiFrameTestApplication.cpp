@@ -38,6 +38,14 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	LoadString(hInstance, IDC_NIFRAMETESTAPPLICATION, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
+	Renderer* renderer = new Renderer();
+
+	renderer->CreateDevice("DirectX");
+
+	renderer->GetDevice()->Initialize();
+
+	renderer->ShowSettingsDialog( hInstance );
+
 	// Perform application initialization:
 	if (!InitInstance (hInstance, nCmdShow))
 	{
@@ -46,12 +54,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_NIFRAMETESTAPPLICATION));
 
-	Renderer* renderer = new Renderer();
-
-	renderer->CreateDevice("DirectX");
-
-	renderer->GetDevice()->Initialize();
-
+	
 
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0))

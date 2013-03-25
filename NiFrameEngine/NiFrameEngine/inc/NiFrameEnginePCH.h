@@ -7,6 +7,8 @@
 // Windows Header Files:
 #include <windows.h>
 
+#include <assert.h>
+
 #ifdef NIFRAME_DLL_BUILD
 #define NIFRAME_DLL_EXPORT __declspec( dllexport )
 #else
@@ -25,6 +27,8 @@
 
 #include "NiFramePrerequisites.h"
 #include "NiFrameSTLTypes.h"
+
+#include "resource.h"
 
 #ifdef _DEBUG
 #include "vld.h"

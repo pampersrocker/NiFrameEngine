@@ -8,6 +8,8 @@ namespace NiFrame
 {
 	class RenderDeviceParams;
 
+	typedef map< String, uint32>::type SelectedRenderDevVals;
+
 	class NIFRAME_DLL_EXPORT RenderDevice
 	{
 	public:
@@ -22,7 +24,7 @@ namespace NiFrame
 
 		virtual void Initialize() = 0;
 
-		virtual RenderDeviceParams GetRenderParams( void ) const = 0;
+		virtual const RenderDeviceParams* GetRenderParams( void ) const = 0;
 
 		virtual bool IsRunning() const = 0;
 

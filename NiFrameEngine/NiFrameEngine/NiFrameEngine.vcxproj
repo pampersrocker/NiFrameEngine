@@ -93,13 +93,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
+      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);vld.lib;comctl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
@@ -111,14 +111,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
+      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);vld.lib;comctl32.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
@@ -132,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -141,7 +141,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);;comctl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
       <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -161,10 +161,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies);;comctl32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\DllEntryPoint.h" />
     <ClInclude Include="inc\ColourValue.h" />
     <ClInclude Include="inc\NiFrameEnginePCH.h" />
     <ClInclude Include="inc\NiFramePrerequisites.h" />
@@ -176,9 +177,13 @@
     <ClInclude Include="inc\NiFrameStringableBool.h" />
     <ClInclude Include="inc\StringableObject.h" />
     <ClInclude Include="inc\StringUtils.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="inc\NiFrameSettingsDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="inc\StringUtils.cpp" />
+    <ClCompile Include="src\NiFrameSettingsDialog.cpp" />
+    <ClCompile Include="src\DllEntryPoint.cpp" />
+    <ClCompile Include="src\StringUtils.cpp" />
     <ClCompile Include="src\ColourValue.cpp" />
     <ClCompile Include="src\NiFrameEnginePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -196,6 +201,9 @@
     <ClCompile Include="src\NiFrameRenderer.cpp" />
     <ClCompile Include="src\NiFrameResolution.cpp" />
     <ClCompile Include="src\NiFrameStringableBool.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NiFrameEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

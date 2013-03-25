@@ -25,7 +25,7 @@ namespace NiFrame
 
 		virtual void Initialize();
 
-		virtual RenderDeviceParams GetRenderParams( void ) const;
+		virtual const RenderDeviceParams * GetRenderParams( void ) const;
 
 		virtual bool IsRunning() const;
 

@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Utils">
       <UniqueIdentifier>{ceb61359-e054-4be8-b93c-59099a3eb786}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Win32">
+      <UniqueIdentifier>{62fe5b7d-8f15-473b-a416-cfd0f8377471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Win32">
+      <UniqueIdentifier>{886f6520-a252-48ee-b86a-7136467dffa2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameEnginePCH.cpp">
@@ -45,14 +51,20 @@
     <ClCompile Include="src\NiFrameRenderDeviceParameters.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="inc\StringUtils.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\NiFrameResolution.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\NiFrameStringableBool.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DllEntryPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NiFrameSettingsDialog.cpp">
+      <Filter>Source Files\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,5 +101,19 @@
     <ClInclude Include="inc\NiFrameStringableBool.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DllEntryPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameSettingsDialog.h">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NiFrameEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

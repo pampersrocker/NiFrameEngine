@@ -3,6 +3,10 @@
 #include <winuser.h>
 #include <exception>
 #include "NiFrameRenderDevice.h"
+#include "resource.h"
+#include <commctrl.h>
+#include "DllEntryPoint.h"
+#include "..\inc\NiFrameSettingsDialog.h"
 
 namespace NiFrame
 {
@@ -93,6 +97,17 @@ namespace NiFrame
 	RenderDevice* Renderer::GetDevice() const
 	{
 		return m_RenderDevice;
+	}
+
+	void Renderer::ShowSettingsDialog( HINSTANCE instance, HWND parentWindow /*= nullptr*/ )
+	{
+		SettingsDialog dlg(m_RenderDevice);
+
+		SelectedRenderDevVals vals;
+
+		dlg.ShowDialog(&vals);
+
+
 	}
 
 }

@@ -219,9 +219,9 @@ namespace NiFrame
 
 	}
 
-	NiFrame::RenderDeviceParams D3DRenderDevice::GetRenderParams( void ) const
+	const NiFrame::RenderDeviceParams * D3DRenderDevice::GetRenderParams( void ) const
 	{
-		return NiFrame::RenderDeviceParams();
+		return m_AdapterParameters[m_CurrentDevice];
 	}
 
 	void D3DRenderDevice::Initialize()

@@ -21,6 +21,8 @@ namespace NiFrame
 
 		RenderDevice* GetDevice() const;
 
+		void ShowSettingsDialog(HINSTANCE instance,  HWND parentWindow = nullptr);
+
 
 
 	private:
