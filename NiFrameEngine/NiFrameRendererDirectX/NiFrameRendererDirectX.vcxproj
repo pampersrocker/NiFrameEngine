@@ -20,8 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CF53209C-32C2-480E-935B-756BD7FDEC70}</ProjectGuid>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <Keyword>ManagedCProj</Keyword>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>NiFrameRenderer</RootNamespace>
     <ProjectName>NiFrameD3DX</ProjectName>
   </PropertyGroup>
@@ -118,7 +117,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
@@ -140,7 +139,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies);vld.lib</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);$(SolutionDir)lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /D /E /Y "$(SolutionDir)lib\VisualLeakDetector\bin$(PlatformArchitecture)\Release\*" "$(OutDir)"</Command>
@@ -165,7 +164,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -187,14 +186,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>D3D9.lib;DXERR.lib;MathLib.lib;NiFrameEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;$(DXSDK_DIR)lib\$(PlatformTarget)\;$(SolutionDir)lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\NiFrameBufferTypeStringable.h" />
     <ClInclude Include="inc\DirectXRenderDevice.h" />
@@ -221,6 +215,11 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NiFrameEngine\NiFrameEngine.vcxproj">
+      <Project>{cc0e65dc-d25c-4d6a-bed4-1031849881b7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -76,6 +76,7 @@ namespace NiFrame
 			return true;
 			break;
 		default:
+			return true;
 			break;
 		}
 	}
