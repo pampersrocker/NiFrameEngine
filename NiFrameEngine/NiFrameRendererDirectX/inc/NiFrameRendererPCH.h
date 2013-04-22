@@ -6,6 +6,7 @@
 
 #include "NiFramePrerequisites.h"
 #include <d3d9.h>
+#include <d3dx9math.h>
 
 #ifdef _DEBUG
 #include "vld.h"

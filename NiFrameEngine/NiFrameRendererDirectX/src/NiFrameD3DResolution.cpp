@@ -17,4 +17,9 @@ namespace NiFrame
 		SAFE_DELETE( m_DisplayMode )
 	}
 
+	D3DDISPLAYMODE* D3DResolution::GetDisplayMode() const
+	{
+		return m_DisplayMode;
+	}
+
 }

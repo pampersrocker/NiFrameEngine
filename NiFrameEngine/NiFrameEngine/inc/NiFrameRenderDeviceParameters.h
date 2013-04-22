@@ -31,8 +31,8 @@ namespace NiFrame
 		RenderDeviceParameterList* GetParameters( ) const;
 		void SetParameters( RenderDeviceParameterList* val );
 
-		vector< String >::type* GetParametersNames() const;
-		vector< IStringableObject* >::type* GetParamterValues( const String& parameterName ) const;
+		vector< String >::type GetParametersNames() const;
+		vector< IStringableObject* >::type GetParamterValues( const String& parameterName ) const;
 
 	private:
 		RenderDeviceParameterList* m_Parameters;

@@ -13,11 +13,11 @@ namespace NiFrame
 	public:
 		D3DResolution( D3DDISPLAYMODE* displayMode );
 		~D3DResolution();
+		D3DDISPLAYMODE* GetDisplayMode( ) const;
 
 	private:
 
 		D3DDISPLAYMODE* m_DisplayMode;
-
 	};
 }
 

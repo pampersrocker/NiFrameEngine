@@ -28,8 +28,6 @@
 #include "NiFramePrerequisites.h"
 #include "NiFrameSTLTypes.h"
 
-#include "resource.h"
-
 #ifdef _DEBUG
 #include "vld.h"
 #endif // DEBUG

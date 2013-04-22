@@ -32,23 +32,23 @@ namespace NiFrame
 		return m_Parameters;
 	}
 
-	vector< String >::type* RenderDeviceParams::GetParametersNames() const
+	vector< String >::type RenderDeviceParams::GetParametersNames() const
 	{
 		//TODO: Better solution then returning a pointer
-		vector< String >::type* parameterNames = new vector< String >::type();
+		vector< String >::type parameterNames;
 		map< String, vector< IStringableObject* >::type* >::iterator iterator;
 
 		for( iterator = m_Parameters->begin(); iterator != m_Parameters->end(); ++iterator )
 		{
-			parameterNames->push_back( iterator->first );
+			parameterNames.push_back( iterator->first );
 		}
 
 		return parameterNames;
 	}
 
-	vector< IStringableObject* >::type* RenderDeviceParams::GetParamterValues( const String& parameterName ) const
+	vector< IStringableObject* >::type RenderDeviceParams::GetParamterValues( const String& parameterName ) const
 	{
-		return ( *m_Parameters )[ parameterName ];
+		return *( *m_Parameters )[ parameterName ];
 	}
 
 

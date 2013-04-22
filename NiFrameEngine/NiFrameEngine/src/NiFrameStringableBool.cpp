@@ -15,7 +15,7 @@ NiFrame::StringableBool::~StringableBool()
 
 NiFrame::String NiFrame::StringableBool::ToString() const
 {
-	return std::to_string( m_Bool );
+	return m_Bool ? "Yes" : "No";
 }
 
 bool NiFrame::StringableBool::GetBool() const

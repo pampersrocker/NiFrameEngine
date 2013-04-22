@@ -5,22 +5,26 @@
 #include "NiFrameD3DResolution.h"
 #include "NiFrameStringableBool.h"
 #include "NiFrameD3DDevTypeStringable.h"
-#include "..\inc\NiFrameBufferTypeStringable.h"
+#include "NiFrameBufferTypeStringable.h"
 #include "NiFrameMultiSample.h"
 #include "NiFrameD3DMultiSampleQuality.h"
+#include <vector>
+#include "SSEMatrix4x4.h"
+
+using namespace LinearMath;
 
 extern "C"
 {
-	HRESULT __declspec( dllexport ) CreateRenderDevice(HINSTANCE hdll, NiFrame::RenderDevice** renderDevice)
+	HRESULT __declspec( dllexport ) CreateRenderDevice( HINSTANCE hdll, NiFrame::RenderDevice * *renderDevice )
 	{
 		*renderDevice = new NiFrame::D3DRenderDevice( hdll );
 
 		return S_OK;
 	}
 
-	HRESULT __declspec( dllexport ) ReleaseRenderDevice( NiFrame::RenderDevice** renderDevice)
+	HRESULT __declspec( dllexport ) ReleaseRenderDevice( NiFrame::RenderDevice * *renderDevice )
 	{
-		if ( *renderDevice != nullptr )
+		if( *renderDevice != nullptr )
 		{
 			delete *renderDevice;
 			*renderDevice = nullptr;
@@ -32,20 +36,19 @@ extern "C"
 
 namespace NiFrame
 {
-
 	D3DRenderDevice::D3DRenderDevice( HINSTANCE hDLL ) :
 		m_hDLL( hDLL ),
 		m_pD3D( nullptr ),
-		m_AdpaterIdentifier( new vector<D3DADAPTER_IDENTIFIER9>::type() ),
-		m_AdapterParameters ( vector< RenderDeviceParams* >::type() ),
-		m_DeviceResolutions( new vector< vector< D3DResolution* >::type*>::type() ),
-		m_Windowed( new vector< vector< StringableBool* >::type*>::type() ),
-		m_D3DDevTypes( new vector< vector< D3DDevTypeStringable*>::type*>::type() ),
-		m_BufferTypes( new vector< vector< BufferTypeStringable*>::type*>::type() ),
-		m_ZBufferTypes( new vector< vector< BufferTypeStringable*>::type*>::type() ),
-		m_MultiSampleTypes( new vector< vector< D3DMultiSample*>::type*>::type() ),
-		m_MultiSampleQualities( new vector< vector< D3DMultiSampleQuality*>::type*>::type() ),
-		m_SelectedValues( new map< String, uint32>::type() ),
+		m_AdpaterIdentifier( new vector< D3DADAPTER_IDENTIFIER9 >::type() ),
+		m_AdapterParameters( vector< RenderDeviceParams* >::type() ),
+		m_DeviceResolutions( new vector< vector< D3DResolution* >::type* >::type() ),
+		m_Windowed( new vector< vector< StringableBool* >::type* >::type() ),
+		m_D3DDevTypes( new vector< vector< D3DDevTypeStringable* >::type* >::type() ),
+		m_BufferTypes( new vector< vector< BufferTypeStringable* >::type* >::type() ),
+		m_ZBufferTypes( new vector< vector< BufferTypeStringable* >::type* >::type() ),
+		m_MultiSampleTypes( new vector< vector< D3DMultiSample* >::type* >::type() ),
+		m_MultiSampleQualities( new vector< vector< D3DMultiSampleQuality* >::type* >::type() ),
+		m_SelectedValues( new map< String, uint32 >::type() ),
 		VIDEOMODE( "VideoMode" ),
 		BUFFERTYPE( "BackBufferType" ),
 		ZBUFFERTYPE( "Z-BufferType" ),
@@ -53,47 +56,52 @@ namespace NiFrame
 		MULTISAMPLE_TYPE( "MultisampleType" ),
 		MULTISAMPLE_QUALITY( "MultisampleQuality" ),
 		DEVICE_TYPE( "Device Type" ),
-		m_CurrentDevice(0)
+		m_CurrentDevice( 0 ),
+		m_ProjectionMatrix( SSEMatrix4x4() )
 	{
-		(*m_SelectedValues)[ VIDEOMODE ] = 0;
-		(*m_SelectedValues)[ BUFFERTYPE ] = 0;
-		(*m_SelectedValues)[ ZBUFFERTYPE ] = 0;
-		(*m_SelectedValues)[ WINDOWED ] = 0;
-		(*m_SelectedValues)[ MULTISAMPLE_TYPE ] = 0;
-		(*m_SelectedValues)[ MULTISAMPLE_QUALITY ] = 0;
-		(*m_SelectedValues)[ DEVICE_TYPE ] = 0;
+		( *m_SelectedValues )[ VIDEOMODE ] = 0;
+		( *m_SelectedValues )[ BUFFERTYPE ] = 0;
+		( *m_SelectedValues )[ ZBUFFERTYPE ] = 0;
+		( *m_SelectedValues )[ WINDOWED ] = 0;
+		( *m_SelectedValues )[ MULTISAMPLE_TYPE ] = 0;
+		( *m_SelectedValues )[ MULTISAMPLE_QUALITY ] = 0;
+		( *m_SelectedValues )[ DEVICE_TYPE ] = 0;
 	}
 
 	D3DRenderDevice::~D3DRenderDevice()
 	{
-		SAFE_DELETE(m_SelectedValues)
-		SAFE_DELETE(m_AdpaterIdentifier)
-		for( auto d3dResolutions = m_AdapterParameters.begin(); d3dResolutions != m_AdapterParameters.end(); ++d3dResolutions )
+		SAFE_DELETE( m_SelectedValues )
+		SAFE_DELETE( m_AdpaterIdentifier )
+
+		for( auto d3dResolutions = m_AdapterParameters.begin();
+			d3dResolutions != m_AdapterParameters.end();
+			++d3dResolutions )
 		{
-			
 			delete *d3dResolutions;
 		}
 
-		for( vector< vector< D3DResolution *>::type*>::iterator d3dResolutions = m_DeviceResolutions->begin(); 
-			d3dResolutions != m_DeviceResolutions->end(); 
+		for( vector< vector< D3DResolution* >::type* >::iterator d3dResolutions = m_DeviceResolutions->begin();
+			d3dResolutions != m_DeviceResolutions->end();
 			++d3dResolutions )
 		{
-			for(vector< D3DResolution *>::iterator d3dRes = (*d3dResolutions)->begin(); 
-				d3dRes != (*d3dResolutions)->end(); 
+			for( vector< D3DResolution* >::iterator d3dRes = ( *d3dResolutions )->begin();
+				d3dRes != ( *d3dResolutions )->end();
 				++d3dRes )
 			{
 				delete *d3dRes;
 			}
+
 			delete *d3dResolutions;
 		}
-		SAFE_DELETE(m_DeviceResolutions)
 
-		for(vector< vector< StringableBool*>::type* >::iterator iterator = m_Windowed->begin(); 
-			iterator != m_Windowed->end(); 
+		SAFE_DELETE( m_DeviceResolutions )
+
+		for( vector< vector< StringableBool* >::type* >::iterator iterator = m_Windowed->begin();
+			iterator != m_Windowed->end();
 			++iterator )
 		{
-			for(vector< StringableBool*>::iterator fullScreenIter = (*iterator)->begin(); 
-				fullScreenIter != (*iterator)->end(); 
+			for( vector< StringableBool* >::iterator fullScreenIter = ( *iterator )->begin();
+				fullScreenIter != ( *iterator )->end();
 				++fullScreenIter )
 			{
 				delete *fullScreenIter;
@@ -101,14 +109,15 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_Windowed)
 
-		for(vector< vector< D3DDevTypeStringable*>::type* >::iterator iterator = m_D3DDevTypes->begin(); 
-			iterator != m_D3DDevTypes->end(); 
+		SAFE_DELETE( m_Windowed )
+
+		for( vector< vector< D3DDevTypeStringable* >::type* >::iterator iterator = m_D3DDevTypes->begin();
+			iterator != m_D3DDevTypes->end();
 			++iterator )
 		{
-			for(vector< D3DDevTypeStringable*>::iterator devTypesIterator = (*iterator)->begin(); 
-				devTypesIterator != (*iterator)->end(); 
+			for( vector< D3DDevTypeStringable* >::iterator devTypesIterator = ( *iterator )->begin();
+				devTypesIterator != ( *iterator )->end();
 				++devTypesIterator )
 			{
 				delete *devTypesIterator;
@@ -116,14 +125,15 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_D3DDevTypes)
 
-		for(vector< vector< BufferTypeStringable*>::type* >::iterator iterator = m_BufferTypes->begin(); 
-			iterator != m_BufferTypes->end(); 
+		SAFE_DELETE( m_D3DDevTypes )
+
+		for( vector< vector< BufferTypeStringable* >::type* >::iterator iterator = m_BufferTypes->begin();
+			iterator != m_BufferTypes->end();
 			++iterator )
 		{
-			for(vector< BufferTypeStringable*>::iterator BufferTypesIterator = (*iterator)->begin(); 
-				BufferTypesIterator != (*iterator)->end(); 
+			for( vector< BufferTypeStringable* >::iterator BufferTypesIterator = ( *iterator )->begin();
+				BufferTypesIterator != ( *iterator )->end();
 				++BufferTypesIterator )
 			{
 				delete *BufferTypesIterator;
@@ -131,14 +141,15 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_BufferTypes)
 
-		for(vector< vector< BufferTypeStringable*>::type* >::iterator iterator = m_ZBufferTypes->begin(); 
-			iterator != m_ZBufferTypes->end(); 
+		SAFE_DELETE( m_BufferTypes )
+
+		for( vector< vector< BufferTypeStringable* >::type* >::iterator iterator = m_ZBufferTypes->begin();
+			iterator != m_ZBufferTypes->end();
 			++iterator )
 		{
-			for(vector< BufferTypeStringable*>::iterator BufferTypesIterator = (*iterator)->begin(); 
-				BufferTypesIterator != (*iterator)->end(); 
+			for( vector< BufferTypeStringable* >::iterator BufferTypesIterator = ( *iterator )->begin();
+				BufferTypesIterator != ( *iterator )->end();
 				++BufferTypesIterator )
 			{
 				delete *BufferTypesIterator;
@@ -146,14 +157,15 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_ZBufferTypes)
 
-		for(vector< vector< D3DMultiSample*>::type* >::iterator iterator = m_MultiSampleTypes->begin(); 
-			iterator != m_MultiSampleTypes->end(); 
+		SAFE_DELETE( m_ZBufferTypes )
+
+		for( vector< vector< D3DMultiSample* >::type* >::iterator iterator = m_MultiSampleTypes->begin();
+			iterator != m_MultiSampleTypes->end();
 			++iterator )
 		{
-			for(vector< D3DMultiSample*>::iterator BufferTypesIterator = (*iterator)->begin(); 
-				BufferTypesIterator != (*iterator)->end(); 
+			for( vector< D3DMultiSample* >::iterator BufferTypesIterator = ( *iterator )->begin();
+				BufferTypesIterator != ( *iterator )->end();
 				++BufferTypesIterator )
 			{
 				delete *BufferTypesIterator;
@@ -161,14 +173,15 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_MultiSampleTypes)
 
-		for(vector< vector< D3DMultiSampleQuality*>::type* >::iterator iterator = m_MultiSampleQualities->begin(); 
-			iterator != m_MultiSampleQualities->end(); 
+		SAFE_DELETE( m_MultiSampleTypes )
+
+		for( vector< vector< D3DMultiSampleQuality* >::type* >::iterator iterator = m_MultiSampleQualities->begin();
+			iterator != m_MultiSampleQualities->end();
 			++iterator )
 		{
-			for(vector< D3DMultiSampleQuality*>::iterator BufferTypesIterator = (*iterator)->begin(); 
-				BufferTypesIterator != (*iterator)->end(); 
+			for( vector< D3DMultiSampleQuality* >::iterator BufferTypesIterator = ( *iterator )->begin();
+				BufferTypesIterator != ( *iterator )->end();
 				++BufferTypesIterator )
 			{
 				delete *BufferTypesIterator;
@@ -176,13 +189,14 @@ namespace NiFrame
 
 			delete *iterator;
 		}
-		SAFE_DELETE(m_MultiSampleQualities)
+
+		SAFE_DELETE( m_MultiSampleQualities )
 
 		m_AdpaterIdentifier = nullptr;
 		m_hDLL = nullptr;
 	}
 
-	void D3DRenderDevice::Clear( bool clearPixel , bool clearDepth )
+	void D3DRenderDevice::Clear( bool clearPixel, bool clearDepth )
 	{
 		throw std::exception( "The method or operation is not implemented." );
 	}
@@ -207,50 +221,86 @@ namespace NiFrame
 		throw std::exception( "The method or operation is not implemented." );
 	}
 
-	void D3DRenderDevice::SetupDevice( 
-		HWND hMainWindow, 
-		const vector< HWND* >::type& renderWindows, 
-		int minDepth, 
-		int minStencil, 
-		const map< String, uint32 >::type& renderDeviceParameters ,
+	void D3DRenderDevice::SetupDevice(
+		HWND hMainWindow,
+		const map< String, uint32 >::type& renderDeviceParameters,
 		bool log /*= true */ )
 	{
-		
+		D3DPRESENT_PARAMETERS params;
 
+		ZeroMemory( &params, sizeof( params ) );
+
+		auto windowedResult = renderDeviceParameters.find( WINDOWED );
+		params.Windowed = ( ( *( *m_Windowed )[ 0 ] )[ windowedResult->second ] )->GetBool();
+		params.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		params.EnableAutoDepthStencil = true;
+		params.AutoDepthStencilFormat = D3DFMT_D16;
+		params.hDeviceWindow = hMainWindow;
+		auto videoResult = renderDeviceParameters.find( VIDEOMODE );
+		params.BackBufferWidth = ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Width;
+		params.BackBufferHeight
+			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Height;
+		params.BackBufferHeight
+			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Format;
+		params.MultiSampleType = D3DMULTISAMPLE_NONE;
+
+		if( FAILED( m_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hMainWindow,
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &params,
+			&m_Device ) ) )
+		{
+			MessageBox( hMainWindow, "Failed to Create D3D9Device", "Error creating Device", MB_OK );
+		}
+
+		m_ProjectionMatrix = LinearMath::SSEMatrix4x4::CreateProjectionMatrix( 60.0f,
+			params.BackBufferWidth / params.BackBufferHeight,
+			1,
+			1000 );
+		float tmp[ 16 ];
+		m_ProjectionMatrix.TransposedCopy().GetAsFloatArray( tmp );
+		D3DXMATRIX matrix( tmp );
+		m_Device->SetTransform( D3DTS_PROJECTION, &matrix );
+		m_Device->SetRenderState( D3DRS_AMBIENT, RGB( 255, 255, 255 ) );
+
+		m_Device->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
+
+		m_Device->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );
+
+		m_Device->SetFVF( ( D3DFVF_XYZ | D3DFVF_DIFFUSE ) );
 	}
 
-	const NiFrame::RenderDeviceParams * D3DRenderDevice::GetRenderParams( void ) const
+	const NiFrame::RenderDeviceParams* D3DRenderDevice::GetRenderParams( void ) const
 	{
-		return m_AdapterParameters[m_CurrentDevice];
+		return m_AdapterParameters[ m_CurrentDevice ];
 	}
 
 	void D3DRenderDevice::Initialize()
 	{
 		m_pD3D = Direct3DCreate9( D3D_SDK_VERSION );
-		if ( m_pD3D == nullptr )
+
+		if( m_pD3D == nullptr )
 		{
-			throw new exception("Failed to load DirectX\nInstall the latest DirectX version");
+			throw new exception( "Failed to load DirectX\nInstall the latest DirectX version" );
 		}
 
 		uint32 numAdapters = m_pD3D->GetAdapterCount();
-		if ( numAdapters == 0 )
+
+		if( numAdapters == 0 )
 		{
 			throw new exception( "Found no DirectX Adapters" );
 		}
 
 		D3DADAPTER_IDENTIFIER9 tmp_identifier;
-		
 
-		for (uint32 i = 0; i < numAdapters; i++)
+		for( uint32 i = 0; i < numAdapters; i++ )
 		{
-			if ( FAILED( m_pD3D->GetAdapterIdentifier( i, 0, &tmp_identifier) ) )
+			if( FAILED( m_pD3D->GetAdapterIdentifier( i, 0, &tmp_identifier ) ) )
 			{
 				throw new exception( "Failed to get Adapter identifier" );
-			} 
+			}
 			else
 			{
 				m_AdapterParameters.push_back( new RenderDeviceParams() );
-				RenderDeviceParameterList* paramList = m_AdapterParameters[i]->GetParameters();
+				RenderDeviceParameterList* paramList = m_AdapterParameters[ i ]->GetParameters();
 
 				LoadDeviceTypeSelection( i, paramList );
 
@@ -258,42 +308,40 @@ namespace NiFrame
 
 				LoadBufferTypeSelection( i, paramList );
 
-				//Load Resolutions
-				LoadDeviceResolutions(i, paramList);
+				// Load Resolutions
+				LoadDeviceResolutions( i, paramList );
 
 				LoadZBufferTypeSelection( i, paramList );
 
 				LoadMultiSamples( i, paramList );
 
 				LoadMultiSampleQualities( i, paramList );
-
 			}
 		}
 	}
 
 	void D3DRenderDevice::LoadDeviceResolutions( uint32 deviceID, RenderDeviceParameterList* paramList )
 	{
-		uint32 videoModeCount = m_pD3D->GetAdapterModeCount(deviceID, GetCurrentBufferFormat() );
-		D3DDISPLAYMODE* displayModes = new D3DDISPLAYMODE[videoModeCount];
+		uint32 videoModeCount = m_pD3D->GetAdapterModeCount( deviceID, GetCurrentBufferFormat() );
+		D3DDISPLAYMODE* displayModes = new D3DDISPLAYMODE[ videoModeCount ];
 
-		
 		vector< D3DResolution* >::type* d3dResolutions = new vector< D3DResolution* >::type();
 
 		vector< IStringableObject* >::type* modeVector = new vector< IStringableObject* >::type();
 
-		for (uint32 videoMode = 0; videoMode < videoModeCount; videoMode++)
+		for( uint32 videoMode = 0; videoMode < videoModeCount; videoMode++ )
 		{
-			m_pD3D->EnumAdapterModes( deviceID, GetCurrentBufferFormat(), videoMode, &displayModes[videoMode]);
-			D3DDISPLAYMODE* d3dMode = new D3DDISPLAYMODE(displayModes[videoMode]);
+			m_pD3D->EnumAdapterModes( deviceID, GetCurrentBufferFormat(), videoMode, &displayModes[ videoMode ] );
+			D3DDISPLAYMODE* d3dMode = new D3DDISPLAYMODE( displayModes[ videoMode ] );
 
-			D3DResolution* resolution = new D3DResolution(d3dMode);
+			D3DResolution* resolution = new D3DResolution( d3dMode );
 			d3dResolutions->push_back( resolution );
-			modeVector->push_back(resolution);
+			modeVector->push_back( resolution );
 		}
 
 		m_DeviceResolutions->push_back( d3dResolutions );
 
-		(*paramList)[ VIDEOMODE ] = modeVector;
+		( *paramList )[ VIDEOMODE ] = modeVector;
 
 		delete displayModes;
 	}
@@ -307,17 +355,15 @@ namespace NiFrame
 		modes->push_back( new StringableBool( false ) );
 		modes->push_back( new StringableBool( true ) );
 
-		for(auto iterator = modes->begin(); iterator != modes->end(); ++iterator )
+		for( auto iterator = modes->begin(); iterator != modes->end(); ++iterator )
 		{
 			paramListMember->push_back( *iterator );
 		}
 
 		( *paramList )[ WINDOWED ] = paramListMember;
 
-		m_Windowed->push_back(modes);
+		m_Windowed->push_back( modes );
 	}
-
-
 
 	void D3DRenderDevice::LoadDeviceTypeSelection( uint32 adapterID, RenderDeviceParameterList* paramList )
 	{
@@ -328,7 +374,7 @@ namespace NiFrame
 		devType->push_back( new D3DDevTypeStringable( D3DDEVTYPE_HAL ) );
 		devType->push_back( new D3DDevTypeStringable( D3DDEVTYPE_REF ) );
 
-		for(auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
+		for( auto iterator = devType->begin(); iterator != devType->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
@@ -344,21 +390,23 @@ namespace NiFrame
 
 		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
 
-		vector<D3DFORMAT>::type* vec = new vector<D3DFORMAT>::type();
+		vector< D3DFORMAT >::type* vec = new vector< D3DFORMAT >::type();
 
 		FillBufferTypeVector( vec );
 		D3DDISPLAYMODE mode = D3DDISPLAYMODE();
-		m_pD3D->GetAdapterDisplayMode(adapterID, &mode);
+		m_pD3D->GetAdapterDisplayMode( adapterID, &mode );
 
-		for(vector<D3DFORMAT>::iterator iterator = vec->begin(); iterator != vec->end(); ++iterator )
+		for( vector< D3DFORMAT >::iterator iterator = vec->begin(); iterator != vec->end(); ++iterator )
 		{
-			if (
+			if(
 				m_pD3D->CheckDeviceFormat(
-				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_RENDERTARGET, D3DRTYPE_SURFACE, *iterator) == D3D_OK
-				)
+				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_RENDERTARGET, D3DRTYPE_SURFACE,
+				*iterator ) == D3D_OK
+			)
 			{
-				//Check if BackBuffer is valid
-				if (m_pD3D->CheckDeviceType(adapterID, GetCurrentDevType(), mode.Format, *iterator, GetWindowed()) == D3D_OK)
+				// Check if BackBuffer is valid
+				if( m_pD3D->CheckDeviceType( adapterID, GetCurrentDevType(), mode.Format, *iterator,
+					GetWindowed() ) == D3D_OK )
 				{
 					bufferTypes->push_back( new BufferTypeStringable( *iterator ) );
 				}
@@ -367,7 +415,7 @@ namespace NiFrame
 
 		SAFE_DELETE( vec )
 
-		for(auto iterator = bufferTypes->begin(); iterator != bufferTypes->end(); ++iterator )
+		for( auto iterator = bufferTypes->begin(); iterator != bufferTypes->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
@@ -383,32 +431,32 @@ namespace NiFrame
 
 		vector< IStringableObject* >::type* paramListVector = new vector< IStringableObject* >::type();
 
-		vector<D3DFORMAT>::type vec = vector<D3DFORMAT>::type();
+		vector< D3DFORMAT >::type vec = vector< D3DFORMAT >::type();
 
 		FillBufferTypeVector( &vec );
 		D3DDISPLAYMODE mode = D3DDISPLAYMODE();
-		m_pD3D->GetAdapterDisplayMode(adapterID, &mode);
+		m_pD3D->GetAdapterDisplayMode( adapterID, &mode );
 
-		for(vector<D3DFORMAT>::iterator iterator = vec.begin(); iterator != vec.end(); ++iterator )
+		for( vector< D3DFORMAT >::iterator iterator = vec.begin(); iterator != vec.end(); ++iterator )
 		{
-			//Check if ZBuffer is valid
-			if (
+			// Check if ZBuffer is valid
+			if(
 				m_pD3D->CheckDeviceFormat(
-				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, *iterator) == 
-				D3D_OK
-				)
+				adapterID, GetCurrentDevType(), mode.Format, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, *iterator )
+				== D3D_OK
+			)
 			{
-				if (
+				if(
 					m_pD3D->CheckDepthStencilMatch(
-					adapterID, GetCurrentDevType(), mode.Format, GetCurrentBufferFormat(), *iterator) == D3D_OK
-					)
+					adapterID, GetCurrentDevType(), mode.Format, GetCurrentBufferFormat(), *iterator ) == D3D_OK
+				)
 				{
 					zBufferTypes->push_back( new BufferTypeStringable( *iterator ) );
 				}
 			}
 		}
 
-		for(auto iterator = zBufferTypes->begin(); iterator != zBufferTypes->end(); ++iterator )
+		for( auto iterator = zBufferTypes->begin(); iterator != zBufferTypes->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
@@ -426,18 +474,20 @@ namespace NiFrame
 
 		for( uint32 typeCount = D3DMULTISAMPLE_NONE; typeCount <= D3DMULTISAMPLE_16_SAMPLES; ++typeCount )
 		{
-			D3DMULTISAMPLE_TYPE type = static_cast<D3DMULTISAMPLE_TYPE>( typeCount ); 
+			D3DMULTISAMPLE_TYPE type = static_cast< D3DMULTISAMPLE_TYPE >( typeCount );
 			DWORD qualityLevels;
-			if (
+
+			if(
 				m_pD3D->CheckDeviceMultiSampleType(
-				adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), type, &qualityLevels) == D3D_OK
-				)
+				adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), type,
+				&qualityLevels ) == D3D_OK
+			)
 			{
 				multiSampleTypes->push_back( new D3DMultiSample( type ) );
 			}
 		}
 
-		for(auto iterator = multiSampleTypes->begin(); iterator != multiSampleTypes->end(); ++iterator )
+		for( auto iterator = multiSampleTypes->begin(); iterator != multiSampleTypes->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
@@ -455,19 +505,19 @@ namespace NiFrame
 
 		D3DMULTISAMPLE_TYPE mSType = GetCurrentMultiSampleType();
 		DWORD qualityLevels;
-		if (
+
+		if(
 			m_pD3D->CheckDeviceMultiSampleType(
-			adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), mSType, &qualityLevels) == D3D_OK
-			)
+			adapterID, GetCurrentDevType(), GetCurrentBufferFormat(), GetWindowed(), mSType, &qualityLevels ) == D3D_OK
+		)
 		{
-			for (DWORD i = 0; i < qualityLevels; i++)
+			for( DWORD i = 0; i < qualityLevels; i++ )
 			{
 				multiSampleQualities->push_back( new D3DMultiSampleQuality( i ) );
 			}
-			
 		}
 
-		for(auto iterator = multiSampleQualities->begin(); iterator != multiSampleQualities->end(); ++iterator )
+		for( auto iterator = multiSampleQualities->begin(); iterator != multiSampleQualities->end(); ++iterator )
 		{
 			paramListVector->push_back( *iterator );
 		}
@@ -477,11 +527,11 @@ namespace NiFrame
 		m_MultiSampleQualities->push_back( multiSampleQualities );
 	}
 
-	void D3DRenderDevice::FillBufferTypeVector( vector<D3DFORMAT>::type* vec )
+	void D3DRenderDevice::FillBufferTypeVector( vector< D3DFORMAT >::type* vec )
 	{
-		vec->push_back( D3DFMT_R8G8B8 );          
-		vec->push_back( D3DFMT_A8R8G8B8 );
 		vec->push_back( D3DFMT_X8R8G8B8 );
+		vec->push_back( D3DFMT_R8G8B8 );
+		vec->push_back( D3DFMT_A8R8G8B8 );
 		vec->push_back( D3DFMT_R5G6B5 );
 		vec->push_back( D3DFMT_X1R5G5B5 );
 		vec->push_back( D3DFMT_A1R5G5B5 );
@@ -527,15 +577,15 @@ namespace NiFrame
 		vec->push_back( D3DFMT_D24FS8 );
 
 		/* D3D9Ex only -- */
-#if !defined(D3D_DISABLE_9EX)
+#if !defined( D3D_DISABLE_9EX )
 
 		/* Z-Stencil formats valid for CPU access */
 		vec->push_back( D3DFMT_D32_LOCKABLE );
 		vec->push_back( D3DFMT_S8_LOCKABLE );
 
-#endif // !D3D_DISABLE_9EX
-		/* -- D3D9Ex only */
+#endif	// !D3D_DISABLE_9EX
 
+		/* -- D3D9Ex only */
 
 		vec->push_back( D3DFMT_L16 );
 
@@ -562,36 +612,41 @@ namespace NiFrame
 		vec->push_back( D3DFMT_CxV8U8 );
 
 		/* D3D9Ex only -- */
-#if !defined(D3D_DISABLE_9EX)
+#if !defined( D3D_DISABLE_9EX )
+
 		// Monochrome 1 bit per pixel format
 		vec->push_back( D3DFMT_A1 );
+
 		// 2.8 biased fixed point
 		vec->push_back( D3DFMT_A2B10G10R10_XR_BIAS );
+
 		// Binary format indicating that the data has no inherent type
 		vec->push_back( D3DFMT_BINARYBUFFER );
-#endif // !D3D_DISABLE_9EX
+#endif	// !D3D_DISABLE_9EX
+
 		/* -- D3D9Ex only */
 		vec->push_back( D3DFMT_FORCE_DWORD );
 	}
 
 	_D3DDEVTYPE D3DRenderDevice::GetCurrentDevType()
 	{
-		return (*((*m_D3DDevTypes)[m_CurrentDevice]))[(*m_SelectedValues)[DEVICE_TYPE]]->GetType();
+		return ( *( ( *m_D3DDevTypes )[ m_CurrentDevice ] ) )[ ( *m_SelectedValues )[ DEVICE_TYPE ] ]->GetType();
 	}
 
 	D3DFORMAT D3DRenderDevice::GetCurrentBufferFormat()
 	{
-		return (*((*m_BufferTypes)[m_CurrentDevice]))[(*m_SelectedValues)[BUFFERTYPE]]->GetFormat();
+		return ( *( ( *m_BufferTypes )[ m_CurrentDevice ] ) )[ ( *m_SelectedValues )[ BUFFERTYPE ] ]->GetFormat();
 	}
 
 	bool D3DRenderDevice::GetWindowed()
 	{
-		return (*((*m_Windowed)[m_CurrentDevice]))[(*m_SelectedValues)[WINDOWED]]->GetBool();
+		return ( *( ( *m_Windowed )[ m_CurrentDevice ] ) )[ ( *m_SelectedValues )[ WINDOWED ] ]->GetBool();
 	}
 
 	D3DMULTISAMPLE_TYPE D3DRenderDevice::GetCurrentMultiSampleType()
 	{
-		return (*((*m_MultiSampleTypes)[m_CurrentDevice]))[(*m_SelectedValues)[MULTISAMPLE_TYPE]]->GetMultiSampleType();
+		return ( *( ( *m_MultiSampleTypes )[ m_CurrentDevice ] ) )[ ( *m_SelectedValues )[ MULTISAMPLE_TYPE ] ]->
+			   GetMultiSampleType();
 	}
 
 	const String D3DRenderDevice::GetGetMultisampleQualityID() const
@@ -628,6 +683,4 @@ namespace NiFrame
 	{
 		return VIDEOMODE;
 	}
-
-
 }

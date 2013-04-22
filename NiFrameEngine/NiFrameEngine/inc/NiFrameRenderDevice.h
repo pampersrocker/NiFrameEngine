@@ -16,9 +16,6 @@ namespace NiFrame
 
 		virtual void SetupDevice( 
 			HWND hMainWindow, 
-			const vector<HWND*>::type& renderWindows, 
-			int minDepth, 
-			int minStencil, 
 			const map< String, uint32 >::type& renderDeviceParameters , 
 			bool log = true ) = 0;
 
