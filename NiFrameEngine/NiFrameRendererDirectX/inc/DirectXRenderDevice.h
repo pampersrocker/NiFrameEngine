@@ -16,7 +16,7 @@ namespace NiFrame
 	class D3DMultiSample;
 	class D3DMultiSampleQuality;
 
-	__declspec(align(16)) class D3DRenderDevice :
+	class D3DRenderDevice :
 		public RenderDevice
 	{
 	public:
@@ -39,9 +39,19 @@ namespace NiFrame
 
 		virtual void BeginRendering();
 
+		virtual void RenderMesh( Mesh* mesh );
+
 		virtual void EndRendering();
 
 		virtual void Clear( bool clearPixel, bool clearDepth );
+
+		void CreateVertexBuffer( NFSize size, IDirect3DVertexBuffer9** buffer );
+
+		void DestroyVertexBuffer( IDirect3DVertexBuffer9** vertexBuffer );
+
+		void CreateIndexBuffer( NFSize size, IDirect3DIndexBuffer9** buffer );
+
+		void DestroyIndexBuffer( IDirect3DIndexBuffer9** buffer );
 
 		const String GetGetVideoModeID() const;
 
@@ -111,6 +121,10 @@ namespace NiFrame
 		void LoadMultiSampleQualities( uint32 adapterID, RenderDeviceParameterList* paramList );
 
 		void FillBufferTypeVector( vector< D3DFORMAT >::type* vec );
+
+		virtual Mesh* CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) override;
+
+		virtual void DestroyMesh( Mesh* mesh) override;
 	};
 }
 

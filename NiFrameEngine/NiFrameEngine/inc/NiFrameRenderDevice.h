@@ -3,6 +3,7 @@
 #define NiFrameRenderDevice_h__
 
 #include "NiFrameEnginePCH.h"
+#include "NiFrameMesh.h"
 
 namespace NiFrame
 {
@@ -25,9 +26,15 @@ namespace NiFrame
 
 		virtual bool IsRunning() const = 0;
 
+		virtual Mesh* CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) = 0;
+
+		virtual void DestroyMesh( Mesh* mesh) = 0;
+
 		virtual void UseWindow( int numWindow ) = 0;
 
 		virtual void BeginRendering() = 0;
+
+		virtual void RenderMesh( Mesh* mesh ) = 0;
 
 		virtual void EndRendering() = 0;
 

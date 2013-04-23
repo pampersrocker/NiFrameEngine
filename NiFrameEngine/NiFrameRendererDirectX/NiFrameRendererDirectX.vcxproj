@@ -193,12 +193,14 @@
     <ClInclude Include="inc\NiFrameBufferTypeStringable.h" />
     <ClInclude Include="inc\DirectXRenderDevice.h" />
     <ClInclude Include="inc\NiFrameD3DDevTypeStringable.h" />
+    <ClInclude Include="inc\NiFrameD3DMesh.h" />
     <ClInclude Include="inc\NiFrameMultiSample.h" />
     <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.h" />
     <ClInclude Include="inc\NiFrameRendererPCH.h" />
     <ClInclude Include="inc\NiFrameD3DResolution.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NiFrameD3DMesh.cpp" />
     <ClCompile Include="src\NiFrameBufferTypeStringable.cpp" />
     <ClCompile Include="src\NiFrameD3DDevTypeStringable.cpp" />
     <ClCompile Include="src\NiFrameD3DMultiSampleQuality.cpp" />

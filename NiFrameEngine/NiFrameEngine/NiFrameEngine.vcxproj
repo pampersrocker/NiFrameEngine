@@ -168,6 +168,8 @@
     <ClInclude Include="inc\DllEntryPoint.h" />
     <ClInclude Include="inc\ColourValue.h" />
     <ClInclude Include="inc\NiFrameEnginePCH.h" />
+    <ClInclude Include="inc\NiFrameEntity.h" />
+    <ClInclude Include="inc\NiFrameMesh.h" />
     <ClInclude Include="inc\NiFramePrerequisites.h" />
     <ClInclude Include="inc\NiFrameRenderDevice.h" />
     <ClInclude Include="inc\NiFrameRenderer.h" />
@@ -181,6 +183,8 @@
     <ClInclude Include="inc\NiFrameSettingsDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NiFrameEntity.cpp" />
+    <ClCompile Include="src\NiFrameMesh.cpp" />
     <ClCompile Include="src\NiFrameSettingsDialog.cpp" />
     <ClCompile Include="src\DllEntryPoint.cpp" />
     <ClCompile Include="src\StringUtils.cpp" />

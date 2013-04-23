@@ -10,6 +10,7 @@
 #include "NiFrameD3DMultiSampleQuality.h"
 #include <vector>
 #include "SSEMatrix4x4.h"
+#include "..\inc\NiFrameD3DMesh.h"
 
 using namespace LinearMath;
 
@@ -194,21 +195,29 @@ namespace NiFrame
 
 		m_AdpaterIdentifier = nullptr;
 		m_hDLL = nullptr;
+
+		m_Device->Release();
+		m_Device = nullptr;
+		m_pD3D->Release();
+		m_pD3D = nullptr;
 	}
 
 	void D3DRenderDevice::Clear( bool clearPixel, bool clearDepth )
 	{
-		throw std::exception( "The method or operation is not implemented." );
+		m_Device->Clear(0, nullptr,D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(127,127,127), 1.0f, 0 );
+
 	}
 
 	void D3DRenderDevice::EndRendering()
 	{
-		throw std::exception( "The method or operation is not implemented." );
+		m_Device->EndScene();
+		m_Device->Present( nullptr, nullptr, nullptr, nullptr);
 	}
 
 	void D3DRenderDevice::BeginRendering()
 	{
-		throw std::exception( "The method or operation is not implemented." );
+		Clear(true,true);
+		m_Device->BeginScene();
 	}
 
 	void D3DRenderDevice::UseWindow( int numWindow )
@@ -240,7 +249,7 @@ namespace NiFrame
 		params.BackBufferWidth = ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Width;
 		params.BackBufferHeight
 			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Height;
-		params.BackBufferHeight
+		params.BackBufferFormat
 			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Format;
 		params.MultiSampleType = D3DMULTISAMPLE_NONE;
 
@@ -252,20 +261,25 @@ namespace NiFrame
 		}
 
 		m_ProjectionMatrix = LinearMath::SSEMatrix4x4::CreateProjectionMatrix( 60.0f,
-			params.BackBufferWidth / params.BackBufferHeight,
-			1,
-			1000 );
+			(Real)params.BackBufferWidth / (Real)params.BackBufferHeight,
+			1.0f,
+			1000.0f );
 		float tmp[ 16 ];
 		m_ProjectionMatrix.TransposedCopy().GetAsFloatArray( tmp );
 		D3DXMATRIX matrix( tmp );
 		m_Device->SetTransform( D3DTS_PROJECTION, &matrix );
+		LinearMath::SSEMatrix4x4::CreateLookAt(SSEVector3(2,10,0), SSEVector3(0,0,0), SSEVector3(0,1,0) ).TransposedCopy().GetAsFloatArray(tmp);
+		matrix = D3DXMATRIX( tmp );
+		m_Device->SetTransform( D3DTS_VIEW, &matrix);
 		m_Device->SetRenderState( D3DRS_AMBIENT, RGB( 255, 255, 255 ) );
 
 		m_Device->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 
+		m_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+
 		m_Device->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );
 
-		m_Device->SetFVF( ( D3DFVF_XYZ | D3DFVF_DIFFUSE ) );
+		//m_Device->SetFVF( ( D3DFVF_XYZ | D3DFVF_DIFFUSE ) );
 	}
 
 	const NiFrame::RenderDeviceParams* D3DRenderDevice::GetRenderParams( void ) const
@@ -683,4 +697,56 @@ namespace NiFrame
 	{
 		return VIDEOMODE;
 	}
+
+	void D3DRenderDevice::CreateVertexBuffer( NFSize size, IDirect3DVertexBuffer9** buffer )
+	{
+		m_Device->CreateVertexBuffer(size* sizeof(D3DVertex), D3DUSAGE_WRITEONLY, D3DVertex_FVF,
+			D3DPOOL_MANAGED,buffer,nullptr);
+	}
+
+	void D3DRenderDevice::DestroyVertexBuffer( IDirect3DVertexBuffer9** vertexBuffer )
+	{
+		(*vertexBuffer)->Release();
+		(*vertexBuffer) = nullptr;
+	}
+
+	void D3DRenderDevice::DestroyIndexBuffer( IDirect3DIndexBuffer9** buffer )
+	{
+		(*buffer)->Release();
+		(*buffer) = nullptr;
+	}
+
+	void D3DRenderDevice::CreateIndexBuffer( NFSize size, IDirect3DIndexBuffer9** buffer )
+	{
+		m_Device->CreateIndexBuffer(size*sizeof(uint32), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, buffer, nullptr);
+	}
+
+	Mesh* D3DRenderDevice::CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer )
+	{
+		IDirect3DVertexBuffer9* vBuffer= nullptr;
+		IDirect3DIndexBuffer9* iBuffer=nullptr;
+		CreateVertexBuffer(vertexBuffer->size(), &vBuffer);
+		CreateIndexBuffer(indexBuffer->size(), &iBuffer);
+		return new D3DMesh(vertexBuffer,indexBuffer, vBuffer, iBuffer);
+	}
+
+	void D3DRenderDevice::RenderMesh( Mesh* mesh )
+	{
+		D3DMesh* d3dMesh = static_cast< D3DMesh* >(mesh);
+		 
+		m_Device->SetStreamSource(0, d3dMesh->GetVertexBuffer(), 0, sizeof(D3DVertex));
+		m_Device->SetFVF(D3DVertex_FVF);
+		m_Device->SetIndices( d3dMesh->GetIndexBuffer());
+		m_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST , 0,0, d3dMesh->GetVertexCount(), 0, d3dMesh->GetIndexCount()/3);
+	}
+
+	void D3DRenderDevice::DestroyMesh( Mesh* mesh )
+	{
+		D3DMesh* d3dMesh = static_cast< D3DMesh* >(mesh);
+		DestroyVertexBuffer(&d3dMesh->m_GPU_vertexBuffer);
+		DestroyIndexBuffer(&d3dMesh->m_GPU_indexBuffer);
+
+		delete d3dMesh;
+	}
+
 }

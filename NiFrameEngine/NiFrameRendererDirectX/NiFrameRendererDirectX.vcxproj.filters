@@ -36,6 +36,9 @@
     <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\NiFrameD3DMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
@@ -57,6 +60,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\NiFrameD3DMultiSampleQuality.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NiFrameD3DMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

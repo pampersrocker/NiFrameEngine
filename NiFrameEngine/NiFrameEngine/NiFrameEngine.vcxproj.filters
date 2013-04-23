@@ -66,6 +66,12 @@
     <ClCompile Include="src\NiFrameSettingsDialog.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="src\NiFrameMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NiFrameEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\NiFrameEnginePCH.h">
@@ -109,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="inc\NiFrameSettingsDialog.h">
       <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NiFrameEntity.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
