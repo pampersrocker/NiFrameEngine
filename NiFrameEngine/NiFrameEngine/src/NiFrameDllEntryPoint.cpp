@@ -1,5 +1,5 @@
 #include "NiFrameEnginePCH.h"
-#include "DllEntryPoint.h"
+#include "NiFrameDllEntryPoint.h"
 
 HINSTANCE DllEntryPoint::dllInstance = nullptr;
 

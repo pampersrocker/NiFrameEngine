@@ -165,11 +165,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\DllEntryPoint.h" />
-    <ClInclude Include="inc\ColourValue.h" />
+    <ClInclude Include="inc\NiFrameDllEntryPoint.h" />
+    <ClInclude Include="inc\NiFrameColourValue.h" />
     <ClInclude Include="inc\NiFrameEnginePCH.h" />
     <ClInclude Include="inc\NiFrameEntity.h" />
+    <ClInclude Include="inc\NiFrameMaterial.h" />
     <ClInclude Include="inc\NiFrameMesh.h" />
+    <ClInclude Include="inc\NiFrameReferenceCounted.h" />
+    <ClInclude Include="inc\NiFrameShader.h" />
     <ClInclude Include="inc\NiFramePrerequisites.h" />
     <ClInclude Include="inc\NiFrameRenderDevice.h" />
     <ClInclude Include="inc\NiFrameRenderer.h" />
@@ -177,18 +180,19 @@
     <ClInclude Include="inc\NiFrameSTLTypes.h" />
     <ClInclude Include="inc\NiFrameRenderDeviceParameters.h" />
     <ClInclude Include="inc\NiFrameStringableBool.h" />
-    <ClInclude Include="inc\StringableObject.h" />
-    <ClInclude Include="inc\StringUtils.h" />
+    <ClInclude Include="inc\NiFrameStringableObject.h" />
+    <ClInclude Include="inc\NiFrameStringUtils.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="inc\NiFrameSettingsDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NiFrameMaterial.cpp" />
     <ClCompile Include="src\NiFrameEntity.cpp" />
     <ClCompile Include="src\NiFrameMesh.cpp" />
     <ClCompile Include="src\NiFrameSettingsDialog.cpp" />
-    <ClCompile Include="src\DllEntryPoint.cpp" />
-    <ClCompile Include="src\StringUtils.cpp" />
-    <ClCompile Include="src\ColourValue.cpp" />
+    <ClCompile Include="src\NiFrameDllEntryPoint.cpp" />
+    <ClCompile Include="src\NiFrameStringUtils.cpp" />
+    <ClCompile Include="src\NiFrameColourValue.cpp" />
     <ClCompile Include="src\NiFrameEnginePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

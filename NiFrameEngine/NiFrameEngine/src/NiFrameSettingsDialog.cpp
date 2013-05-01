@@ -2,7 +2,7 @@
 #include "NiFrameSettingsDialog.h"
 
 #include "NiFrameRenderDevice.h"
-#include "DllEntryPoint.h"
+#include "NiFrameDllEntryPoint.h"
 #include "NiFramePrerequisites.h"
 #include "NiFrameRenderDeviceParameters.h"
 

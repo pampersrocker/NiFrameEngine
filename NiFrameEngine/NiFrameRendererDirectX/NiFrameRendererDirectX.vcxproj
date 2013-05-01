@@ -191,7 +191,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="inc\NiFrameBufferTypeStringable.h" />
-    <ClInclude Include="inc\DirectXRenderDevice.h" />
+    <ClInclude Include="inc\NiFrameDirectXRenderDevice.h" />
     <ClInclude Include="inc\NiFrameD3DDevTypeStringable.h" />
     <ClInclude Include="inc\NiFrameD3DMesh.h" />
     <ClInclude Include="inc\NiFrameMultiSample.h" />
@@ -205,7 +205,7 @@
     <ClCompile Include="src\NiFrameD3DDevTypeStringable.cpp" />
     <ClCompile Include="src\NiFrameD3DMultiSampleQuality.cpp" />
     <ClCompile Include="src\NiFrameD3DResolution.cpp" />
-    <ClCompile Include="src\DirectXRenderDevice.cpp" />
+    <ClCompile Include="src\NiFrameDirectXRenderDevice.cpp" />
     <ClCompile Include="src\NiFrameMultiSample.cpp" />
     <ClCompile Include="src\NiFrameRendererPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

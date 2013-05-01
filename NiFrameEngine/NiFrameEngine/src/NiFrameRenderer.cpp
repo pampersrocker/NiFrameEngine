@@ -5,7 +5,7 @@
 #include "NiFrameRenderDevice.h"
 #include "resource.h"
 #include <commctrl.h>
-#include "DllEntryPoint.h"
+#include "NiFrameDllEntryPoint.h"
 #include "..\inc\NiFrameSettingsDialog.h"
 
 namespace NiFrame
@@ -57,7 +57,7 @@ namespace NiFrame
 		if ( FAILED(hr) )
 		{
 			//TODO: Better Error text
-			MessageBox( 
+			MessageBox(
 				nullptr, 
 				"Failed to Create the Render Device",
 				"Error Creating Render Device", 

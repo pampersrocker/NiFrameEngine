@@ -24,21 +24,24 @@ namespace NiFrame
 
 		virtual const RenderDeviceParams* GetRenderParams( void ) const = 0;
 
-		virtual bool IsRunning() const = 0;
+		virtual MeshPtr CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) = 0;
 
-		virtual Mesh* CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) = 0;
-
-		virtual void DestroyMesh( Mesh* mesh) = 0;
-
-		virtual void UseWindow( int numWindow ) = 0;
+		virtual void DestroyMesh( MeshPtr mesh) = 0;
 
 		virtual void BeginRendering() = 0;
 
-		virtual void RenderMesh( Mesh* mesh ) = 0;
+		virtual void RenderMesh( MeshPtr mesh ) = 0;
 
 		virtual void EndRendering() = 0;
 
 		virtual void Clear( bool clearPixel , bool clearDepth ) = 0;
+
+		virtual const uint32 GetCurrentDeviceID( void ) const = 0;
+		virtual void SetCurrentDeviceID( uint32 id ) = 0;
+
+		virtual String GetDeviceName( uint32 id ) const = 0;
+
+		virtual const uint32 GetDeviceCount( void ) const = 0;
 
 		virtual ~RenderDevice() = 0;
 

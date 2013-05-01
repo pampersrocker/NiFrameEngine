@@ -3,6 +3,7 @@
 #define NiFrameEntity_h__
 
 #include "NiFrameEnginePCH.h"
+#include "NiFrameReferenceCounted.h"
 
 namespace NiFrame
 {
@@ -44,6 +45,8 @@ namespace NiFrame
 
 	private:
 	};
+
+	typedef ReferenceCounted< Entity > EntityPtr;
 
 }
 

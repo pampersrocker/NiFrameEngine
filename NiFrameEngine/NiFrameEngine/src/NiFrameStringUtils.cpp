@@ -1,5 +1,5 @@
 #include "NiFrameEnginePCH.h"
-#include "StringUtils.h"
+#include "NiFrameStringUtils.h"
 
 namespace NiFrame
 {

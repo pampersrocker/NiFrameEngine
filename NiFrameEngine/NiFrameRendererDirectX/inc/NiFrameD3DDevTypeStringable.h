@@ -3,7 +3,7 @@
 #define NiFrameD3DDevTypeStringable_h__
 
 #include "NiFrameRendererPCH.h"
-#include "StringableObject.h"
+#include "NiFrameStringableObject.h"
 
 namespace NiFrame
 {

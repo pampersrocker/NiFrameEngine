@@ -33,13 +33,9 @@ namespace NiFrame
 
 		virtual const RenderDeviceParams* GetRenderParams( void ) const;
 
-		virtual bool IsRunning() const;
-
-		virtual void UseWindow( int numWindow );
-
 		virtual void BeginRendering();
 
-		virtual void RenderMesh( Mesh* mesh );
+		virtual void RenderMesh( MeshPtr mesh );
 
 		virtual void EndRendering();
 
@@ -66,6 +62,18 @@ namespace NiFrame
 		const String GetGetDeviceTypeID() const;
 
 		const String GetGetMultisampleQualityID() const;
+
+		virtual const uint32 GetCurrentDeviceID( void ) const override;
+
+		virtual void SetCurrentDeviceID( uint32 id ) override;
+
+		virtual const uint32 GetDeviceCount( void ) const override;
+
+		virtual String GetDeviceName( uint32 id ) const override;
+		
+		virtual MeshPtr CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) override;
+
+		virtual void DestroyMesh( MeshPtr mesh) override;
 
 	private:
 		LinearMath::SSEMatrix4x4 m_ProjectionMatrix;
@@ -124,9 +132,8 @@ namespace NiFrame
 
 		void FillBufferTypeVector( vector< D3DFORMAT >::type* vec );
 
-		virtual Mesh* CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer ) override;
 
-		virtual void DestroyMesh( Mesh* mesh) override;
+
 	};
 }
 

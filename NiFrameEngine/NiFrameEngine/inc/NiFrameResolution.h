@@ -3,8 +3,8 @@
 #define NiFrameResolution_h__
 
 #include "NiFrameEnginePCH.h"
-#include "StringableObject.h"
-#include "StringUtils.h"
+#include "NiFrameStringableObject.h"
+#include "NiFrameStringUtils.h"
 
 namespace NiFrame
 {

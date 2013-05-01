@@ -6,7 +6,7 @@
 #include "NiFrameRenderDevice.h"
 #include <iostream>
 #include "NiFrameRenderDeviceParameters.h"
-#include "StringableObject.h"
+#include "NiFrameStringableObject.h"
 #include <iosfwd>
 #include "NiFrameResolution.h"
 
@@ -71,7 +71,7 @@ int main(int argc, _TCHAR* argv[])
 	iBuffer->push_back(0);
 	iBuffer->push_back(5);
 
-	Mesh* triangle = device->CreateMesh(vBuffer,iBuffer);
+	MeshPtr triangle = device->CreateMesh(vBuffer,iBuffer);
 
 
 	SDL_Event event;
@@ -81,7 +81,7 @@ int main(int argc, _TCHAR* argv[])
 		{
 			switch( event.type )
 			{
-
+		
 			case SDL_KEYDOWN:
 				if ( event.key.keysym.sym == SDLK_ESCAPE )
 				{
@@ -101,7 +101,6 @@ int main(int argc, _TCHAR* argv[])
 	}
 
 	device->DestroyMesh(triangle);
-	
 	return 0;
 }
 
@@ -109,7 +108,21 @@ void SelectParameters( RenderDevice* device, NiFrame::map< NiFrame::String, uint
 {
 	const RenderDeviceParams* devParams = device->GetRenderParams();
 	int counter = 0;
-	int selectedValue = 0;
+	uint32 selectedValue = 0;
+
+	cout << "Select Device:" << endl;
+
+
+	uint32 adapterCount = device->GetDeviceCount();
+	counter = 0;
+	for (uint32 i=0; i < adapterCount; ++i)
+	{
+		cout << counter << ": " << i << " " << device->GetDeviceName(i) << endl;
+		++counter;
+	}
+	cin >> selectedValue;
+	device->SetCurrentDeviceID(selectedValue);
+
 
 	cout << "Windowed?" << endl;
 	ValueList windowedParams = devParams->GetParamterValues("Windowed");

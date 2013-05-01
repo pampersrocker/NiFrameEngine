@@ -2,7 +2,7 @@
 #ifndef NiFrameMultiSampleQuality_h__
 #define NiFrameMultiSampleQuality_h__
 #include "NiFrameRendererPCH.h"
-#include "StringableObject.h"
+#include "NiFrameStringableObject.h"
 
 namespace NiFrame
 {

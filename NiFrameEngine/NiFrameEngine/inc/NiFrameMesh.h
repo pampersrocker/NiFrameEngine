@@ -3,6 +3,7 @@
 #define NiFrameMesh_h__
 
 #include "NiFrameEnginePCH.h"
+#include "NiFrameReferenceCounted.h"
 
 typedef NiFrame::vector<NiFrame::Vector3> VertexBuffer;
 typedef NiFrame::vector<NiFrame::uint32> IndexBuffer;
@@ -32,6 +33,8 @@ namespace NiFrame
 		
 
 	};
+
+	typedef ReferenceCounted< Mesh > MeshPtr;
 
 }
 

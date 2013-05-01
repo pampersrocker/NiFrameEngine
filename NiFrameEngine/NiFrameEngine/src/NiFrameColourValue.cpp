@@ -1,5 +1,5 @@
 #include "NiFrameEnginePCH.h"
-#include "ColourValue.h"
+#include "NiFrameColourValue.h"
 
 namespace NiFrame
 {
