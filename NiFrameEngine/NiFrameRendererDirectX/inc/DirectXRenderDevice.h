@@ -95,6 +95,8 @@ namespace NiFrame
 		IDirect3D9* m_pD3D;
 		IDirect3DDevice9* m_Device;
 
+		D3DPRESENT_PARAMETERS m_Params;
+
 		D3DXMATRIX m_D3DProjectionMatrix;
 
 		vector< RenderDeviceParams* >::type m_AdapterParameters;

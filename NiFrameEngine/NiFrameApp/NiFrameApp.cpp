@@ -8,6 +8,7 @@
 #include "NiFrameRenderDeviceParameters.h"
 #include "StringableObject.h"
 #include <iosfwd>
+#include "NiFrameResolution.h"
 
 
 using namespace NiFrame;
@@ -18,7 +19,7 @@ typedef NiFrame::vector< IStringableObject*>::type ValueList;
 void SelectParameters( RenderDevice* device, NiFrame::map< NiFrame::String, uint32>::type &selectedValues );
 int main(int argc, _TCHAR* argv[])
 {
-	
+	bool bShutdown = false;
 	NiFrame::map< NiFrame::String, uint32>::type selectedValues;
 
 	NiFrame::Renderer renderer;
@@ -33,12 +34,13 @@ int main(int argc, _TCHAR* argv[])
 
 	SelectParameters(device, selectedValues);
 
+	Resolution* res = static_cast< Resolution* >(device->GetRenderParams()->GetParamterValues("VideoMode")[selectedValues["VideoMode"]]);
 
 	if ( SDL_Init( SDL_INIT_VIDEO ) < 0 || !SDL_GetVideoInfo() )
 	{
 		return 0;
 	}
-	SDL_SetVideoMode( 800, 600, SDL_GetVideoInfo()->vfmt->BitsPerPixel, SDL_RESIZABLE);
+	SDL_SetVideoMode( res->GetWidth(), res->GetHeight(), SDL_GetVideoInfo()->vfmt->BitsPerPixel, SDL_RESIZABLE);
 
 	device->SetupDevice(GetActiveWindow(), selectedValues );
 
@@ -71,26 +73,34 @@ int main(int argc, _TCHAR* argv[])
 
 	Mesh* triangle = device->CreateMesh(vBuffer,iBuffer);
 
-	device->BeginRendering();
-
-	device->RenderMesh(triangle);
-
-	device->EndRendering();
-
-	device->DestroyMesh(triangle);
 
 	SDL_Event event;
-	while( SDL_WaitEvent( &event ) )
-		switch( event.type )
+	while( !bShutdown )
 	{
-		case SDL_KEYDOWN:
-			if ( event.key.keysym.sym == SDLK_ESCAPE )
+		if( SDL_PollEvent( &event ) )
+		{
+			switch( event.type )
 			{
-				return 0;
-			}
-			break;
+
+			case SDL_KEYDOWN:
+				if ( event.key.keysym.sym == SDLK_ESCAPE )
+				{
+					bShutdown = true;
+				}
+				break;
+			case SDL_QUIT:
+				bShutdown = true;
+				break;
+			} 
+		}
+		device->BeginRendering();
+
+		device->RenderMesh(triangle);
+
+		device->EndRendering();
 	}
 
+	device->DestroyMesh(triangle);
 	
 	return 0;
 }

@@ -16,6 +16,10 @@ namespace NiFrame
 
 		virtual String ToString() const;
 
+		uint32 GetWidth( void ) const;
+
+		uint32 GetHeight( void ) const;
+
 	private:
 		uint32 m_Width, m_Height, m_RefreshRate;
 

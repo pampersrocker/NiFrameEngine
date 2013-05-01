@@ -58,7 +58,8 @@ namespace NiFrame
 		MULTISAMPLE_QUALITY( "MultisampleQuality" ),
 		DEVICE_TYPE( "Device Type" ),
 		m_CurrentDevice( 0 ),
-		m_ProjectionMatrix( SSEMatrix4x4() )
+		m_ProjectionMatrix( SSEMatrix4x4() ),
+		m_Params( D3DPRESENT_PARAMETERS() )
 	{
 		( *m_SelectedValues )[ VIDEOMODE ] = 0;
 		( *m_SelectedValues )[ BUFFERTYPE ] = 0;
@@ -211,7 +212,10 @@ namespace NiFrame
 	void D3DRenderDevice::EndRendering()
 	{
 		m_Device->EndScene();
-		m_Device->Present( nullptr, nullptr, nullptr, nullptr);
+		if( m_Device->Present( nullptr, nullptr, nullptr, nullptr) == D3DERR_DEVICELOST )
+		{
+			m_Device->Reset( &m_Params );
+		}
 	}
 
 	void D3DRenderDevice::BeginRendering()
@@ -235,33 +239,33 @@ namespace NiFrame
 		const map< String, uint32 >::type& renderDeviceParameters,
 		bool log /*= true */ )
 	{
-		D3DPRESENT_PARAMETERS params;
+		
 
-		ZeroMemory( &params, sizeof( params ) );
+		ZeroMemory( &m_Params, sizeof( m_Params ) );
 
 		auto windowedResult = renderDeviceParameters.find( WINDOWED );
-		params.Windowed = ( ( *( *m_Windowed )[ 0 ] )[ windowedResult->second ] )->GetBool();
-		params.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		params.EnableAutoDepthStencil = true;
-		params.AutoDepthStencilFormat = D3DFMT_D16;
-		params.hDeviceWindow = hMainWindow;
+		m_Params.Windowed = ( ( *( *m_Windowed )[ 0 ] )[ windowedResult->second ] )->GetBool();
+		m_Params.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		m_Params.EnableAutoDepthStencil = true;
+		m_Params.AutoDepthStencilFormat = D3DFMT_D16;
+		m_Params.hDeviceWindow = hMainWindow;
 		auto videoResult = renderDeviceParameters.find( VIDEOMODE );
-		params.BackBufferWidth = ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Width;
-		params.BackBufferHeight
+		m_Params.BackBufferWidth = ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Width;
+		m_Params.BackBufferHeight
 			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Height;
-		params.BackBufferFormat
+		m_Params.BackBufferFormat
 			= ( ( *( *m_DeviceResolutions )[ 0 ] )[ videoResult->second ] )->GetDisplayMode()->Format;
-		params.MultiSampleType = D3DMULTISAMPLE_NONE;
+		m_Params.MultiSampleType = D3DMULTISAMPLE_NONE;
 
 		if( FAILED( m_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hMainWindow,
-			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &params,
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &m_Params,
 			&m_Device ) ) )
 		{
 			MessageBox( hMainWindow, "Failed to Create D3D9Device", "Error creating Device", MB_OK );
 		}
 
 		m_ProjectionMatrix = LinearMath::SSEMatrix4x4::CreateProjectionMatrix( 60.0f,
-			(Real)params.BackBufferWidth / (Real)params.BackBufferHeight,
+			(Real)m_Params.BackBufferWidth / (Real)m_Params.BackBufferHeight,
 			1.0f,
 			1000.0f );
 		float tmp[ 16 ];

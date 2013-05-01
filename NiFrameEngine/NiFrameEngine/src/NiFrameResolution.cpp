@@ -28,4 +28,14 @@ namespace NiFrame
 
 	}
 
+	NiFrame::uint32 Resolution::GetWidth( void ) const
+	{
+		return m_Width;
+	}
+
+	NiFrame::uint32 Resolution::GetHeight( void ) const
+	{
+		return m_Height;
+	}
+
 }
