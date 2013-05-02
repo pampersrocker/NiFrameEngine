@@ -42,14 +42,11 @@ namespace NiFrame
 
 	Shader* Material::GetVertexShader( void ) const
 	{
-		 return m_VertexShader;
+		return m_VertexShader;
 	}
 
 	Shader* Material::GetPixelShader( void ) const
 	{
 		return m_PixelShader;
 	}
-
-
 }
-

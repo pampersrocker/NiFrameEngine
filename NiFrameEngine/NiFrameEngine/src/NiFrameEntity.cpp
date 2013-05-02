@@ -4,8 +4,11 @@
 namespace NiFrame
 {
 	Entity::Entity(
-		const String& name, 
-		MeshPtr mesh, const Vector3& translation /*= Vector3(0)*/, const Matrix4x4& rotation /*= Matrix4x4::IDENTITY*/, const Vector3& scale /*= Vector3(1) */ ) :
+		const String& name,
+		MeshPtr mesh,
+		const Vector3& translation /*= Vector3(0)*/,
+		const Matrix4x4& rotation /*= Matrix4x4::IDENTITY*/,
+		const Vector3& scale /*= Vector3(1) */ ) :
 		m_MeshPointer( mesh ),
 		m_Translation( translation ),
 		m_Rotation( rotation ),
@@ -13,7 +16,7 @@ namespace NiFrame
 	{
 		UpdateModelMatrix();
 	}
-	
+
 	Entity::~Entity( void )
 	{
 		Release();
@@ -45,7 +48,7 @@ namespace NiFrame
 		m_Rotation = rotation;
 		UpdateModelMatrix();
 	}
-	
+
 	void Entity::SetTranslation( const Vector3& translation )
 	{
 		m_Translation = translation;
@@ -55,8 +58,8 @@ namespace NiFrame
 	void Entity::Scale( const Vector3& scale )
 	{
 		m_Scale = Vector3( scale.GetX() * m_Scale.GetX(),
-							scale.GetY() * m_Scale.GetY(),
-							scale.GetZ() * m_Scale.GetZ() );
+			scale.GetY() * m_Scale.GetY(),
+			scale.GetZ() * m_Scale.GetZ() );
 		UpdateModelMatrix();
 	}
 
@@ -74,9 +77,6 @@ namespace NiFrame
 
 	void Entity::UpdateModelMatrix( void )
 	{
-		//TODO: create static method for Scale Rotate Translate matrix
+		// TODO: create static method for Scale Rotate Translate matrix
 	}
-
-
 }
-

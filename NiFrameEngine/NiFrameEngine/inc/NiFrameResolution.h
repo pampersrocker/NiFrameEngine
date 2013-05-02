@@ -1,16 +1,18 @@
 #pragma once
 #ifndef NiFrameResolution_h__
-#define NiFrameResolution_h__
+	#define NiFrameResolution_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameStringableObject.h"
-#include "NiFrameStringUtils.h"
+	#include "NiFrameEnginePCH.h"
+	#include "NiFrameStringableObject.h"
+	#include "NiFrameStringUtils.h"
 
 namespace NiFrame
 {
-	class NIFRAME_DLL_EXPORT Resolution : public IStringableObject
+	class NIFRAME_DLL_EXPORT Resolution :
+		public IStringableObject
 	{
 	public:
+
 		Resolution( uint32 wdith, uint32 height, uint32 refreshRate );
 		~Resolution();
 
@@ -20,10 +22,12 @@ namespace NiFrame
 
 		uint32 GetHeight( void ) const;
 
-	private:
-		uint32 m_Width, m_Height, m_RefreshRate;
+		uint32 GetRefreshRate( void ) const;
 
+	private:
+
+		uint32 m_Width, m_Height, m_RefreshRate;
 	};
 }
 
-#endif // NiFrameResolution_h__
+#endif	// NiFrameResolution_h__
