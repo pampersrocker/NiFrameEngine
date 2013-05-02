@@ -31,7 +31,7 @@ namespace NiFrame
 
 	MeshPtr Entity::GetMesh( void ) const
 	{
-		return MeshPtr( m_MeshPointer );
+		return m_MeshPointer;
 	}
 
 	void Entity::SetScale( const Vector3& scale )
