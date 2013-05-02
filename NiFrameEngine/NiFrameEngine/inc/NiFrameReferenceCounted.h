@@ -11,15 +11,12 @@ namespace NiFrame
 	{
 	public:
 		ReferenceCounted( T* pointer );
-		ReferenceCounted( ReferenceCounted< T > & refCount );
+		ReferenceCounted( const ReferenceCounted< T > & refCount );
 		ReferenceCounted( ReferenceCounted< T >&& refCount );
 		~ReferenceCounted();
 		
-		void IncRef( void );
 
-		void DecRef( void );
-
-		ReferenceCounted< T >& operator =( ReferenceCounted< T >& refCount );
+		ReferenceCounted< T >& operator =( const ReferenceCounted< T >& refCount );
 		ReferenceCounted< T >& operator =( ReferenceCounted< T >&& refCount );
 
 		T* operator ->();
@@ -27,6 +24,10 @@ namespace NiFrame
 		T* operator *();
 
 	private:
+		
+		void IncRef( void );
+
+		void DecRef( void );
 
 		T* m_CountedPointer;
 
@@ -50,7 +51,7 @@ namespace NiFrame
 	}
 
 	template< typename T >
-	NiFrame::ReferenceCounted<T>::ReferenceCounted( ReferenceCounted< T >& refCount )
+	NiFrame::ReferenceCounted<T>::ReferenceCounted( const ReferenceCounted< T >& refCount )
 	{
 		//DecRef();
 
@@ -99,16 +100,18 @@ namespace NiFrame
 	}
 
 	template< typename T >
-	ReferenceCounted< T >& NiFrame::ReferenceCounted<T>::operator=( ReferenceCounted< T >& refCount )
+	ReferenceCounted< T >& NiFrame::ReferenceCounted<T>::operator=( const ReferenceCounted< T >& refCount )
 	{
-		if ( m_Count != refCount->m_Count )
+		if ( m_Count != refCount.m_Count )
 		{
-			m_CountedPointer = refCount->m_CountedPointer;
+			m_CountedPointer = refCount.m_CountedPointer;
 			
-			m_Count = refCount->m_Count;
+			m_Count = refCount.m_Count;
 			
 			IncRef();
 		}
+
+		return *this;
 	}
 
 	template< typename T >

@@ -3,7 +3,9 @@
 
 namespace NiFrame
 {
-	Entity::Entity( Mesh* mesh, const Vector3& translation /*= Vector3(0)*/, const Matrix4x4& rotation /*= Matrix4x4::IDENTITY*/, const Vector3& scale /*= Vector3(1) */ ) :
+	Entity::Entity(
+		const String& name, 
+		MeshPtr mesh, const Vector3& translation /*= Vector3(0)*/, const Matrix4x4& rotation /*= Matrix4x4::IDENTITY*/, const Vector3& scale /*= Vector3(1) */ ) :
 		m_MeshPointer( mesh ),
 		m_Translation( translation ),
 		m_Rotation( rotation ),
@@ -22,14 +24,14 @@ namespace NiFrame
 		m_MeshPointer = nullptr;
 	}
 
-	void Entity::SetMesh( Mesh* newMesh )
+	void Entity::SetMesh( MeshPtr newMesh )
 	{
 		m_MeshPointer = newMesh;
 	}
 
-	Mesh* Entity::GetMesh( void ) const
+	MeshPtr Entity::GetMesh( void ) const
 	{
-		return m_MeshPointer;
+		return MeshPtr( m_MeshPointer );
 	}
 
 	void Entity::SetScale( const Vector3& scale )

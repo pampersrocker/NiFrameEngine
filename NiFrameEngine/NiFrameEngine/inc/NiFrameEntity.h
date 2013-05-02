@@ -4,20 +4,22 @@
 
 #include "NiFrameEnginePCH.h"
 #include "NiFrameReferenceCounted.h"
+#include "NiFrameMesh.h"
 
 namespace NiFrame
 {
-	class Mesh;
 
 	class NIFRAME_DLL_EXPORT Entity
 	{
 	public:
 
 		Entity( 
-		Mesh* mesh, 
-		const Vector3& translation = Vector3(0), 
-		const Matrix4x4& rotation = Matrix4x4::IDENTITY, 
-		const Vector3& scale = Vector3(1) );
+			const String& name, 
+			MeshPtr mesh, 
+			const Vector3& translation = Vector3(0), 
+			const Matrix4x4& rotation = Matrix4x4::IDENTITY, 
+			const Vector3& scale = Vector3(1) 
+		);
 
 		~Entity( void );
 
@@ -29,8 +31,8 @@ namespace NiFrame
 		void SetRotation( const Matrix4x4& rotation );
 		void SetScale( const Vector3& scale );
 
-		Mesh* GetMesh( void ) const;
-		void SetMesh( Mesh* newMesh );
+		MeshPtr GetMesh( void ) const;
+		void SetMesh( MeshPtr newMesh );
 
 		void Release( void );
 
@@ -41,7 +43,7 @@ namespace NiFrame
 		Matrix4x4 m_ModelMatrix, m_Rotation;
 		Vector3 m_Translation, m_Scale;
 
-		Mesh* m_MeshPointer;
+		MeshPtr m_MeshPointer;
 
 	private:
 	};
