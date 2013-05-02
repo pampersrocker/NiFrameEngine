@@ -205,13 +205,14 @@ namespace NiFrame
 
 	void D3DRenderDevice::Clear( bool clearPixel, bool clearDepth )
 	{
-		m_Device->Clear(0, nullptr,D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255,255,255), 1.0f, 0 );
+		m_Device->Clear( 0, nullptr, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB( 255, 255, 255 ), 1.0f, 0 );
 	}
 
 	void D3DRenderDevice::EndRendering()
 	{
 		m_Device->EndScene();
-		if( m_Device->Present( nullptr, nullptr, nullptr, nullptr) == D3DERR_DEVICELOST )
+
+		if( m_Device->Present( nullptr, nullptr, nullptr, nullptr ) == D3DERR_DEVICELOST )
 		{
 			m_Device->Reset( &m_Params );
 		}
@@ -219,7 +220,7 @@ namespace NiFrame
 
 	void D3DRenderDevice::BeginRendering()
 	{
-		Clear(true,true);
+		Clear( true, true );
 		m_Device->BeginScene();
 	}
 
@@ -228,8 +229,6 @@ namespace NiFrame
 		const map< String, uint32 >::type& renderDeviceParameters,
 		bool log /*= true */ )
 	{
-		
-
 		ZeroMemory( &m_Params, sizeof( m_Params ) );
 
 		auto windowedResult = renderDeviceParameters.find( WINDOWED );
@@ -239,7 +238,8 @@ namespace NiFrame
 		m_Params.AutoDepthStencilFormat = D3DFMT_D16;
 		m_Params.hDeviceWindow = hMainWindow;
 		auto videoResult = renderDeviceParameters.find( VIDEOMODE );
-		m_Params.BackBufferWidth = ( ( *( *m_DeviceResolutions )[ m_CurrentDevice ] )[ videoResult->second ] )->GetDisplayMode()->Width;
+		m_Params.BackBufferWidth
+			= ( ( *( *m_DeviceResolutions )[ m_CurrentDevice ] )[ videoResult->second ] )->GetDisplayMode()->Width;
 		m_Params.BackBufferHeight
 			= ( ( *( *m_DeviceResolutions )[ m_CurrentDevice ] )[ videoResult->second ] )->GetDisplayMode()->Height;
 		m_Params.BackBufferFormat
@@ -254,25 +254,26 @@ namespace NiFrame
 		}
 
 		m_ProjectionMatrix = LinearMath::SSEMatrix4x4::CreateProjectionMatrix( 60.0f,
-			(Real)m_Params.BackBufferWidth / (Real)m_Params.BackBufferHeight,
+			( Real )m_Params.BackBufferWidth / ( Real )m_Params.BackBufferHeight,
 			1.0f,
 			1000.0f );
 		float tmp[ 16 ];
 		m_ProjectionMatrix.TransposedCopy().GetAsFloatArray( tmp );
 		D3DXMATRIX matrix( tmp );
 		m_Device->SetTransform( D3DTS_PROJECTION, &matrix );
-		LinearMath::SSEMatrix4x4::CreateLookAt(SSEVector3(2,10,0), SSEVector3(0,0,0), SSEVector3(0,1,0) ).TransposedCopy().GetAsFloatArray(tmp);
+		LinearMath::SSEMatrix4x4::CreateLookAt( SSEVector3( 2, 10,
+			0 ), SSEVector3( 0, 0, 0 ), SSEVector3( 0, 1, 0 ) ).TransposedCopy().GetAsFloatArray( tmp );
 		matrix = D3DXMATRIX( tmp );
-		m_Device->SetTransform( D3DTS_VIEW, &matrix);
+		m_Device->SetTransform( D3DTS_VIEW, &matrix );
 		m_Device->SetRenderState( D3DRS_AMBIENT, RGB( 255, 255, 255 ) );
 
 		m_Device->SetRenderState( D3DRS_CULLMODE, D3DCULL_NONE );
 
-		m_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+		m_Device->SetRenderState( D3DRS_FILLMODE, D3DFILL_WIREFRAME );
 
 		m_Device->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );
 
-		//m_Device->SetFVF( ( D3DFVF_XYZ | D3DFVF_DIFFUSE ) );
+		// m_Device->SetFVF( ( D3DFVF_XYZ | D3DFVF_DIFFUSE ) );
 	}
 
 	const NiFrame::RenderDeviceParams* D3DRenderDevice::GetRenderParams( void ) const
@@ -693,44 +694,46 @@ namespace NiFrame
 
 	void D3DRenderDevice::CreateVertexBuffer( NFSize size, IDirect3DVertexBuffer9** buffer )
 	{
-		m_Device->CreateVertexBuffer(size* sizeof(D3DVertex), D3DUSAGE_WRITEONLY, D3DVertex_FVF,
-			D3DPOOL_MANAGED,buffer,nullptr);
+		m_Device->CreateVertexBuffer( ( UINT )size * sizeof( D3DVertex ), D3DUSAGE_WRITEONLY, D3DVertex_FVF,
+			D3DPOOL_MANAGED, buffer, nullptr );
 	}
 
 	void D3DRenderDevice::DestroyVertexBuffer( IDirect3DVertexBuffer9** vertexBuffer )
 	{
-		(*vertexBuffer)->Release();
-		(*vertexBuffer) = nullptr;
+		( *vertexBuffer )->Release();
+		( *vertexBuffer ) = nullptr;
 	}
 
 	void D3DRenderDevice::DestroyIndexBuffer( IDirect3DIndexBuffer9** buffer )
 	{
-		(*buffer)->Release();
-		(*buffer) = nullptr;
+		( *buffer )->Release();
+		( *buffer ) = nullptr;
 	}
 
 	void D3DRenderDevice::CreateIndexBuffer( NFSize size, IDirect3DIndexBuffer9** buffer )
 	{
-		m_Device->CreateIndexBuffer(size*sizeof(uint32), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32, D3DPOOL_MANAGED, buffer, nullptr);
+		m_Device->CreateIndexBuffer( ( UINT )size * sizeof( uint32 ), D3DUSAGE_WRITEONLY, D3DFMT_INDEX32,
+			D3DPOOL_MANAGED, buffer, nullptr );
 	}
 
 	MeshPtr D3DRenderDevice::CreateMesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer )
 	{
-		IDirect3DVertexBuffer9* vBuffer= nullptr;
-		IDirect3DIndexBuffer9* iBuffer=nullptr;
-		CreateVertexBuffer(vertexBuffer->size(), &vBuffer);
-		CreateIndexBuffer(indexBuffer->size(), &iBuffer);
-		return MeshPtr( new D3DMesh( vertexBuffer,indexBuffer, vBuffer, iBuffer ) );
+		IDirect3DVertexBuffer9* vBuffer = nullptr;
+		IDirect3DIndexBuffer9* iBuffer = nullptr;
+		CreateVertexBuffer( vertexBuffer->size(), &vBuffer );
+		CreateIndexBuffer( indexBuffer->size(), &iBuffer );
+		return MeshPtr( new D3DMesh( vertexBuffer, indexBuffer, vBuffer, iBuffer ) );
 	}
 
 	void D3DRenderDevice::RenderMesh( MeshPtr mesh )
 	{
-		D3DMesh* d3dMesh = static_cast< D3DMesh* >(*mesh);
-		 
-		m_Device->SetStreamSource(0, d3dMesh->GetVertexBuffer(), 0, sizeof(D3DVertex));
-		m_Device->SetFVF(D3DVertex_FVF);
-		m_Device->SetIndices( d3dMesh->GetIndexBuffer());
-		m_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST , 0,0, d3dMesh->GetVertexCount(), 0, d3dMesh->GetIndexCount()/3);
+		D3DMesh* d3dMesh = static_cast< D3DMesh* >( *mesh );
+
+		m_Device->SetStreamSource( 0, d3dMesh->GetVertexBuffer(), 0, sizeof( D3DVertex ) );
+		m_Device->SetFVF( D3DVertex_FVF );
+		m_Device->SetIndices( d3dMesh->GetIndexBuffer() );
+		m_Device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, 0, 0,
+			( UINT )d3dMesh->GetVertexCount(), 0, ( UINT )d3dMesh->GetIndexCount() / 3 );
 	}
 
 	void D3DRenderDevice::DestroyMesh( MeshPtr mesh )
@@ -740,10 +743,11 @@ namespace NiFrame
 		d3dMesh->m_GPU_vertexBuffer = nullptr;
 		DestroyIndexBuffer( &d3dMesh->m_GPU_indexBuffer );
 		d3dMesh->m_GPU_indexBuffer = nullptr;
-		//delete d3dMesh;
+
+		// delete d3dMesh;
 	}
 
-	const uint32 D3DRenderDevice::GetCurrentDeviceID( void ) const 
+	const uint32 D3DRenderDevice::GetCurrentDeviceID( void ) const
 	{
 		return m_CurrentDevice;
 	}
@@ -754,17 +758,16 @@ namespace NiFrame
 		m_CurrentDevice = id;
 	}
 
-	const uint32 D3DRenderDevice::GetDeviceCount( void ) const 
+	const uint32 D3DRenderDevice::GetDeviceCount( void ) const
 	{
 		return m_pD3D->GetAdapterCount();
 	}
 
-	String D3DRenderDevice::GetDeviceName( uint32 id ) const 
+	String D3DRenderDevice::GetDeviceName( uint32 id ) const
 	{
 		D3DADAPTER_IDENTIFIER9 identifier;
 		m_pD3D->GetAdapterIdentifier( id, 0, &identifier );
 
 		return String( identifier.Description );
 	}
-
 }

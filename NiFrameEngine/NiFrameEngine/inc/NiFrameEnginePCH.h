@@ -9,21 +9,7 @@
 
 #include <assert.h>
 
-#ifdef NIFRAME_DLL_BUILD
-#define NIFRAME_DLL_EXPORT __declspec( dllexport )
-#else
-#define NIFRAME_DLL_EXPORT __declspec( dllimport )
-#endif
-
-
-
-
-#define SAFE_DELETE(pointer)	\
-	if( pointer != nullptr )	\
-	{							\
-		delete pointer;			\
-		pointer = nullptr;		\
-	}							\
+#include "NiFrameMacros.h"
 
 #include "NiFramePrerequisites.h"
 #include "NiFrameSTLTypes.h"

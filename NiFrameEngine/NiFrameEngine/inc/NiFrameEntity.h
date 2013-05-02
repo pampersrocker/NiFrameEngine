@@ -5,11 +5,12 @@
 #include "NiFrameEnginePCH.h"
 #include "NiFrameReferenceCounted.h"
 #include "NiFrameMesh.h"
+#include "NiFrameMovableObject.h"
 
 namespace NiFrame
 {
 
-	class NIFRAME_DLL_EXPORT Entity
+	class NIFRAME_DLL_EXPORT Entity : public MoveableObject
 	{
 	public:
 
@@ -23,14 +24,6 @@ namespace NiFrame
 
 		~Entity( void );
 
-		void Translate( const Vector3& translation );
-		void Rotate( const Matrix4x4& rotation );
-		void Scale( const Vector3& scale );
-
-		void SetTranslation( const Vector3& translation );
-		void SetRotation( const Matrix4x4& rotation );
-		void SetScale( const Vector3& scale );
-
 		MeshPtr GetMesh( void ) const;
 		void SetMesh( MeshPtr newMesh );
 
@@ -40,15 +33,16 @@ namespace NiFrame
 
 		void UpdateModelMatrix( void );
 
-		Matrix4x4 m_ModelMatrix, m_Rotation;
-		Vector3 m_Translation, m_Scale;
+		Matrix4x4 m_ModelMatrix;
+		Vector3 m_Scale;
 
 		MeshPtr m_MeshPointer;
 
 	private:
 	};
 
-	typedef ReferenceCounted< Entity > EntityPtr;
+	//typedef ReferenceCounted< Entity > EntityPtr;
+	TYPEDEF_EXPORT_REFCOUNT_PTR( Entity )
 
 }
 

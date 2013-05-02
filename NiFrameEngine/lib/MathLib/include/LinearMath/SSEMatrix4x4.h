@@ -11,7 +11,7 @@ namespace LinearMath
 {
 	class SSEVector3;
 
-	__declspec(align(16)) class SSEMatrix4x4
+	class SSEMatrix4x4
 	{
 	public:
 		SSEMatrix4x4();

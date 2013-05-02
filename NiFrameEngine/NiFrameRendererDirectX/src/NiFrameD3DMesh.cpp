@@ -15,7 +15,7 @@ namespace NiFrame
 	{
 		D3DVertex vertex;
 		void * pData = nullptr;
-		m_GPU_vertexBuffer->Lock(0, vertexBuffer->size()* sizeof(D3DVertex),&pData,0);
+		m_GPU_vertexBuffer->Lock(0, (UINT) vertexBuffer->size()* sizeof(D3DVertex),&pData,0);
 		for(int i = 0 ; i < vertexBuffer->size(); ++i)
 		{
 			vertex.x = ((*vertexBuffer)[i]).GetX();
@@ -26,7 +26,7 @@ namespace NiFrame
 		}
 		m_GPU_vertexBuffer->Unlock();
 
-		m_GPU_indexBuffer->Lock(0, indexBuffer->size()*sizeof(uint32), &pData, 0);
+		m_GPU_indexBuffer->Lock(0, (UINT) indexBuffer->size()*sizeof(uint32), &pData, 0);
 		memcpy(pData,indexBuffer->data(),sizeof(uint32)*indexBuffer->size());
 		m_GPU_indexBuffer->Unlock();
 	}

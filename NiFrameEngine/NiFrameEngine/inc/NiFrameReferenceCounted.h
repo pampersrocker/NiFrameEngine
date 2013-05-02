@@ -10,6 +10,7 @@ namespace NiFrame
 	class ReferenceCounted
 	{
 	public:
+		ReferenceCounted( void );
 		ReferenceCounted( T* pointer );
 		ReferenceCounted( const ReferenceCounted< T > & refCount );
 		ReferenceCounted( ReferenceCounted< T >&& refCount );
@@ -34,6 +35,14 @@ namespace NiFrame
 		uint32* m_Count;
 
 	};
+
+	template< typename T >
+	NiFrame::ReferenceCounted<T>::ReferenceCounted( void ):
+		m_CountedPointer( nullptr ),
+		m_Count( new uint32( 1 ) )
+	{
+
+	}
 
 	template< typename T >
 	NiFrame::ReferenceCounted<T>::ReferenceCounted( ReferenceCounted< T >&& refCount ) :

@@ -55,6 +55,10 @@ public:
 
 		// Methods
 
+		ScalarType GetX( void ) const;
+		ScalarType GetY( void ) const;
+		ScalarType GetZ( void ) const;
+
 		ScalarType LengthSquared() const;
 		ScalarType Length() const;
 		void Normalize();
@@ -67,6 +71,24 @@ protected:
 private:
 
 	};
+
+	template < typename ScalarType >
+	ScalarType LinearMath::Vector3_tpl<ScalarType>::GetZ( void ) const
+	{
+		return Z;
+	}
+
+	template < typename ScalarType >
+	ScalarType LinearMath::Vector3_tpl<ScalarType>::GetY( void ) const
+	{
+		return Y;
+	}
+
+	template < typename ScalarType >
+	ScalarType LinearMath::Vector3_tpl<ScalarType>::GetX( void ) const
+	{
+		return X;
+	}
 
 
 	template < typename ScalarType > Vector3_tpl< ScalarType >::Vector3_tpl( void ) :

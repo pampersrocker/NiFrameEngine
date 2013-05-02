@@ -169,9 +169,13 @@
     <ClInclude Include="inc\NiFrameColourValue.h" />
     <ClInclude Include="inc\NiFrameEnginePCH.h" />
     <ClInclude Include="inc\NiFrameEntity.h" />
+    <ClInclude Include="inc\NiFrameMacros.h" />
     <ClInclude Include="inc\NiFrameMaterial.h" />
     <ClInclude Include="inc\NiFrameMesh.h" />
+    <ClInclude Include="inc\NiFrameMovableObject.h" />
     <ClInclude Include="inc\NiFrameReferenceCounted.h" />
+    <ClInclude Include="inc\NiFrameScene.h" />
+    <ClInclude Include="inc\NiFrameSceneNode.h" />
     <ClInclude Include="inc\NiFrameShader.h" />
     <ClInclude Include="inc\NiFramePrerequisites.h" />
     <ClInclude Include="inc\NiFrameRenderDevice.h" />
@@ -186,6 +190,9 @@
     <ClInclude Include="inc\NiFrameSettingsDialog.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NiFrameSceneNode.cpp" />
+    <ClCompile Include="src\NiFrameMovableObject.cpp" />
+    <ClCompile Include="src\NiFrameScene.cpp" />
     <ClCompile Include="src\NiFrameMaterial.cpp" />
     <ClCompile Include="src\NiFrameEntity.cpp" />
     <ClCompile Include="src\NiFrameMesh.cpp" />
