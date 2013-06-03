@@ -2,9 +2,9 @@
 #ifndef NiFrameResolution_h__
 	#define NiFrameResolution_h__
 
-	#include "NiFrameEnginePCH.h"
-	#include "NiFrameStringableObject.h"
-	#include "NiFrameStringUtils.h"
+	#include "NiFrameEnginePCH.hpp"
+	#include "NiFrameStringableObject.hpp"
+	#include "NiFrameStringUtils.hpp"
 
 namespace NiFrame
 {

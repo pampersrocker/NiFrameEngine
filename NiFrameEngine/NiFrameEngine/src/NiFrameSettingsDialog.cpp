@@ -1,10 +1,10 @@
-#include "NiFrameEnginePCH.h"
-#include "NiFrameSettingsDialog.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameSettingsDialog.hpp"
 
-#include "NiFrameRenderDevice.h"
-#include "NiFrameDllEntryPoint.h"
-#include "NiFramePrerequisites.h"
-#include "NiFrameRenderDeviceParameters.h"
+#include "NiFrameRenderDevice.hpp"
+#include "NiFrameDllEntryPoint.hpp"
+#include "NiFramePrerequisites.hpp"
+#include "NiFrameRenderDeviceParameters.hpp"
 
 
 

@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)lib\VisualLeakDetector\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +133,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,7 +153,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir);inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath</AdditionalIncludeDirectories>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,29 +165,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameDllEntryPoint.h" />
-    <ClInclude Include="inc\NiFrameColourValue.h" />
-    <ClInclude Include="inc\NiFrameEnginePCH.h" />
-    <ClInclude Include="inc\NiFrameEntity.h" />
-    <ClInclude Include="inc\NiFrameMacros.h" />
-    <ClInclude Include="inc\NiFrameMaterial.h" />
-    <ClInclude Include="inc\NiFrameMesh.h" />
-    <ClInclude Include="inc\NiFrameMovableObject.h" />
-    <ClInclude Include="inc\NiFrameReferenceCounted.h" />
-    <ClInclude Include="inc\NiFrameScene.h" />
-    <ClInclude Include="inc\NiFrameSceneNode.h" />
-    <ClInclude Include="inc\NiFrameShader.h" />
-    <ClInclude Include="inc\NiFramePrerequisites.h" />
-    <ClInclude Include="inc\NiFrameRenderDevice.h" />
-    <ClInclude Include="inc\NiFrameRenderer.h" />
-    <ClInclude Include="inc\NiFrameResolution.h" />
-    <ClInclude Include="inc\NiFrameSTLTypes.h" />
-    <ClInclude Include="inc\NiFrameRenderDeviceParameters.h" />
-    <ClInclude Include="inc\NiFrameStringableBool.h" />
-    <ClInclude Include="inc\NiFrameStringableObject.h" />
-    <ClInclude Include="inc\NiFrameStringUtils.h" />
+    <ClInclude Include="inc\NiFrameDllEntryPoint.hpp" />
+    <ClInclude Include="inc\NiFrameColourValue.hpp" />
+    <ClInclude Include="inc\NiFrameEnginePCH.hpp" />
+    <ClInclude Include="inc\NiFrameEntity.hpp" />
+    <ClInclude Include="inc\NiFrameMacros.hpp" />
+    <ClInclude Include="inc\NiFrameMaterial.hpp" />
+    <ClInclude Include="inc\NiFrameMesh.hpp" />
+    <ClInclude Include="inc\NiFrameMovableObject.hpp" />
+    <ClInclude Include="inc\NiFrameReferenceCounted.hpp" />
+    <ClInclude Include="inc\NiFrameScene.hpp" />
+    <ClInclude Include="inc\NiFrameSceneNode.hpp" />
+    <ClInclude Include="inc\NiFrameShader.hpp" />
+    <ClInclude Include="inc\NiFramePrerequisites.hpp" />
+    <ClInclude Include="inc\NiFrameRenderDevice.hpp" />
+    <ClInclude Include="inc\NiFrameRenderer.hpp" />
+    <ClInclude Include="inc\NiFrameResolution.hpp" />
+    <ClInclude Include="inc\NiFrameSTLTypes.hpp" />
+    <ClInclude Include="inc\NiFrameRenderDeviceParameters.hpp" />
+    <ClInclude Include="inc\NiFrameStringableBool.hpp" />
+    <ClInclude Include="inc\NiFrameStringableObject.hpp" />
+    <ClInclude Include="inc\NiFrameStringUtils.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="inc\NiFrameSettingsDialog.h" />
+    <ClInclude Include="inc\NiFrameSettingsDialog.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameSceneNode.cpp" />
@@ -205,10 +205,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NiFrameEnginePCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NiFrameEnginePCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NiFrameEnginePCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NiFrameEnginePCH.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\NiFramePrerequisites.cpp" />
     <ClCompile Include="src\NiFrameRenderDevice.cpp" />

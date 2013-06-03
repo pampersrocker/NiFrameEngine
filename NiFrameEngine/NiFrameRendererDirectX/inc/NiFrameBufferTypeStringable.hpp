@@ -2,8 +2,8 @@
 #ifndef BufferTypeStringable_h__
 #define BufferTypeStringable_h__
 
-#include "NiFrameRendererPCH.h"
-#include "NiFrameStringableObject.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameStringableObject.hpp"
 
 namespace NiFrame
 {

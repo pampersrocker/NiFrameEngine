@@ -1,7 +1,7 @@
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
-#include "NiFrameRenderDevice.h"
+#include "NiFrameRenderDevice.hpp"
 
 namespace NiFrame
 {

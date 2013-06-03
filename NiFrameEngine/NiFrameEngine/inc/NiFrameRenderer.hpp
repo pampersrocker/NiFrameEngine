@@ -2,7 +2,7 @@
 #ifndef NiFrameRenderer_h__
 #define NiFrameRenderer_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

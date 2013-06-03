@@ -1,6 +1,6 @@
 #pragma once
-#include "NiFrameEnginePCH.h"
-#include "NiFrameStringableObject.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameStringableObject.hpp"
 #ifndef FullScreen_h__
 #define FullScreen_h__
 

@@ -1,16 +1,16 @@
-#include "NiFrameRendererPCH.h"
-#include "NiFrameDirectXRenderDevice.h"
-#include "NiFrameRenderDeviceParameters.h"
-#include "NiFrameStringUtils.h"
-#include "NiFrameD3DResolution.h"
-#include "NiFrameStringableBool.h"
-#include "NiFrameD3DDevTypeStringable.h"
-#include "NiFrameBufferTypeStringable.h"
-#include "NiFrameMultiSample.h"
-#include "NiFrameD3DMultiSampleQuality.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameDirectXRenderDevice.hpp"
+#include "NiFrameRenderDeviceParameters.hpp"
+#include "NiFrameStringUtils.hpp"
+#include "NiFrameD3DResolution.hpp"
+#include "NiFrameStringableBool.hpp"
+#include "NiFrameD3DDevTypeStringable.hpp"
+#include "NiFrameBufferTypeStringable.hpp"
+#include "NiFrameMultiSample.hpp"
+#include "NiFrameD3DMultiSampleQuality.hpp"
 #include <vector>
 #include "SSEMatrix4x4.h"
-#include "..\inc\NiFrameD3DMesh.h"
+#include "..\inc\NiFrameD3DMesh.hpp"
 
 using namespace LinearMath;
 

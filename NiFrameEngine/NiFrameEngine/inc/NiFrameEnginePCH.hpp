@@ -9,10 +9,10 @@
 
 #include <assert.h>
 
-#include "NiFrameMacros.h"
+#include "NiFrameMacros.hpp"
 
-#include "NiFramePrerequisites.h"
-#include "NiFrameSTLTypes.h"
+#include "NiFramePrerequisites.hpp"
+#include "NiFrameSTLTypes.hpp"
 
 #ifdef _DEBUG
 #include "vld.h"

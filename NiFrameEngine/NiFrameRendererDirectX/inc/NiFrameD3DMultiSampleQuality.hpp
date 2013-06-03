@@ -1,8 +1,8 @@
 #pragma once
 #ifndef NiFrameMultiSampleQuality_h__
 #define NiFrameMultiSampleQuality_h__
-#include "NiFrameRendererPCH.h"
-#include "NiFrameStringableObject.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameStringableObject.hpp"
 
 namespace NiFrame
 {

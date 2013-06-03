@@ -1,5 +1,5 @@
-#include "NiFrameRendererPCH.h"
-#include "NiFrameD3DMultiSampleQuality.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameD3DMultiSampleQuality.hpp"
 
 namespace NiFrame
 {

@@ -2,7 +2,7 @@
 #ifndef RenderDeviceParameters_h__
 #define RenderDeviceParameters_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

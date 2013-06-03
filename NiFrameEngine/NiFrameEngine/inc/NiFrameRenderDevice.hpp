@@ -2,8 +2,8 @@
 #ifndef NiFrameRenderDevice_h__
 #define NiFrameRenderDevice_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameMesh.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameMesh.hpp"
 
 namespace NiFrame
 {

@@ -1,12 +1,12 @@
-#include "NiFrameEnginePCH.h"
-#include "NiFrameRenderer.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameRenderer.hpp"
 #include <winuser.h>
 #include <exception>
-#include "NiFrameRenderDevice.h"
+#include "NiFrameRenderDevice.hpp"
 #include "resource.h"
 #include <commctrl.h>
-#include "NiFrameDllEntryPoint.h"
-#include "..\inc\NiFrameSettingsDialog.h"
+#include "NiFrameDllEntryPoint.hpp"
+#include "..\inc\NiFrameSettingsDialog.hpp"
 
 namespace NiFrame
 {

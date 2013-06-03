@@ -2,8 +2,8 @@
 #ifndef NiFrameMesh_h__
 #define NiFrameMesh_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameReferenceCounted.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameReferenceCounted.hpp"
 
 typedef NiFrame::vector<NiFrame::Vector3> VertexBuffer;
 typedef NiFrame::vector<NiFrame::uint32> IndexBuffer;

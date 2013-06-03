@@ -2,8 +2,8 @@
 #ifndef NiFrameMaterial_h__
 #define NiFrameMaterial_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameReferenceCounted.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameReferenceCounted.hpp"
 
 namespace NiFrame
 {

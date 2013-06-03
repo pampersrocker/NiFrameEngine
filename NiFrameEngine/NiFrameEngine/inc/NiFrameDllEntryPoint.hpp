@@ -2,7 +2,7 @@
 #ifndef DllEntryPoint_h__
 #define DllEntryPoint_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 class DllEntryPoint
 {

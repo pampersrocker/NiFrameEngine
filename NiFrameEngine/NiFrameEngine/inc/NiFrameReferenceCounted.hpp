@@ -2,7 +2,7 @@
 #ifndef NiFrameReferenceCounted_h__
 #define NiFrameReferenceCounted_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

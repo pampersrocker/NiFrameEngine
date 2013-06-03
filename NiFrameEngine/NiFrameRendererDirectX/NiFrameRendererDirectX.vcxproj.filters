@@ -15,28 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameRendererPCH.h">
+    <ClInclude Include="inc\NiFrameBufferTypeStringable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DResolution.h">
+    <ClInclude Include="inc\NiFrameD3DDevTypeStringable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DDevTypeStringable.h">
+    <ClInclude Include="inc\NiFrameD3DMesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameBufferTypeStringable.h">
+    <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameMultiSample.h">
+    <ClInclude Include="inc\NiFrameD3DResolution.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.h">
+    <ClInclude Include="inc\NiFrameDirectXRenderDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DMesh.h">
+    <ClInclude Include="inc\NiFrameMultiSample.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameDirectXRenderDevice.h">
+    <ClInclude Include="inc\NiFrameRendererPCH.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

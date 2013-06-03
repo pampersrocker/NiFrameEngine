@@ -1,7 +1,7 @@
 #pragma once
-#include "NiFrameRendererPCH.h"
-#include "NiFrameRenderDevice.h"
-#include "NiFrameRenderDeviceParameters.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameRenderDevice.hpp"
+#include "NiFrameRenderDeviceParameters.hpp"
 #include "SSEMatrix4x4.h"
 
 #ifndef DirectXRenderDevice_h__

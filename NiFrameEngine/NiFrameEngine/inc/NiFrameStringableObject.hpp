@@ -1,7 +1,7 @@
 #pragma once
 #ifndef StringableObject_h__
 #define StringableObject_h__
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

@@ -1,5 +1,5 @@
-#include "NiFrameEnginePCH.h"
-#include "NiFrameEntity.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameEntity.hpp"
 
 namespace NiFrame
 {

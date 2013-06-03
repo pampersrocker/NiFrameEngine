@@ -1,4 +1,4 @@
-#include "NiFrameRendererPCH.h"
+#include "NiFrameRendererPCH.hpp"
 
 
 #ifdef _DEBUG

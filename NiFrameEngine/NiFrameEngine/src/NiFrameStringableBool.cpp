@@ -1,5 +1,5 @@
-#include "NiFrameEnginePCH.h"
-#include "NiFrameStringableBool.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameStringableBool.hpp"
 
 NiFrame::StringableBool::StringableBool( bool value ) :
 	m_Bool( value )

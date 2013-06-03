@@ -2,8 +2,8 @@
 #ifndef NiFrameD3DMesh_h__
 #define NiFrameD3DMesh_h__
 
-#include "NiFrameRendererPCH.h"
-#include "NiFrameMesh.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameMesh.hpp"
 
 namespace NiFrame
 {

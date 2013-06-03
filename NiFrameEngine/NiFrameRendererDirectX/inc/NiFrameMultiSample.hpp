@@ -2,8 +2,8 @@
 #ifndef NiFrameMultiSample_h__
 	#define NiFrameMultiSample_h__
 
-	#include "NiFrameRendererPCH.h"
-	#include "NiFrameStringableObject.h"
+	#include "NiFrameRendererPCH.hpp"
+	#include "NiFrameStringableObject.hpp"
 
 namespace NiFrame
 {

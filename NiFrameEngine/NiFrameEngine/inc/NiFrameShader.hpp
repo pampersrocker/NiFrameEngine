@@ -2,7 +2,7 @@
 #ifndef NiFramePixelShader_h__
 #define NiFramePixelShader_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

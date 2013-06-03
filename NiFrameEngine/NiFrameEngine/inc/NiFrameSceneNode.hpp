@@ -2,9 +2,9 @@
 #ifndef NiFrameSceneNode_h__
 	#define NiFrameSceneNode_h__
 
-	#include "NiFrameEnginePCH.h"
-	#include "NiFrameReferenceCounted.h"
-	#include "NiFrameMovableObject.h"
+	#include "NiFrameEnginePCH.hpp"
+	#include "NiFrameReferenceCounted.hpp"
+	#include "NiFrameMovableObject.hpp"
 
 namespace NiFrame
 {

@@ -2,7 +2,7 @@
 #ifndef NiFramePrerequisites_h__
 	#define NiFramePrerequisites_h__
 
-	#include "NiFrameMacros.h"
+	#include "NiFrameMacros.hpp"
 	#include <string>
 	#include <stdint.h>
 

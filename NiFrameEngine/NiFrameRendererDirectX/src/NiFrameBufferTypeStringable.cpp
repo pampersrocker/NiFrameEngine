@@ -1,5 +1,5 @@
-#include "NiFrameRendererPCH.h"
-#include "NiFrameBufferTypeStringable.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameBufferTypeStringable.hpp"
 
 #define StringifyEnum( name ) # name
 

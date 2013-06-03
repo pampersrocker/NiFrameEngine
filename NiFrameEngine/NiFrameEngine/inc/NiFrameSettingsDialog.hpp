@@ -2,8 +2,8 @@
 #ifndef SettingsDialog_h__
 #define SettingsDialog_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameRenderDevice.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameRenderDevice.hpp"
 
 namespace NiFrame
 {

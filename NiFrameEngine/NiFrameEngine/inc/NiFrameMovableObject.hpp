@@ -2,8 +2,8 @@
 #ifndef NiFrameMovableObject_h__
 	#define NiFrameMovableObject_h__
 
-	#include "NiFrameEnginePCH.h"
-	#include "NiFrameReferenceCounted.h"
+	#include "NiFrameEnginePCH.hpp"
+	#include "NiFrameReferenceCounted.hpp"
 
 namespace NiFrame
 {

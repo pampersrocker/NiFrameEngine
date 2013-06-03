@@ -2,7 +2,7 @@
 #ifndef StringUtils_h__
 #define StringUtils_h__
 
-#include "NiFrameEnginePCH.h"
+#include "NiFrameEnginePCH.hpp"
 
 namespace NiFrame
 {

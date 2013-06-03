@@ -1,14 +1,14 @@
 // NiFrameApp.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
-#include "NiFrameRenderer.h"
-#include "NiFrameRenderDevice.h"
+#include "stdafx.hpp"
+#include "NiFrameRenderer.hpp"
+#include "NiFrameRenderDevice.hpp"
 #include <iostream>
-#include "NiFrameRenderDeviceParameters.h"
-#include "NiFrameStringableObject.h"
+#include "NiFrameRenderDeviceParameters.hpp"
+#include "NiFrameStringableObject.hpp"
 #include <iosfwd>
-#include "NiFrameResolution.h"
+#include "NiFrameResolution.hpp"
 
 
 using namespace NiFrame;

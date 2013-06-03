@@ -2,8 +2,8 @@
 #ifndef ColourValue_h__
 #define ColourValue_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFramePrerequisites.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFramePrerequisites.hpp"
 
 namespace NiFrame
 {

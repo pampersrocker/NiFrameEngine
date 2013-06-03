@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>D3D_DEBUG_INFO;WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameRendererPCH.hpp</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -129,7 +129,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>D3D_DEBUG_INFO;WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameRendererPCH.hpp</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalIncludeDirectories>$(SolutionDir)lib\VisualLeakDetector\include\;inc;$(SolutionDir)lib\MathLib\include\;$(SolutionDir)lib\MathLib\include\LinearMath;$(SolutionDir)NiFrameEngine\inc\;$(DXSDK_DIR)Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -150,7 +150,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameRendererPCH.hpp</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -172,7 +172,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>NiFrameRendererPCH.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NiFrameRendererPCH.hpp</PrecompiledHeaderFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion)$(ProjectName).pdb</ProgramDataBaseFileName>
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -190,14 +190,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameBufferTypeStringable.h" />
-    <ClInclude Include="inc\NiFrameDirectXRenderDevice.h" />
-    <ClInclude Include="inc\NiFrameD3DDevTypeStringable.h" />
-    <ClInclude Include="inc\NiFrameD3DMesh.h" />
-    <ClInclude Include="inc\NiFrameMultiSample.h" />
-    <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.h" />
-    <ClInclude Include="inc\NiFrameRendererPCH.h" />
-    <ClInclude Include="inc\NiFrameD3DResolution.h" />
+    <ClInclude Include="inc\NiFrameBufferTypeStringable.hpp" />
+    <ClInclude Include="inc\NiFrameDirectXRenderDevice.hpp" />
+    <ClInclude Include="inc\NiFrameD3DDevTypeStringable.hpp" />
+    <ClInclude Include="inc\NiFrameD3DMesh.hpp" />
+    <ClInclude Include="inc\NiFrameMultiSample.hpp" />
+    <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.hpp" />
+    <ClInclude Include="inc\NiFrameRendererPCH.hpp" />
+    <ClInclude Include="inc\NiFrameD3DResolution.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\NiFrameD3DMesh.cpp" />
@@ -212,10 +212,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NiFrameRendererPCH.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

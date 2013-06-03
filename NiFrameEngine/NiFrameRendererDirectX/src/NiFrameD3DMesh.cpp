@@ -1,5 +1,5 @@
-#include "NiFrameRendererPCH.h"
-#include "NiFrameD3DMesh.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameD3DMesh.hpp"
 
 namespace NiFrame
 {

@@ -3,8 +3,8 @@
 #ifndef NiFrameD3DResolution_h__
 #define NiFrameD3DResolution_h__
 
-#include "NiFrameRendererPCH.h"
-#include "NiFrameResolution.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameResolution.hpp"
 
 namespace NiFrame
 {

@@ -2,8 +2,8 @@
 #ifndef NiFrameScene_h__
 #define NiFrameScene_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameSceneNode.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameSceneNode.hpp"
 
 
 namespace NiFrame

@@ -1,5 +1,5 @@
-#include "NiFrameRendererPCH.h"
-#include "NiFrameD3DDevTypeStringable.h"
+#include "NiFrameRendererPCH.hpp"
+#include "NiFrameD3DDevTypeStringable.hpp"
 
 namespace NiFrame
 {

@@ -2,10 +2,10 @@
 #ifndef NiFrameEntity_h__
 #define NiFrameEntity_h__
 
-#include "NiFrameEnginePCH.h"
-#include "NiFrameReferenceCounted.h"
-#include "NiFrameMesh.h"
-#include "NiFrameMovableObject.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameReferenceCounted.hpp"
+#include "NiFrameMesh.hpp"
+#include "NiFrameMovableObject.hpp"
 
 namespace NiFrame
 {

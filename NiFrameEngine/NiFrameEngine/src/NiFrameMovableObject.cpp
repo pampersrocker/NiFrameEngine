@@ -1,5 +1,5 @@
-#include "NiFrameEnginePCH.h"
-#include "NiFrameMovableObject.h"
+#include "NiFrameEnginePCH.hpp"
+#include "NiFrameMovableObject.hpp"
 
 namespace NiFrame
 {
