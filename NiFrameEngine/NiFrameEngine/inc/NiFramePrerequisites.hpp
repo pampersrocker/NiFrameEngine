@@ -7,16 +7,16 @@
 	#include <stdint.h>
 
 // Import MathLib
-	#include <Vector2.h>
-	#include <Vector3.h>
-	#include <Matrix4x4.h>
+	#include <Vector2.hpp>
+	#include <Vector3.hpp>
+	#include <Matrix4x4.hpp>
 
 // Active this switch if you want do enable double precision
 // #define USE_DOUBLE_PRECISION
 
 // Use SSE if we are not using double precision
 	#ifndef USE_DOUBLE_PRECISION
-		#include <SSEVector3.h>
+		#include <SSEVector3.hpp>
 	#endif	// !USE_DOUBLE_PRECISION
 
 namespace NiFrame

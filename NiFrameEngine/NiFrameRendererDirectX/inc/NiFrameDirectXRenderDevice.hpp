@@ -2,7 +2,7 @@
 #include "NiFrameRendererPCH.hpp"
 #include "NiFrameRenderDevice.hpp"
 #include "NiFrameRenderDeviceParameters.hpp"
-#include "SSEMatrix4x4.h"
+#include <SSEMatrix4x4.hpp>
 
 #ifndef DirectXRenderDevice_h__
 	#define DirectXRenderDevice_h__
