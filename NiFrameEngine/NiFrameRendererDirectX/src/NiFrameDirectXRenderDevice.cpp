@@ -9,7 +9,7 @@
 #include "NiFrameMultiSample.hpp"
 #include "NiFrameD3DMultiSampleQuality.hpp"
 #include <vector>
-#include <SSEMatrix4x4.hpp>
+#include "LinearMath/SSEVector3.hpp"
 #include "NiFrameD3DMesh.hpp"
 
 using namespace LinearMath;
