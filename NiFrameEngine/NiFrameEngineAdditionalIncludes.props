@@ -5,7 +5,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)NiFrameEngine\;$(SolutionDir)NiFrameEngine\inc;inc;$(SolutionDir)lib\MathLib\MathLib\MathLib\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)NiFrameEngine\;$(SolutionDir)NiFrameEngine\inc;$(SolutionDir)lib\VisualLeakDetector\include\;inc;$(SolutionDir)lib\MathLib\MathLib\MathLib\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

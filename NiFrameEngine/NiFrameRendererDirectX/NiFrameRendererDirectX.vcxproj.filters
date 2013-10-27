@@ -15,54 +15,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameBufferTypeStringable.hpp">
+    <ClInclude Include="inc\NFBufferTypeStringable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DDevTypeStringable.hpp">
+    <ClInclude Include="inc\NFD3DDevTypeStringable.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DMesh.hpp">
+    <ClInclude Include="inc\NFD3DMesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DMultiSampleQuality.hpp">
+    <ClInclude Include="inc\NFD3DMultiSampleQuality.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameD3DResolution.hpp">
+    <ClInclude Include="inc\NFD3DResolution.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameDirectXRenderDevice.hpp">
+    <ClInclude Include="inc\NFDirectXRenderDevice.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameMultiSample.hpp">
+    <ClInclude Include="inc\NFMultiSample.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NiFrameRendererPCH.hpp">
+    <ClInclude Include="inc\NFRendererPCH.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\NiFrameRendererPCH.cpp">
+    <ClCompile Include="src\NFBufferTypeStringable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameD3DResolution.cpp">
+    <ClCompile Include="src\NFD3DDevTypeStringable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameD3DDevTypeStringable.cpp">
+    <ClCompile Include="src\NFD3DMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameBufferTypeStringable.cpp">
+    <ClCompile Include="src\NFD3DMultiSampleQuality.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameMultiSample.cpp">
+    <ClCompile Include="src\NFD3DResolution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameD3DMultiSampleQuality.cpp">
+    <ClCompile Include="src\NFDirectXRenderDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameD3DMesh.cpp">
+    <ClCompile Include="src\NFMultiSample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NiFrameDirectXRenderDevice.cpp">
+    <ClCompile Include="src\NFRendererPCH.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

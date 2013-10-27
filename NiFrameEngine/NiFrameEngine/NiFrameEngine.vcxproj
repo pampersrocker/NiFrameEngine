@@ -92,7 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NFEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,7 +110,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;_DEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NFEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -130,7 +130,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NFEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,7 +149,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NIFRAME_DLL_BUILD;WIN32;NDEBUG;_WINDOWS;_USRDLL;NIFRAMEENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <PrecompiledHeaderFile>NiFrameEnginePCH.hpp</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>NFEnginePCH.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,53 +161,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameDllEntryPoint.hpp" />
-    <ClInclude Include="inc\NiFrameColourValue.hpp" />
-    <ClInclude Include="inc\NiFrameEnginePCH.hpp" />
-    <ClInclude Include="inc\NiFrameEntity.hpp" />
-    <ClInclude Include="inc\NiFrameMacros.hpp" />
-    <ClInclude Include="inc\NiFrameMaterial.hpp" />
-    <ClInclude Include="inc\NiFrameMesh.hpp" />
-    <ClInclude Include="inc\NiFrameMovableObject.hpp" />
-    <ClInclude Include="inc\NiFrameReferenceCounted.hpp" />
-    <ClInclude Include="inc\NiFrameScene.hpp" />
-    <ClInclude Include="inc\NiFrameSceneNode.hpp" />
-    <ClInclude Include="inc\NiFrameShader.hpp" />
-    <ClInclude Include="inc\NiFramePrerequisites.hpp" />
-    <ClInclude Include="inc\NiFrameRenderDevice.hpp" />
-    <ClInclude Include="inc\NiFrameRenderer.hpp" />
-    <ClInclude Include="inc\NiFrameResolution.hpp" />
-    <ClInclude Include="inc\NiFrameSTLTypes.hpp" />
-    <ClInclude Include="inc\NiFrameRenderDeviceParameters.hpp" />
-    <ClInclude Include="inc\NiFrameStringableBool.hpp" />
-    <ClInclude Include="inc\NiFrameStringableObject.hpp" />
-    <ClInclude Include="inc\NiFrameStringUtils.hpp" />
+    <ClInclude Include="inc\NFResourceLoader.hpp" />
+    <ClInclude Include="inc\NFDllEntryPoint.hpp" />
+    <ClInclude Include="inc\NFColourValue.hpp" />
+    <ClInclude Include="inc\NFEnginePCH.hpp" />
+    <ClInclude Include="inc\NFEntity.hpp" />
+    <ClInclude Include="inc\NFMacros.hpp" />
+    <ClInclude Include="inc\NFMaterial.hpp" />
+    <ClInclude Include="inc\NFMesh.hpp" />
+    <ClInclude Include="inc\NFMovableObject.hpp" />
+    <ClInclude Include="inc\NFReferenceCounted.hpp" />
+    <ClInclude Include="inc\NFScene.hpp" />
+    <ClInclude Include="inc\NFSceneNode.hpp" />
+    <ClInclude Include="inc\NFShader.hpp" />
+    <ClInclude Include="inc\NFPrerequisites.hpp" />
+    <ClInclude Include="inc\NFRenderDevice.hpp" />
+    <ClInclude Include="inc\NFRenderer.hpp" />
+    <ClInclude Include="inc\NFResolution.hpp" />
+    <ClInclude Include="inc\NFSTLTypes.hpp" />
+    <ClInclude Include="inc\NFRenderDeviceParameters.hpp" />
+    <ClInclude Include="inc\NFStringableBool.hpp" />
+    <ClInclude Include="inc\NFStringableObject.hpp" />
+    <ClInclude Include="inc\NFStringUtils.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="inc\NiFrameSettingsDialog.hpp" />
+    <ClInclude Include="inc\NFSettingsDialog.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\NiFrameSceneNode.cpp" />
-    <ClCompile Include="src\NiFrameMovableObject.cpp" />
-    <ClCompile Include="src\NiFrameScene.cpp" />
-    <ClCompile Include="src\NiFrameMaterial.cpp" />
-    <ClCompile Include="src\NiFrameEntity.cpp" />
-    <ClCompile Include="src\NiFrameMesh.cpp" />
-    <ClCompile Include="src\NiFrameSettingsDialog.cpp" />
-    <ClCompile Include="src\NiFrameDllEntryPoint.cpp" />
-    <ClCompile Include="src\NiFrameStringUtils.cpp" />
-    <ClCompile Include="src\NiFrameColourValue.cpp" />
-    <ClCompile Include="src\NiFrameEnginePCH.cpp">
+    <ClCompile Include="src\NFSceneNode.cpp" />
+    <ClCompile Include="src\NFMovableObject.cpp" />
+    <ClCompile Include="src\NFScene.cpp" />
+    <ClCompile Include="src\NFMaterial.cpp" />
+    <ClCompile Include="src\NFEntity.cpp" />
+    <ClCompile Include="src\NFMesh.cpp" />
+    <ClCompile Include="src\NFSettingsDialog.cpp" />
+    <ClCompile Include="src\NFDllEntryPoint.cpp" />
+    <ClCompile Include="src\NFStringUtils.cpp" />
+    <ClCompile Include="src\NFColourValue.cpp" />
+    <ClCompile Include="src\NFEnginePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\NiFramePrerequisites.cpp" />
-    <ClCompile Include="src\NiFrameRenderDevice.cpp" />
-    <ClCompile Include="src\NiFrameRenderDeviceParameters.cpp" />
-    <ClCompile Include="src\NiFrameRenderer.cpp" />
-    <ClCompile Include="src\NiFrameResolution.cpp" />
-    <ClCompile Include="src\NiFrameStringableBool.cpp" />
+    <ClCompile Include="src\NFPrerequisites.cpp" />
+    <ClCompile Include="src\NFRenderDevice.cpp" />
+    <ClCompile Include="src\NFRenderDeviceParameters.cpp" />
+    <ClCompile Include="src\NFRenderer.cpp" />
+    <ClCompile Include="src\NFResolution.cpp" />
+    <ClCompile Include="src\NFStringableBool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc" />
