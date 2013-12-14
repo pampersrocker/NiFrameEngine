@@ -1,3 +1,4 @@
 [submodule "NiFrameEngine/lib/MathLib"]
 	path = NiFrameEngine/lib/MathLib
 	url = https://github.com/Marvin-Pohl/MathLib.git
+	branch = master
