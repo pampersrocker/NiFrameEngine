@@ -7,12 +7,17 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NiFrameD3DX", "NiFrameRende
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NiFrameEngine", "NiFrameEngine\NiFrameEngine.vcxproj", "{CC0E65DC-D25C-4D6A-BED4-1031849881B7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B} = {92281BD6-BBB9-456D-BF18-DF505FEF6D4B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NiFrameApp", "NiFrameApp\NiFrameApp.vcxproj", "{7A5292CA-6C03-4CC8-82AF-8E6E451B4277}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CF53209C-32C2-480E-935B-756BD7FDEC70} = {CF53209C-32C2-480E-935B-756BD7FDEC70}
 		{CC0E65DC-D25C-4D6A-BED4-1031849881B7} = {CC0E65DC-D25C-4D6A-BED4-1031849881B7}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathLib", "lib\MathLib\MathLib\MathLib\MathLib.vcxproj", "{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +51,14 @@ Global
 		{7A5292CA-6C03-4CC8-82AF-8E6E451B4277}.Release|Win32.Build.0 = Release|Win32
 		{7A5292CA-6C03-4CC8-82AF-8E6E451B4277}.Release|x64.ActiveCfg = Release|x64
 		{7A5292CA-6C03-4CC8-82AF-8E6E451B4277}.Release|x64.Build.0 = Release|x64
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Debug|Win32.Build.0 = Debug|Win32
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Debug|x64.ActiveCfg = Debug|x64
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Debug|x64.Build.0 = Debug|x64
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Release|Win32.ActiveCfg = Release|Win32
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Release|Win32.Build.0 = Release|Win32
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Release|x64.ActiveCfg = Release|x64
+		{92281BD6-BBB9-456D-BF18-DF505FEF6D4B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
