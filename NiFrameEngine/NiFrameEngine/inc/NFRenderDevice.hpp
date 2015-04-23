@@ -16,7 +16,7 @@ namespace nfe
   public:
 
     virtual void SetupDevice(
-      HWND hMainWindow,
+      NativeHandle hMainWindow,
       const map< String, uint32 >& renderDeviceParameters ,
       bool log = true ) = 0;
 
@@ -52,7 +52,7 @@ namespace nfe
 
 
 }
-
+#ifdef WIN32
 extern "C"
 {
   HRESULT __declspec( dllexport ) CreateRenderDevice(HINSTANCE hdll, nfe::RenderDevice** renderDevice);
@@ -61,6 +61,7 @@ extern "C"
   HRESULT __declspec( dllexport ) ReleaseRenderDevice( nfe::RenderDevice** renderDevice);
   typedef HRESULT (*RELEASERENDERDEVICE)( nfe::RenderDevice** renderDevice);
 };
+#endif
 
 #endif // NiFrameRenderDevice_h__
 

@@ -1,6 +1,8 @@
 #include "NFEnginePCH.hpp"
 #include "NFDllEntryPoint.hpp"
 
+#ifdef WIN32
+
 HINSTANCE DllEntryPoint::dllInstance = nullptr;
 
 BOOL WINAPI DllMain(
@@ -9,8 +11,8 @@ BOOL WINAPI DllMain(
   LPVOID lpReserved )  // reserved
 {
   // Perform actions based on the reason for calling.
-  switch( fdwReason ) 
-  { 
+  switch( fdwReason )
+  {
   case DLL_PROCESS_ATTACH:
     // Initialize once for each new process.
     // Return FALSE to fail DLL load.
@@ -42,3 +44,4 @@ HINSTANCE DllEntryPoint::GetInstance()
 {
   return dllInstance;
 }
+#endif

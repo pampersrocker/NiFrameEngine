@@ -5,6 +5,7 @@ NiFrameEngine/tmp
 NiFrameEngine/lib32
 NiFrameEngine/lib64
 ipch
+Intermediate/
 
 #Visual Studio 
 *.suo

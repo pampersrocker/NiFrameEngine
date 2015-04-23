@@ -26,13 +26,15 @@ namespace nfe
   #else  // Use single precision
   typedef float Real;
   #endif  // USE_DOUBLE_PRECISSION
-
+#ifdef WIN32
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector3_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector2_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Matrix4x4_tpl< Real >;
+#endif
   typedef LinearMath::Vector3_tpl< Real > NIFRAME_DLL_EXPORT Vector3;
   typedef LinearMath::Vector2_tpl< Real > NIFRAME_DLL_EXPORT Vector2;
   typedef LinearMath::Matrix4x4_tpl< Real > NIFRAME_DLL_EXPORT Matrix4x4;
+
 
   struct RealHelper
   {
@@ -40,8 +42,9 @@ namespace nfe
     static const Real ONE;
     static const Real NEGATIVE_ONE;
   };
-
+#ifdef WIN32
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT std::basic_string< char >;
+#endif
 
   typedef std::basic_string< char > String;
   typedef std::stringbuf StringBuffer;
@@ -57,7 +60,16 @@ namespace nfe
   typedef int8_t int8;
 
   typedef size_t NFSize;
-
+#ifdef WIN32
+  typedef HWND NativeHandle;
+  typedef HRESULT NativeInstance;
+  typedef HMODULE NativeModule;
+#elif ORBIS
+  //TODO
+  typedef uint32 NativeInstance;
+  typedef uint32 NativeHandle;
+  typedef uint32 NativeModule;
+#endif
   typedef std::exception exception;
 }
 #endif  // NiFramePrerequisites_h__

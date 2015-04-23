@@ -4,6 +4,8 @@
 
 #include "NFEnginePCH.hpp"
 
+#ifdef WIN32
+
 class DllEntryPoint
 {
 public:
@@ -17,5 +19,7 @@ public:
 private:
   static HINSTANCE dllInstance;
 };
+
+#endif
 
 #endif // DllEntryPoint_h__

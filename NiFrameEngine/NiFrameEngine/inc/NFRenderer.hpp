@@ -17,12 +17,9 @@ namespace nfe
 
     void CreateDevice( const String& apiName );
 
-    HINSTANCE GetModule() const;
+    NativeInstance GetModule() const;
 
     RenderDevice* GetDevice() const;
-
-    void ShowSettingsDialog(HINSTANCE instance,  HWND parentWindow = nullptr);
-
 
 
   private:
@@ -31,7 +28,7 @@ namespace nfe
 
     RenderDevice* m_RenderDevice;
 
-    HMODULE m_hDLL;
+    NativeModule m_hDLL;
   };
 }
 

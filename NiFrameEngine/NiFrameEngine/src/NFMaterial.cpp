@@ -4,10 +4,10 @@
 namespace nfe
 {
   Material::Material( const String& name ) :
-    m_bWireframe( false ),
-    m_Name( name ),
     m_PixelShader( nullptr ),
-    m_VertexShader( nullptr )
+    m_VertexShader( nullptr ),
+    m_Name( name ),
+    m_bWireframe( false )
   {
   }
 

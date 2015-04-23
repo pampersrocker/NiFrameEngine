@@ -5,8 +5,8 @@ namespace nfe
 {
 
   Mesh::Mesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer ) :
-    m_Indices( indexBuffer ),
-    m_Vertices( vertexBuffer )
+    m_Vertices( vertexBuffer ),
+    m_Indices( indexBuffer )
   {
     //Those vector normally don't grow so we can adjust the length to save memory
     m_Indices->shrink_to_fit();

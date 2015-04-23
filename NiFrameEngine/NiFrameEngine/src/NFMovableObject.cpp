@@ -10,11 +10,11 @@ namespace nfe
     const Matrix4x4& orientation /*= Matrix4x4::IDENTITY */,
     const Vector3& scale /* = Vector3( 1.0f )*/ ) :
     m_Name( name ),
-    m_Type( type ),
+    m_Transformation( Matrix4x4::IDENTITY ),
     m_Position( pos ),
-    m_Orientation( orientation ),
     m_Scale( scale ),
-    m_Transformation( Matrix4x4::IDENTITY )
+    m_Orientation( orientation ),
+    m_Type( type )
   {
     UpdateTransformationMatrix();
   }

@@ -4,13 +4,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
   <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)NiFrameEngine\;$(SolutionDir)NiFrameEngine\inc;$(SolutionDir)lib\VisualLeakDetector\include\;inc;$(SolutionDir)lib\MathLib\MathLib\MathLib\include\</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile />
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\MathLib\MathLib\include\;$(SolutionDir)lib\VisualLeakDetector\include\;$(SolutionDir)lib\SDL\include;%(AdditionalIncludeDirectories);$(ProjectDir)/inc/</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
