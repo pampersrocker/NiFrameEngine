@@ -15,7 +15,7 @@ namespace nfe
 	public:
 		
 		Mesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer );
-		~Mesh( void );
+		virtual ~Mesh( void );
 
 		NFSize GetVertexCount( void ) const;
 		NFSize GetIndexCount( void ) const;
