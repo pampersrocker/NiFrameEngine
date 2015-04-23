@@ -26,7 +26,7 @@ namespace nfe
 			IDirect3DVertexBuffer9* GPUvertexBuffer, 
 			IDirect3DIndexBuffer9* GPUIndexBuffer );
 
-		~D3DMesh( void );
+		virtual ~D3DMesh( void );
 
 		virtual void UpdateGPUBuffers( void ) override;
 
