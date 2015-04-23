@@ -7,32 +7,32 @@
 
 namespace nfe
 {
-	class BufferTypeStringable :
-		public IStringableObject
-	{
-	public:
-		BufferTypeStringable( const _D3DFORMAT& format );
-		virtual ~BufferTypeStringable(void);
+  class BufferTypeStringable :
+    public IStringableObject
+  {
+  public:
+    BufferTypeStringable( const _D3DFORMAT& format );
+    virtual ~BufferTypeStringable(void);
 
-		virtual String ToString() const;
+    virtual String ToString() const;
 
-		_D3DFORMAT GetFormat( ) const 
-		{ 
-			return m_Format; 
-		}
-		void SetFormat( _D3DFORMAT val ) 
-		{ 
-			m_Format = val; 
-		}
+    _D3DFORMAT GetFormat( ) const
+    {
+      return m_Format;
+    }
+    void SetFormat( _D3DFORMAT val )
+    {
+      m_Format = val;
+    }
 
-	private:
-		_D3DFORMAT m_Format;
+  private:
+    _D3DFORMAT m_Format;
 
-		static map< D3DFORMAT, String >::type* D3DFormatToStringMap;
+    static map< D3DFORMAT, String >* D3DFormatToStringMap;
 
-		static map< D3DFORMAT, String >::type* PopulateMap();
-		
-	};
+    static map< D3DFORMAT, String >* PopulateMap();
+
+  };
 
 }
 

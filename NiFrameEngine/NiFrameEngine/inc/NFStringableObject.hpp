@@ -5,15 +5,15 @@
 
 namespace nfe
 {
-	class NIFRAME_DLL_EXPORT IStringableObject
-	{
-	public:
+  class NIFRAME_DLL_EXPORT IStringableObject
+  {
+  public:
 
-		virtual String ToString() const = 0;
+    virtual String ToString() const = 0;
 
-	private:
+  private:
 
-	};
+  };
 }
 
 #endif // StringableObject_h__

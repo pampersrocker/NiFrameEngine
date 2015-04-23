@@ -8,45 +8,18 @@
 
 namespace nfe
 {
-	template < typename T >
-	struct vector
-	{
-		typedef typename std::vector<T> type;
-		typedef typename std::vector<T>::iterator iterator;
-		typedef typename std::vector<T>::const_iterator const_iterator;
-		typedef typename std::vector<T>::reverse_iterator reverse_iterator;
-		typedef typename std::vector<T>::const_reverse_iterator const_reverse_iterator;
-	};
 
-	template < typename Key, typename Value >
-	struct map
-	{
-		typedef typename std::map< Key, Value > type;
-		typedef typename std::map< Key, Value >::iterator iterator;
-		typedef typename std::map< Key, Value >::const_iterator const_iterator;
-		typedef typename std::map< Key, Value >::reverse_iterator reverse_iterator;
-		typedef typename std::map< Key, Value >::const_reverse_iterator const_reverse_iterator;
-	};
+    template < typename T >
+    using vector = std::vector < T >;
 
-	template < typename T >
-	struct list
-	{
-		typedef typename std::list<T> type;
-		typedef typename std::list<T>::iterator iterator;
-		typedef typename std::list<T>::const_iterator const_iterator;
-		typedef typename std::list<T>::reverse_iterator reverse_iterator;
-		typedef typename std::list<T>::const_reverse_iterator const_reverse_iterator;
-	};
+    template < typename Key, typename Value >
+    using map = std::map < Key, Value >;
 
-	template < typename T >
-	struct deque
-	{
-		typedef typename std::deque<T> type;
-		typedef typename std::deque<T>::iterator iterator;
-		typedef typename std::deque<T>::const_iterator const_iterator;
-		typedef typename std::deque<T>::reverse_iterator reverse_iterator;
-		typedef typename std::deque<T>::const_reverse_iterator const_reverse_iterator;
-	};
+    template < typename T >
+    using list = std::list < T >;
+
+    template < typename T >
+    using deque = std::deque < T >;
 }
 
 #endif // NiFrameVector_h__

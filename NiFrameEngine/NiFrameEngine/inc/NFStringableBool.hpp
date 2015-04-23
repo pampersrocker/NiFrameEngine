@@ -6,21 +6,21 @@
 
 namespace nfe
 {
-	class NIFRAME_DLL_EXPORT StringableBool : public IStringableObject
-	{
-	public:
-		StringableBool( bool value );
-		~StringableBool();
+  class NIFRAME_DLL_EXPORT StringableBool : public IStringableObject
+  {
+  public:
+    StringableBool( bool value );
+    ~StringableBool();
 
-		virtual String ToString() const;
-		bool GetBool( ) const;
+    virtual String ToString() const;
+    bool GetBool( ) const;
 
-	private:
+  private:
 
-		bool m_Bool;
-		
-		
-	}; 
+    bool m_Bool;
+    
+    
+  }; 
 }
 
 #endif // FullScreen_h__

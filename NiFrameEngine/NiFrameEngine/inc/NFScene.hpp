@@ -8,23 +8,23 @@
 
 namespace nfe
 {
-	class NIFRAME_DLL_EXPORT Scene
-	{
-	public:
-		Scene( const String& sceneName );
-		~Scene();
+  class NIFRAME_DLL_EXPORT Scene
+  {
+  public:
+    Scene( const String& sceneName );
+    ~Scene();
 
-		SceneNodePtr GetRootSceneNode( void ) const;
+    SceneNodePtr GetRootSceneNode( void ) const;
 
-	protected:
+  protected:
 
-	private:
+  private:
 
-		String m_SceneName;
+    String m_SceneName;
 
-		SceneNodePtr m_RootSceneNode;
+    SceneNodePtr m_RootSceneNode;
 
-	};
+  };
 
 }
 

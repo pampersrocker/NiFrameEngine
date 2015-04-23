@@ -6,10 +6,10 @@
 namespace nfe
 {
 
-	RenderDevice::~RenderDevice()
-	{
+  RenderDevice::~RenderDevice()
+  {
 
-	}
+  }
 
 }
 

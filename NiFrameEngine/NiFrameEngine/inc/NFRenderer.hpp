@@ -7,32 +7,32 @@
 namespace nfe
 {
 
-	class RenderDevice;
+  class RenderDevice;
 
-	class NIFRAME_DLL_EXPORT Renderer
-	{
-	public:
-		Renderer();
-		~Renderer();
+  class NIFRAME_DLL_EXPORT Renderer
+  {
+  public:
+    Renderer();
+    ~Renderer();
 
-		void CreateDevice( const String& apiName );
+    void CreateDevice( const String& apiName );
 
-		HINSTANCE GetModule() const;
+    HINSTANCE GetModule() const;
 
-		RenderDevice* GetDevice() const;
+    RenderDevice* GetDevice() const;
 
-		void ShowSettingsDialog(HINSTANCE instance,  HWND parentWindow = nullptr);
+    void ShowSettingsDialog(HINSTANCE instance,  HWND parentWindow = nullptr);
 
 
 
-	private:
+  private:
 
-		void Release();
+    void Release();
 
-		RenderDevice* m_RenderDevice;
+    RenderDevice* m_RenderDevice;
 
-		HMODULE m_hDLL;
-	};
+    HMODULE m_hDLL;
+  };
 }
 
 

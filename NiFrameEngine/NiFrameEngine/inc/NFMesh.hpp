@@ -10,32 +10,32 @@ typedef nfe::vector<nfe::uint32> IndexBuffer;
 
 namespace nfe
 {
-	class NIFRAME_DLL_EXPORT Mesh
-	{
-	public:
-		
-		Mesh( VertexBuffer::type* vertexBuffer, IndexBuffer::type* indexBuffer );
-		virtual ~Mesh( void );
+  class NIFRAME_DLL_EXPORT Mesh
+  {
+  public:
+    
+    Mesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer );
+    virtual ~Mesh( void );
 
-		NFSize GetVertexCount( void ) const;
-		NFSize GetIndexCount( void ) const;
+    NFSize GetVertexCount( void ) const;
+    NFSize GetIndexCount( void ) const;
 
-		virtual void UpdateGPUBuffers( void ) = 0;
+    virtual void UpdateGPUBuffers( void ) = 0;
 
-		virtual void Release( void );
+    virtual void Release( void );
 
-	protected:
+  protected:
 
-		VertexBuffer::type* m_Vertices;
-		IndexBuffer::type* m_Indices; 
-	
-	private:
-		
+    VertexBuffer* m_Vertices;
+    IndexBuffer* m_Indices; 
+  
+  private:
+    
 
-	};
+  };
 
-	//typedef ReferenceCounted< Mesh > MeshPtr;
-	TYPEDEF_EXPORT_REFCOUNT_PTR( Mesh )
+  //typedef ReferenceCounted< Mesh > MeshPtr;
+  TYPEDEF_EXPORT_REFCOUNT_PTR( Mesh )
 
 }
 

@@ -10,39 +10,39 @@
 namespace nfe
 {
 
-	class NIFRAME_DLL_EXPORT Entity : public MoveableObject
-	{
-	public:
+  class NIFRAME_DLL_EXPORT Entity : public MoveableObject
+  {
+  public:
 
-		Entity( 
-			const String& name, 
-			MeshPtr mesh, 
-			const Vector3& translation = Vector3(0), 
-			const Matrix4x4& rotation = Matrix4x4::IDENTITY, 
-			const Vector3& scale = Vector3(1) 
-		);
+    Entity( 
+      const String& name, 
+      MeshPtr mesh, 
+      const Vector3& translation = Vector3(0), 
+      const Matrix4x4& rotation = Matrix4x4::IDENTITY, 
+      const Vector3& scale = Vector3(1) 
+    );
 
-		~Entity( void );
+    ~Entity( void );
 
-		MeshPtr GetMesh( void ) const;
-		void SetMesh( MeshPtr newMesh );
+    MeshPtr GetMesh( void ) const;
+    void SetMesh( MeshPtr newMesh );
 
-		void Release( void );
+    void Release( void );
 
-	protected:
+  protected:
 
-		void UpdateModelMatrix( void );
+    void UpdateModelMatrix( void );
 
-		Matrix4x4 m_ModelMatrix;
-		Vector3 m_Scale;
+    Matrix4x4 m_ModelMatrix;
+    Vector3 m_Scale;
 
-		MeshPtr m_MeshPointer;
+    MeshPtr m_MeshPointer;
 
-	private:
-	};
+  private:
+  };
 
-	//typedef ReferenceCounted< Entity > EntityPtr;
-	TYPEDEF_EXPORT_REFCOUNT_PTR( Entity )
+  //typedef ReferenceCounted< Entity > EntityPtr;
+  TYPEDEF_EXPORT_REFCOUNT_PTR( Entity )
 
 }
 

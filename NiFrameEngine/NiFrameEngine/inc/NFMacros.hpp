@@ -12,19 +12,19 @@
 
 
 #define EXPORT_STL( tpl ) \
-	NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT std::tpl;
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT std::tpl;
 
 #define EXPORT_TPL( tpl ) \
-	NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
-	
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
+  
 #define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef ReferenceCounted< tpl > tpl ## Ptr; \
-	EXPORT_TPL( ReferenceCounted< tpl > )
+  EXPORT_TPL( ReferenceCounted< tpl > )
 
-#define SAFE_DELETE(pointer)	\
-	if( pointer != nullptr )	\
-	{							\
-		delete pointer;			\
-		pointer = nullptr;		\
-	}							
+#define SAFE_DELETE(pointer)  \
+  if( pointer != nullptr )  \
+  {              \
+    delete pointer;      \
+    pointer = nullptr;    \
+  }              
 
 #endif // NiFrameMacros_h__

@@ -6,38 +6,38 @@
 
 namespace nfe
 {
-	class IStringableObject;
+  class IStringableObject;
 
-	typedef map< String, vector<IStringableObject*>::type* >::type RenderDeviceParameterList;
+  typedef map< String, vector<IStringableObject*>* > RenderDeviceParameterList;
 
-	class NIFRAME_DLL_EXPORT RenderDeviceParams
-	{
-		enum RenderDeviceParameter_t
-		{
-			ADAPTER = 0x00000001,
-			DEVICE_TYPE = 0x00000002,
-			FULLSCREEN = 0x00000004,
-			VIDEO_MODE = 0x00000008,
-			BUFFER_FORMAT = 0x00000010,
-			Z_STENCIL_BUFFER_FORMAT = 0x00000020,
-			MULTISAMPLE_TYPE = 0x00000040,
-			MULTISAMPLE_QUALITY = 0x00000080,
-		};
+  class NIFRAME_DLL_EXPORT RenderDeviceParams
+  {
+    enum RenderDeviceParameter_t
+    {
+      ADAPTER = 0x00000001,
+      DEVICE_TYPE = 0x00000002,
+      FULLSCREEN = 0x00000004,
+      VIDEO_MODE = 0x00000008,
+      BUFFER_FORMAT = 0x00000010,
+      Z_STENCIL_BUFFER_FORMAT = 0x00000020,
+      MULTISAMPLE_TYPE = 0x00000040,
+      MULTISAMPLE_QUALITY = 0x00000080,
+    };
 
-	public:
-		RenderDeviceParams( RenderDeviceParameterList* paramList = nullptr );
-		~RenderDeviceParams();
+  public:
+    RenderDeviceParams( RenderDeviceParameterList* paramList = nullptr );
+    ~RenderDeviceParams();
 
-		RenderDeviceParameterList* GetParameters( ) const;
-		void SetParameters( RenderDeviceParameterList* val );
+    RenderDeviceParameterList* GetParameters( ) const;
+    void SetParameters( RenderDeviceParameterList* val );
 
-		vector< String >::type GetParametersNames() const;
-		vector< IStringableObject* >::type GetParamterValues( const String& parameterName ) const;
+    vector< String > GetParametersNames() const;
+    vector< IStringableObject* > GetParamterValues( const String& parameterName ) const;
 
-	private:
-		RenderDeviceParameterList* m_Parameters;
+  private:
+    RenderDeviceParameterList* m_Parameters;
 
-	};
+  };
 }
 
 #endif // RenderDeviceParameters_h__

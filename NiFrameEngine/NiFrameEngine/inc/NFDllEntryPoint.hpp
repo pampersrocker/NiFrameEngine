@@ -7,15 +7,15 @@
 class DllEntryPoint
 {
 public:
-	DllEntryPoint();
-	~DllEntryPoint();
+  DllEntryPoint();
+  ~DllEntryPoint();
 
-	static void SetDLLInstance( HINSTANCE newInstance );
+  static void SetDLLInstance( HINSTANCE newInstance );
 
-	static HINSTANCE GetInstance();
+  static HINSTANCE GetInstance();
 
 private:
-	static HINSTANCE dllInstance;
+  static HINSTANCE dllInstance;
 };
 
 #endif // DllEntryPoint_h__

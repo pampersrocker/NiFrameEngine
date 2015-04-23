@@ -5,19 +5,19 @@
 namespace nfe
 {
 
-	class NFResourceLoader
-	{
-	public:
+  class NFResourceLoader
+  {
+  public:
 
-		NFResourceLoader();
+    NFResourceLoader();
 
-		~NFResourceLoader();
+    ~NFResourceLoader();
 
-		virtual 
+    virtual 
 
-	protected:
-	private:
-	};
+  protected:
+  private:
+  };
 }
 
 

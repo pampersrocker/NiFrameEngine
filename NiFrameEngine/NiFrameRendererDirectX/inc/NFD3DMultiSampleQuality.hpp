@@ -6,19 +6,19 @@
 
 namespace nfe
 {
-	class D3DMultiSampleQuality : public IStringableObject
-	{
-	public:
-		D3DMultiSampleQuality( DWORD multiSampleQuality );
-		~D3DMultiSampleQuality();
+  class D3DMultiSampleQuality : public IStringableObject
+  {
+  public:
+    D3DMultiSampleQuality( DWORD multiSampleQuality );
+    ~D3DMultiSampleQuality();
 
-		virtual String ToString() const;
+    virtual String ToString() const;
 
-	private:
+  private:
 
-		DWORD m_MultiSampleQuality;
+    DWORD m_MultiSampleQuality;
 
-	};
+  };
 }
 
 #endif // NiFrameMultiSampleQuality_h__

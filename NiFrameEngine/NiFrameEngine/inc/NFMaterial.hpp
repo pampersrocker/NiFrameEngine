@@ -7,39 +7,39 @@
 
 namespace nfe
 {
-	class Shader;
+  class Shader;
 
-	class NIFRAME_DLL_EXPORT Material
-	{
-	public:
-		Material( const String& name );
-		~Material();
+  class NIFRAME_DLL_EXPORT Material
+  {
+  public:
+    Material( const String& name );
+    ~Material();
 
-		Shader* GetPixelShader( void ) const;
-		Shader* GetVertexShader( void ) const;
+    Shader* GetPixelShader( void ) const;
+    Shader* GetVertexShader( void ) const;
 
-		void SetPixelShader( Shader* shader );
-		void SetVertexShader( Shader* shader );
+    void SetPixelShader( Shader* shader );
+    void SetVertexShader( Shader* shader );
 
-		const String& GetName( void ) const;
+    const String& GetName( void ) const;
 
-		void SetWireFrame( bool drawWireframe );
-		bool GetDrawWireframe( void ) const;
+    void SetWireFrame( bool drawWireframe );
+    bool GetDrawWireframe( void ) const;
 
-	protected:
+  protected:
 
-		Shader* m_PixelShader;
-		Shader* m_VertexShader;
+    Shader* m_PixelShader;
+    Shader* m_VertexShader;
 
-	private:
+  private:
 
-		String m_Name;
+    String m_Name;
 
-		bool m_bWireframe;
+    bool m_bWireframe;
 
-	};
+  };
 
-	typedef ReferenceCounted< Material > MaterialPtr;
+  typedef ReferenceCounted< Material > MaterialPtr;
 
 }
 

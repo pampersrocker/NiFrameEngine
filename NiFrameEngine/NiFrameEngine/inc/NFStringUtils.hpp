@@ -6,21 +6,21 @@
 
 namespace nfe
 {
-	class StringUtils
-	{
-	public:
+  class StringUtils
+  {
+  public:
 
 
-		static String ToString( unsigned int );
-		static String ToString( int );
-		static String ToString( Real );
+    static String ToString( unsigned int );
+    static String ToString( int );
+    static String ToString( Real );
 
-	private:
+  private:
 
-		StringUtils() {}
-		~StringUtils() {}
+    StringUtils() {}
+    ~StringUtils() {}
 
-	};
+  };
 
 }
 

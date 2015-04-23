@@ -3,21 +3,21 @@
 
 namespace nfe
 {
-	Scene::Scene( const String& sceneName ) :
-		m_RootSceneNode( SceneNodePtr( new SceneNode( sceneName ) ) )
-	{
+  Scene::Scene( const String& sceneName ) :
+    m_RootSceneNode( SceneNodePtr( new SceneNode( sceneName ) ) )
+  {
 
-	}
+  }
 
-	Scene::~Scene()
-	{
+  Scene::~Scene()
+  {
 
-	}
+  }
 
-	nfe::SceneNodePtr Scene::GetRootSceneNode( void ) const
-	{
-		return m_RootSceneNode;
-	}
+  nfe::SceneNodePtr Scene::GetRootSceneNode( void ) const
+  {
+    return m_RootSceneNode;
+  }
 
 }
 

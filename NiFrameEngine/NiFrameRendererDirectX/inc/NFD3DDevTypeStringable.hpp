@@ -7,22 +7,22 @@
 
 namespace nfe
 {
-	class D3DDevTypeStringable : public IStringableObject
-	{
-	public:
-		D3DDevTypeStringable( const D3DDEVTYPE& devType );
-		~D3DDevTypeStringable();
+  class D3DDevTypeStringable : public IStringableObject
+  {
+  public:
+    D3DDevTypeStringable( const D3DDEVTYPE& devType );
+    ~D3DDevTypeStringable();
 
-		virtual String ToString() const;
+    virtual String ToString() const;
 
-		D3DDEVTYPE GetType( ) const 
-		{ 
-			return m_Type; 
-		}
+    D3DDEVTYPE GetType( ) const 
+    { 
+      return m_Type; 
+    }
 
-	private:
-		D3DDEVTYPE m_Type;
-	};
+  private:
+    D3DDEVTYPE m_Type;
+  };
 
 }
 

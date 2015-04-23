@@ -1,45 +1,45 @@
 #pragma once
 #ifndef NiFrameSceneNode_h__
-	#define NiFrameSceneNode_h__
+  #define NiFrameSceneNode_h__
 
-	#include "NFEnginePCH.hpp"
-	#include "NFReferenceCounted.hpp"
-	#include "NFMovableObject.hpp"
+  #include "NFEnginePCH.hpp"
+  #include "NFReferenceCounted.hpp"
+  #include "NFMovableObject.hpp"
 
 namespace nfe
 {
-	
-	
-	class SceneNode;
-
-	EXPORT_STL( vector< MoveableObjectPtr > )
-
-	TYPEDEF_EXPORT_REFCOUNT_PTR( SceneNode )
 
 
-	class NIFRAME_DLL_EXPORT SceneNode : public MoveableObject
-	{
-	public:
+  class SceneNode;
 
-		SceneNode(
-			const String& name,
-			const Vector3& position = Vector3( 0 ),
-			const Matrix4x4& orientation = Matrix4x4::IDENTITY,
-			const Vector3& scale = Vector3( 1.0f )
-			);
-		~SceneNode();
+  EXPORT_STL( vector< MoveableObjectPtr > )
 
-		void AddChild( MoveableObjectPtr object );
-		void RemoveChild( const String& name );
-		void RemoveChild( const uint32& hash );
+  TYPEDEF_EXPORT_REFCOUNT_PTR( SceneNode )
 
-		SceneNodePtr CreateChildSceneNode( const String& name );
 
-	private:
+  class NIFRAME_DLL_EXPORT SceneNode : public MoveableObject
+  {
+  public:
 
-		vector< MoveableObjectPtr >::type m_Children;
-	};
+    SceneNode(
+      const String& name,
+      const Vector3& position = Vector3( 0 ),
+      const Matrix4x4& orientation = Matrix4x4::IDENTITY,
+      const Vector3& scale = Vector3( 1.0f )
+      );
+    ~SceneNode();
+
+    void AddChild( MoveableObjectPtr object );
+    void RemoveChild( const String& name );
+    void RemoveChild( const uint32& hash );
+
+    SceneNodePtr CreateChildSceneNode( const String& name );
+
+  private:
+
+    vector< MoveableObjectPtr > m_Children;
+  };
 
 }
 
-#endif	// NiFrameSceneNode_h__
+#endif  // NiFrameSceneNode_h__
