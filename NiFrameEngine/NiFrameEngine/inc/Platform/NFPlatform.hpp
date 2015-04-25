@@ -4,16 +4,18 @@
 
 namespace nfe
 {
-  class NativeModule;
+  class INativeModule;
   class IPlatform
   {
   public:
+    virtual ~IPlatform() {}
 
-    NativeModule* LoadModule(const char* modulePath);
+    virtual INativeModule* LoadModule(const char* modulePath) = 0;
+    virtual void ReleaseModule( INativeModule* module ) = 0;
 
   private:
 
   };
 
-  extern IPlatform* GPlatform;
+  extern NIFRAME_DLL_EXPORT IPlatform* GPlatform;
 }

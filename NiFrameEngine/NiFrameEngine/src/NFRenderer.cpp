@@ -3,9 +3,9 @@
 #include <winuser.h>
 #include <exception>
 #include "NFRenderDevice.hpp"
-#include "resource.h"
-#include <commctrl.h>
 #include "NFDllEntryPoint.hpp"
+#include "Platform/NFPlatform.hpp"
+#include "Platform/NFNativeModule.hpp"
 
 namespace nfe
 {
@@ -21,66 +21,35 @@ namespace nfe
 
   void Renderer::CreateDevice( const String& apiName )
   {
-    if ( apiName == "DirectX" )
+    if( apiName == "DirectX" )
     {
-      m_hDLL = LoadLibraryEx( "NiFrameD3DX.dll", nullptr, 0 );
-      if ( !m_hDLL )
+      INativeModule* renderModule = GPlatform->LoadModule( "NiFrameD3DX.dll" );
+      m_RenderModule = renderModule;
+
+      decltype( CreateRenderDevice )* _CreateRenderDevice = nullptr;
+
+      //Get CreateRenderDevice function pointer from dll
+      _CreateRenderDevice = renderModule->GetModuleFunctionPointer<decltype( CreateRenderDevice )>( "CreateRenderDevice" );
+      _CreateRenderDevice( &m_RenderDevice );
+      if( m_RenderDevice == nullptr )
       {
-        MessageBox(
-          nullptr,
-          "Loading NiFrameD3DX.dll failed, is it present?",
-          "Error Loading D3D DLL",
-          MB_OK | MB_ICONERROR);
+        // TODO: Log
       }
     }
-    else
-    {
-      //TODO: Better Error text
-      MessageBox(
-        nullptr,
-        "The given api is not supported",
-        "Error Loading D3D DLL",
-        MB_OK | MB_ICONERROR);
-
-      throw new std::exception("Failed to create RenderDevice");
-    }
-
-    CREATERENDERDEVICE _CreateRenderDevice = 0;
-    HRESULT hr;
-
-    //Get CreateRenderDevice function pointer from dll
-    _CreateRenderDevice = (CREATERENDERDEVICE) GetProcAddress(m_hDLL,"CreateRenderDevice");
-    hr = _CreateRenderDevice(m_hDLL, &m_RenderDevice);
-
-    //Check for success
-    if ( FAILED(hr) )
-    {
-      //TODO: Better Error text
-      MessageBox(
-        nullptr,
-        "Failed to Create the Render Device",
-        "Error Creating Render Device",
-        MB_OK | MB_ICONERROR);
-
-      throw new std::exception("Failed to create RenderDevice");
-    }
-
-
   }
 
   void Renderer::Release()
   {
-    if (m_RenderDevice != nullptr)
+    if (m_RenderDevice != nullptr && m_RenderModule != nullptr)
     {
-      RELEASERENDERDEVICE _ReleaseRenderDevice = 0;
-      HRESULT hr;
-      _ReleaseRenderDevice = (RELEASERENDERDEVICE) GetProcAddress(m_hDLL, "ReleaseRenderDevice");
+      decltype(ReleaseRenderDevice)* _ReleaseRenderDevice = 0;
+      _ReleaseRenderDevice = m_RenderModule->GetModuleFunctionPointer<decltype(ReleaseRenderDevice)>("ReleaseRenderDevice");
       if ( _ReleaseRenderDevice != nullptr )
       {
-        hr = _ReleaseRenderDevice( &m_RenderDevice );
-        if ( FAILED(hr) )
+        _ReleaseRenderDevice( &m_RenderDevice );
+        if (m_RenderDevice != nullptr)
         {
-          MessageBox(nullptr, "Failed to destroy renderDevice", "Error", MB_OK | MB_ICONERROR );
+          // TODO: Log failed release
         }
       }
 
@@ -88,9 +57,9 @@ namespace nfe
     }
   }
 
-  NativeInstance Renderer::GetModule() const
+  INativeModule* Renderer::GetModule() const
   {
-    return m_hDLL;
+    return m_RenderModule;
   }
 
   RenderDevice* Renderer::GetDevice() const

@@ -10,7 +10,7 @@
       <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)lib\MathLib\MathLib\include\;$(SolutionDir)lib\VisualLeakDetector\include\;$(SolutionDir)lib\SDL\include;%(AdditionalIncludeDirectories);$(ProjectDir)/inc/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)lib\MathLib\MathLib\include\;$(SolutionDir)lib\VisualLeakDetector\include\;$(SolutionDir)lib\SDL\include;$(ProjectDir)/inc/;$(SolutionDir)/NiFrameEngine/inc/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />

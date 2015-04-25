@@ -261,11 +261,13 @@
     <ClInclude Include="inc\NFStringableBool.hpp" />
     <ClInclude Include="inc\NFStringableObject.hpp" />
     <ClInclude Include="inc\NFStringUtils.hpp" />
+    <ClInclude Include="inc\Platform\NFNativeModule.hpp" />
     <ClInclude Include="inc\Platform\NFPlatform.hpp" />
     <ClInclude Include="inc\Platform\NFPlatformManager.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\NFPlatform.cpp" />
     <ClCompile Include="src\Platform\NFPlatformManager.cpp" />
     <ClCompile Include="src\NFSceneNode.cpp" />
     <ClCompile Include="src\NFMovableObject.cpp" />

@@ -14,6 +14,9 @@
     <Lib>
       <OutputFile>$(SolutionDir)/lib/$(ProjectName)/$(Platform)_$(Configuration)/$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
+    <Link>
+      <ImportLibrary>$(SolutionDir)lib\$(ProjectName)\$(Platform)_$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>

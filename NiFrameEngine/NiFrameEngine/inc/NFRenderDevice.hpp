@@ -55,11 +55,9 @@ namespace nfe
 #ifdef WIN32
 extern "C"
 {
-  HRESULT __declspec( dllexport ) CreateRenderDevice(HINSTANCE hdll, nfe::RenderDevice** renderDevice);
-  typedef HRESULT (*CREATERENDERDEVICE)(HINSTANCE hdll, nfe::RenderDevice** renderDevice);
+  void __declspec( dllexport ) CreateRenderDevice( nfe::RenderDevice** device );
 
-  HRESULT __declspec( dllexport ) ReleaseRenderDevice( nfe::RenderDevice** renderDevice);
-  typedef HRESULT (*RELEASERENDERDEVICE)( nfe::RenderDevice** renderDevice);
+  void __declspec( dllexport ) ReleaseRenderDevice( nfe::RenderDevice** renderDevice);
 };
 #endif
 

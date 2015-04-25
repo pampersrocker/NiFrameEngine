@@ -84,6 +84,9 @@
     <ClCompile Include="src\Platform\NFPlatformManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\NFPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\Platform\NFPlatformManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Platform\NFNativeModule.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

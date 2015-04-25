@@ -63,12 +63,10 @@ namespace nfe
 #ifdef WIN32
   typedef HWND NativeHandle;
   typedef HRESULT NativeInstance;
-  typedef HMODULE NativeModule;
 #elif ORBIS
   //TODO
   typedef uint32 NativeInstance;
   typedef uint32 NativeHandle;
-  typedef uint32 NativeModule;
 #endif
   typedef std::exception exception;
 }

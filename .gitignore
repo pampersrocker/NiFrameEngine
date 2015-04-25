@@ -37,3 +37,7 @@ $RECYCLE.BIN/
 *.lai
 *.la
 *.a
+
+NiFrameEngine/lib/NiFrameEngine/
+bin/
+NiFrameEngine/lib/NiFrameWin32Platform/

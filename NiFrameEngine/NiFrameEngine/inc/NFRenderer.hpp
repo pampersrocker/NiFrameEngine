@@ -6,7 +6,7 @@
 
 namespace nfe
 {
-
+  class INativeModule;
   class RenderDevice;
 
   class NIFRAME_DLL_EXPORT Renderer
@@ -17,7 +17,7 @@ namespace nfe
 
     void CreateDevice( const String& apiName );
 
-    NativeInstance GetModule() const;
+    INativeModule* GetModule() const;
 
     RenderDevice* GetDevice() const;
 
@@ -28,7 +28,7 @@ namespace nfe
 
     RenderDevice* m_RenderDevice;
 
-    NativeModule m_hDLL;
+    INativeModule* m_RenderModule;
   };
 }
 

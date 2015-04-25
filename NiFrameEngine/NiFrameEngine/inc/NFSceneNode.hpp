@@ -12,8 +12,6 @@ namespace nfe
 
   class SceneNode;
 
-  EXPORT_STL( vector< MoveableObjectPtr > )
-
   TYPEDEF_EXPORT_REFCOUNT_PTR( SceneNode )
 
 
