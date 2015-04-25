@@ -81,8 +81,8 @@
     <ClCompile Include="src\NFSceneNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\NFSettingsDialog.cpp">
-      <Filter>Source Files\Win32</Filter>
+    <ClCompile Include="src\Platform\NFPlatformManager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,8 +155,11 @@
     <ClInclude Include="inc\NFSTLTypes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\NFSettingsDialog.hpp">
-      <Filter>Header Files\Win32</Filter>
+    <ClInclude Include="inc\Platform\NFPlatform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Platform\NFPlatformManager.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

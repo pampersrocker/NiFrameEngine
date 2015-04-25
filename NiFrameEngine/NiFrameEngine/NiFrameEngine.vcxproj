@@ -261,17 +261,18 @@
     <ClInclude Include="inc\NFStringableBool.hpp" />
     <ClInclude Include="inc\NFStringableObject.hpp" />
     <ClInclude Include="inc\NFStringUtils.hpp" />
+    <ClInclude Include="inc\Platform\NFPlatform.hpp" />
+    <ClInclude Include="inc\Platform\NFPlatformManager.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="inc\NFSettingsDialog.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\NFPlatformManager.cpp" />
     <ClCompile Include="src\NFSceneNode.cpp" />
     <ClCompile Include="src\NFMovableObject.cpp" />
     <ClCompile Include="src\NFScene.cpp" />
     <ClCompile Include="src\NFMaterial.cpp" />
     <ClCompile Include="src\NFEntity.cpp" />
     <ClCompile Include="src\NFMesh.cpp" />
-    <ClCompile Include="src\NFSettingsDialog.cpp" />
     <ClCompile Include="src\NFDllEntryPoint.cpp" />
     <ClCompile Include="src\NFStringUtils.cpp" />
     <ClCompile Include="src\NFColourValue.cpp" />

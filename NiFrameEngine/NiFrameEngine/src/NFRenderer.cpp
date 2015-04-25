@@ -6,7 +6,6 @@
 #include "resource.h"
 #include <commctrl.h>
 #include "NFDllEntryPoint.hpp"
-#include "..\inc\NFSettingsDialog.hpp"
 
 namespace nfe
 {
@@ -89,7 +88,7 @@ namespace nfe
     }
   }
 
-  HINSTANCE Renderer::GetModule() const
+  NativeInstance Renderer::GetModule() const
   {
     return m_hDLL;
   }
@@ -97,17 +96,6 @@ namespace nfe
   RenderDevice* Renderer::GetDevice() const
   {
     return m_RenderDevice;
-  }
-
-  void Renderer::ShowSettingsDialog( HINSTANCE instance, HWND parentWindow /*= nullptr*/ )
-  {
-    SettingsDialog dlg(m_RenderDevice);
-
-    SelectedRenderDevVals vals;
-
-    dlg.ShowDialog(&vals);
-
-
   }
 
 }
