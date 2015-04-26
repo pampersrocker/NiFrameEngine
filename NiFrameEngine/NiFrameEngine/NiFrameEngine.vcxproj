@@ -241,23 +241,23 @@
   <ItemGroup>
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
-    <ClInclude Include="inc\NFColourValue.hpp" />
+    <ClInclude Include="inc\Renderer\NFColourValue.hpp" />
     <ClInclude Include="inc\NFEnginePCH.hpp" />
-    <ClInclude Include="inc\NFEntity.hpp" />
+    <ClInclude Include="inc\Renderer\NFEntity.hpp" />
     <ClInclude Include="inc\NFMacros.hpp" />
-    <ClInclude Include="inc\NFMaterial.hpp" />
-    <ClInclude Include="inc\NFMesh.hpp" />
-    <ClInclude Include="inc\NFMovableObject.hpp" />
+    <ClInclude Include="inc\Renderer\NFMaterial.hpp" />
+    <ClInclude Include="inc\Renderer\NFMesh.hpp" />
+    <ClInclude Include="inc\Renderer\NFMovableObject.hpp" />
     <ClInclude Include="inc\NFReferenceCounted.hpp" />
-    <ClInclude Include="inc\NFScene.hpp" />
-    <ClInclude Include="inc\NFSceneNode.hpp" />
-    <ClInclude Include="inc\NFShader.hpp" />
+    <ClInclude Include="inc\Renderer\NFScene.hpp" />
+    <ClInclude Include="inc\Renderer\NFSceneNode.hpp" />
+    <ClInclude Include="inc\Renderer\NFShader.hpp" />
     <ClInclude Include="inc\NFPrerequisites.hpp" />
-    <ClInclude Include="inc\NFRenderDevice.hpp" />
-    <ClInclude Include="inc\NFRenderer.hpp" />
-    <ClInclude Include="inc\NFResolution.hpp" />
+    <ClInclude Include="inc\Renderer\NFRenderDevice.hpp" />
+    <ClInclude Include="inc\Renderer\NFRenderer.hpp" />
+    <ClInclude Include="inc\Renderer\NFResolution.hpp" />
     <ClInclude Include="inc\NFSTLTypes.hpp" />
-    <ClInclude Include="inc\NFRenderDeviceParameters.hpp" />
+    <ClInclude Include="inc\Renderer\NFRenderDeviceParameters.hpp" />
     <ClInclude Include="inc\NFStringableBool.hpp" />
     <ClInclude Include="inc\NFStringableObject.hpp" />
     <ClInclude Include="inc\NFStringUtils.hpp" />
@@ -269,15 +269,15 @@
   <ItemGroup>
     <ClCompile Include="src\Platform\NFPlatform.cpp" />
     <ClCompile Include="src\Platform\NFPlatformManager.cpp" />
-    <ClCompile Include="src\NFSceneNode.cpp" />
-    <ClCompile Include="src\NFMovableObject.cpp" />
-    <ClCompile Include="src\NFScene.cpp" />
-    <ClCompile Include="src\NFMaterial.cpp" />
-    <ClCompile Include="src\NFEntity.cpp" />
-    <ClCompile Include="src\NFMesh.cpp" />
+    <ClCompile Include="src\Renderer\NFSceneNode.cpp" />
+    <ClCompile Include="src\Renderer\NFMovableObject.cpp" />
+    <ClCompile Include="src\Renderer\NFScene.cpp" />
+    <ClCompile Include="src\Renderer\NFMaterial.cpp" />
+    <ClCompile Include="src\Renderer\NFEntity.cpp" />
+    <ClCompile Include="src\Renderer\NFMesh.cpp" />
     <ClCompile Include="src\NFDllEntryPoint.cpp" />
     <ClCompile Include="src\NFStringUtils.cpp" />
-    <ClCompile Include="src\NFColourValue.cpp" />
+    <ClCompile Include="src\Renderer\NFColourValue.cpp" />
     <ClCompile Include="src\NFEnginePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -287,10 +287,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ORBIS'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\NFPrerequisites.cpp" />
-    <ClCompile Include="src\NFRenderDevice.cpp" />
-    <ClCompile Include="src\NFRenderDeviceParameters.cpp" />
-    <ClCompile Include="src\NFRenderer.cpp" />
-    <ClCompile Include="src\NFResolution.cpp" />
+    <ClCompile Include="src\Renderer\NFRenderDevice.cpp" />
+    <ClCompile Include="src\Renderer\NFRenderDeviceParameters.cpp" />
+    <ClCompile Include="src\Renderer\NFRenderer.cpp" />
+    <ClCompile Include="src\Renderer\NFResolution.cpp" />
     <ClCompile Include="src\NFStringableBool.cpp" />
   </ItemGroup>
   <ItemGroup>

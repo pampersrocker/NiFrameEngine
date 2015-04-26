@@ -24,16 +24,6 @@ namespace nfe
 
     virtual const RenderDeviceParams* GetRenderParams( void ) const = 0;
 
-    virtual MeshPtr CreateMesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer ) = 0;
-
-    virtual void DestroyMesh( MeshPtr mesh) = 0;
-
-    virtual void BeginRendering() = 0;
-
-    virtual void RenderMesh( MeshPtr mesh ) = 0;
-
-    virtual void EndRendering() = 0;
-
     virtual void Clear( bool clearPixel , bool clearDepth ) = 0;
 
     virtual const uint32 GetCurrentDeviceID( void ) const = 0;

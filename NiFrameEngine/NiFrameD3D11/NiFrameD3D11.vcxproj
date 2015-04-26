@@ -151,11 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\NFD3D11Device.hpp" />
     <ClInclude Include="inc\NiFrameD3D11.hpp" />
     <ClInclude Include="inc\stdafx.hpp" />
     <ClInclude Include="inc\targetver.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NFD3D11Device.cpp" />
     <ClCompile Include="src\dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
