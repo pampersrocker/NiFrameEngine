@@ -6,7 +6,7 @@
   <ItemDefinitionGroup>
     <ClCompile />
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\MathLib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\lib\VisualLeakDetector\lib$(PlatformArchitecture)\Release\;$(SolutionDir)\lib\MathLib\MathLib\lib$(PlatformArchitecture)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>MathLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ClCompile>
