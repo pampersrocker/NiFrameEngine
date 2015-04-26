@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\NiFrameD3D11.h">
+    <ClInclude Include="inc\NiFrameD3D11.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\stdafx.h">
+    <ClInclude Include="inc\stdafx.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\targetver.h">
+    <ClInclude Include="inc\targetver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
