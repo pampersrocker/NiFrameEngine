@@ -3,7 +3,7 @@
 
 #include "stdafx.hpp"
 #include <NFEnginePCH.hpp>
-#include <NFRenderDevice.hpp>
+#include <Renderer/NFRenderDevice.hpp>
 #include "NiFrameD3D11.hpp"
 
 extern "C"

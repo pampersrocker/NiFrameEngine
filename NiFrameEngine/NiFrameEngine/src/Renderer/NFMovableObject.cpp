@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFMovableObject.hpp"
+#include "Renderer/NFMovableObject.hpp"
 
 namespace nfe
 {

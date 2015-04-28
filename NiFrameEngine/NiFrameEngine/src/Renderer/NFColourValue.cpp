@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFColourValue.hpp"
+#include "Renderer/NFColourValue.hpp"
 
 namespace nfe
 {
@@ -21,7 +21,7 @@ namespace nfe
 
   }
 
-  ColorValue::ColorValue( 
+  ColorValue::ColorValue(
     const Real& red, const Real& green, const Real& blue, const Real& alpha /*= RealHelper::ONE*/ ) :
   Red( red ),
     Green( green ),

@@ -1,4 +1,7 @@
+#include "stdafx.hpp"
 #include "NFD3D11Device.hpp"
+#include <Renderer/NFMesh.hpp>
+#include <Renderer/NFRenderDeviceParameters.hpp>
 
 
 namespace nfe
@@ -35,16 +38,6 @@ namespace nfe
   }
 
   void NFD3D11Device::Clear( bool clearPixel, bool clearDepth )
-  {
-    throw std::exception( "The method or operation is not implemented." );
-  }
-
-  void NFD3D11Device::DestroyMesh( MeshPtr mesh )
-  {
-    throw std::exception( "The method or operation is not implemented." );
-  }
-
-  MeshPtr NFD3D11Device::CreateMesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer )
   {
     throw std::exception( "The method or operation is not implemented." );
   }

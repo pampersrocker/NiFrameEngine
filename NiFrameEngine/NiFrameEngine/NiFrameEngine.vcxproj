@@ -241,6 +241,7 @@
   <ItemGroup>
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
+    <ClInclude Include="inc\Platform\NFRenderWindow.hpp" />
     <ClInclude Include="inc\Renderer\NFColourValue.hpp" />
     <ClInclude Include="inc\NFEnginePCH.hpp" />
     <ClInclude Include="inc\Renderer\NFEntity.hpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\NFRenderWindow.cpp" />
     <ClCompile Include="src\Platform\NFPlatform.cpp" />
     <ClCompile Include="src\Platform\NFPlatformManager.cpp" />
     <ClCompile Include="src\Renderer\NFSceneNode.cpp" />

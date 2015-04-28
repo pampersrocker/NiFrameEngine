@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFEntity.hpp"
+#include "Renderer/NFEntity.hpp"
 
 namespace nfe
 {

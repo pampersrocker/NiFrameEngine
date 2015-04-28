@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFRenderDeviceParameters.hpp"
+#include "Renderer/NFRenderDeviceParameters.hpp"
 
 namespace nfe
 {

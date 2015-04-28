@@ -1,8 +1,8 @@
 #include "NFEnginePCH.hpp"
-#include "NFRenderer.hpp"
+#include "Renderer/NFRenderer.hpp"
 #include <winuser.h>
 #include <exception>
-#include "NFRenderDevice.hpp"
+#include "Renderer/NFRenderDevice.hpp"
 #include "NFDllEntryPoint.hpp"
 #include "Platform/NFPlatform.hpp"
 #include "Platform/NFNativeModule.hpp"

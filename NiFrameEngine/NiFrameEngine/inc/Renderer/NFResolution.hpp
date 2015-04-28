@@ -12,11 +12,12 @@ namespace nfe
     public IStringableObject
   {
   public:
+    Resolution();
 
-    Resolution( uint32 wdith, uint32 height, uint32 refreshRate );
-    ~Resolution();
+    Resolution( uint32 width, uint32 height, uint32 refreshRate = 60 );
+    virtual ~Resolution();
 
-    virtual String ToString() const;
+    virtual String ToString() const override;
 
     uint32 GetWidth( void ) const;
 

@@ -2,7 +2,7 @@
 
 #include "stdafx.hpp"
 #include "NiFrameD3D11.hpp"
-#include <NFRenderDevice.hpp>
+#include <Renderer/NFRenderDevice.hpp>
 
 namespace nfe
 {
@@ -19,9 +19,7 @@ namespace nfe
 
     virtual const RenderDeviceParams* GetRenderParams( void ) const override;
 
-    virtual MeshPtr CreateMesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer ) override;
 
-    virtual void DestroyMesh( MeshPtr mesh ) override;
 
     virtual void Clear( bool clearPixel, bool clearDepth ) override;
 

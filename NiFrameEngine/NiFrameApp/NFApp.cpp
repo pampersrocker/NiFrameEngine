@@ -2,13 +2,13 @@
 //
 
 #include "stdafx.hpp"
-#include "NFRenderer.hpp"
-#include "NFRenderDevice.hpp"
+#include "Renderer/NFRenderer.hpp"
+#include "Renderer/NFRenderDevice.hpp"
 #include <iostream>
-#include "NFRenderDeviceParameters.hpp"
+#include "Renderer/NFRenderDeviceParameters.hpp"
 #include "NFStringableObject.hpp"
 #include <iosfwd>
-#include "NFResolution.hpp"
+#include "Renderer/NFResolution.hpp"
 
 
 using namespace nfe;
@@ -71,7 +71,6 @@ int main(int argc, _TCHAR* argv[])
   iBuffer->push_back(0);
   iBuffer->push_back(5);
 
-  MeshPtr triangle = device->CreateMesh(vBuffer,iBuffer);
 
 
   SDL_Event event;
@@ -81,7 +80,7 @@ int main(int argc, _TCHAR* argv[])
     {
       switch( event.type )
       {
-    
+
       case SDL_KEYDOWN:
         if ( event.key.keysym.sym == SDLK_ESCAPE )
         {
@@ -91,16 +90,12 @@ int main(int argc, _TCHAR* argv[])
       case SDL_QUIT:
         bShutdown = true;
         break;
-      } 
+      }
     }
-    device->BeginRendering();
 
-    device->RenderMesh(triangle);
 
-    device->EndRendering();
   }
 
-  device->DestroyMesh(triangle);
   return 0;
 }
 

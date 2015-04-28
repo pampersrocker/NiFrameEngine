@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFMaterial.hpp"
+#include "Renderer/NFMaterial.hpp"
 
 namespace nfe
 {

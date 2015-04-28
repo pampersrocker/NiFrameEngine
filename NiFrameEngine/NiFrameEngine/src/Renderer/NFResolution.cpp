@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "NFResolution.hpp"
+#include "Renderer/NFResolution.hpp"
 
 namespace nfe
 {
@@ -13,11 +13,16 @@ namespace nfe
          + "Hz";
   }
 
-  Resolution::Resolution( uint32 wdith, uint32 height, uint32 refreshRate ) :
-    m_Width( wdith ),
+  Resolution::Resolution( uint32 width, uint32 height, uint32 refreshRate ) :
+    m_Width( width ),
     m_Height( height ),
     m_RefreshRate( refreshRate )
   {
+  }
+
+  Resolution::Resolution()
+  {
+
   }
 
   Resolution::~Resolution()

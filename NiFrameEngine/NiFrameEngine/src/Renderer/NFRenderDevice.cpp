@@ -1,7 +1,7 @@
 
 #include "NFEnginePCH.hpp"
 
-#include "NFRenderDevice.hpp"
+#include "Renderer/NFRenderDevice.hpp"
 
 namespace nfe
 {
