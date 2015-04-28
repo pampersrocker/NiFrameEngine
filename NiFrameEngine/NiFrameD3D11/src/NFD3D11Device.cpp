@@ -42,17 +42,17 @@ namespace nfe
     throw std::exception( "The method or operation is not implemented." );
   }
 
-  const RenderDeviceParams* NFD3D11Device::GetRenderParams( void ) const
-  {
-    throw std::exception( "The method or operation is not implemented." );
-  }
-
   void NFD3D11Device::Initialize()
   {
     throw std::exception( "The method or operation is not implemented." );
   }
 
-  void NFD3D11Device::SetupDevice( NativeHandle hMainWindow, const map< String, uint32 >& renderDeviceParameters, bool log /*= true */ )
+  void NFD3D11Device::SetupDevice( const RenderWindow& mainWindow, const RenderDeviceParams& renderDeviceParameters )
+  {
+    throw std::exception( "The method or operation is not implemented." );
+  }
+
+  const RenderDeviceParams& NFD3D11Device::GetRenderParams( void ) const
   {
     throw std::exception( "The method or operation is not implemented." );
   }

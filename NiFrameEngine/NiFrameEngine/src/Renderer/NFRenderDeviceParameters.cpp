@@ -3,52 +3,14 @@
 
 namespace nfe
 {
-  RenderDeviceParams::RenderDeviceParams( RenderDeviceParameterList* paramList /*= nullptr */ ) :
-    m_Parameters ( paramList )
+
+  void RenderDeviceParams::Initialize( const Resolution& resolution, bool fullScreen, bool tripleBuffering /*= false*/, uint32 msaaCount /*= 1*/, uint32 msaaQuality /*= 0 */ )
   {
-    if ( m_Parameters == nullptr )
-    {
-      m_Parameters = new RenderDeviceParameterList();
-    }
-  }
-
-  RenderDeviceParams::~RenderDeviceParams()
-  {
-    for(auto iterator = m_Parameters->begin(); iterator != m_Parameters->end(); ++iterator )
-    {
-      delete iterator->second;
-    }
-
-    SAFE_DELETE( m_Parameters )
-  }
-
-  void RenderDeviceParams::SetParameters( RenderDeviceParameterList* val )
-  {
-    m_Parameters = val;
-  }
-
-  nfe::RenderDeviceParameterList* RenderDeviceParams::GetParameters() const
-  {
-    return m_Parameters;
-  }
-
-  vector< String > RenderDeviceParams::GetParametersNames() const
-  {
-    //TODO: Better solution then returning a pointer
-    vector< String > parameterNames;
-    map< String, vector< IStringableObject* >* >::iterator iterator;
-
-    for( iterator = m_Parameters->begin(); iterator != m_Parameters->end(); ++iterator )
-    {
-      parameterNames.push_back( iterator->first );
-    }
-
-    return parameterNames;
-  }
-
-  vector< IStringableObject* > RenderDeviceParams::GetParamterValues( const String& parameterName ) const
-  {
-    return *( *m_Parameters )[ parameterName ];
+    m_InternalResolution = resolution;
+    m_FullScreen = fullScreen;
+    m_TripleBuffering = tripleBuffering;
+    m_MSAACount = msaaCount;
+    m_MSAAQuality = msaaQuality;
   }
 
 

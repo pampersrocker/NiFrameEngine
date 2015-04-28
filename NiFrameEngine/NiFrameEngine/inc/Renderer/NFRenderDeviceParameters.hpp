@@ -3,39 +3,34 @@
 #define RenderDeviceParameters_h__
 
 #include "NFEnginePCH.hpp"
+#include "Renderer/NFResolution.hpp"
 
 namespace nfe
 {
   class IStringableObject;
 
-  typedef map< String, vector<IStringableObject*>* > RenderDeviceParameterList;
-
   class NIFRAME_DLL_EXPORT RenderDeviceParams
   {
-    enum RenderDeviceParameter_t
-    {
-      ADAPTER = 0x00000001,
-      DEVICE_TYPE = 0x00000002,
-      FULLSCREEN = 0x00000004,
-      VIDEO_MODE = 0x00000008,
-      BUFFER_FORMAT = 0x00000010,
-      Z_STENCIL_BUFFER_FORMAT = 0x00000020,
-      MULTISAMPLE_TYPE = 0x00000040,
-      MULTISAMPLE_QUALITY = 0x00000080,
-    };
 
   public:
-    RenderDeviceParams( RenderDeviceParameterList* paramList = nullptr );
-    ~RenderDeviceParams();
 
-    RenderDeviceParameterList* GetParameters( ) const;
-    void SetParameters( RenderDeviceParameterList* val );
+    void Initialize(
+      const Resolution& interalResolution,
+      bool fullScreen,
+      bool tripleBuffering = false,
+      uint32 msaaCount = 1,
+      uint32 msaaQuality = 0
+      );
 
-    vector< String > GetParametersNames() const;
-    vector< IStringableObject* > GetParamterValues( const String& parameterName ) const;
 
   private:
-    RenderDeviceParameterList* m_Parameters;
+
+    Resolution m_InternalResolution;
+    bool m_FullScreen;
+    bool m_TripleBuffering;
+    uint32 m_MSAACount;
+    uint32 m_MSAAQuality;
+
 
   };
 }

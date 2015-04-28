@@ -13,13 +13,7 @@ namespace nfe
     NFD3D11Device();
     ~NFD3D11Device();
 
-    virtual void SetupDevice( NativeHandle hMainWindow, const map< String, uint32 >& renderDeviceParameters, bool log = true ) override;
-
     virtual void Initialize() override;
-
-    virtual const RenderDeviceParams* GetRenderParams( void ) const override;
-
-
 
     virtual void Clear( bool clearPixel, bool clearDepth ) override;
 
@@ -30,6 +24,10 @@ namespace nfe
     virtual String GetDeviceName( uint32 id ) const override;
 
     virtual const uint32 GetDeviceCount( void ) const override;
+
+    virtual void SetupDevice( const RenderWindow& mainWindow, const RenderDeviceParams& renderDeviceParameters ) override;
+
+    virtual const RenderDeviceParams& GetRenderParams( void ) const override;
 
   private:
 

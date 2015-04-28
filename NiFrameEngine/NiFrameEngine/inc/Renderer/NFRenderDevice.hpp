@@ -4,6 +4,7 @@
 
 #include "NFEnginePCH.hpp"
 #include "NFMesh.hpp"
+#include "Platform/NFRenderWindow.hpp"
 
 namespace nfe
 {
@@ -16,13 +17,12 @@ namespace nfe
   public:
 
     virtual void SetupDevice(
-      NativeHandle hMainWindow,
-      const map< String, uint32 >& renderDeviceParameters ,
-      bool log = true ) = 0;
+      const RenderWindow& mainWindow,
+      const RenderDeviceParams& renderDeviceParameters ) = 0;
 
     virtual void Initialize() = 0;
 
-    virtual const RenderDeviceParams* GetRenderParams( void ) const = 0;
+    virtual const RenderDeviceParams& GetRenderParams( void ) const = 0;
 
     virtual void Clear( bool clearPixel , bool clearDepth ) = 0;
 
