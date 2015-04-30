@@ -42,14 +42,12 @@ namespace nfe
 
 
 }
-#ifdef WIN32
 extern "C"
 {
   void __declspec( dllexport ) CreateRenderDevice( nfe::RenderDevice** device );
 
   void __declspec( dllexport ) ReleaseRenderDevice( nfe::RenderDevice** renderDevice);
 };
-#endif
 
 #endif // NiFrameRenderDevice_h__
 

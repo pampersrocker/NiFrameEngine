@@ -9,7 +9,7 @@ namespace nfe
   typedef HWND NativeWindow;
 #elif defined(ORBIS)
   // There is no actual Window on the PS4 but we need a type anyway
-  typeodef uint32 NativeWindow;
+  typedef uint32 NativeWindow;
 #endif
 
   class NIFRAME_DLL_EXPORT RenderWindow

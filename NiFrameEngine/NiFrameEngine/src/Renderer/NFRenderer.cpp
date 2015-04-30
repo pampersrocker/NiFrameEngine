@@ -1,6 +1,5 @@
 #include "NFEnginePCH.hpp"
 #include "Renderer/NFRenderer.hpp"
-#include <winuser.h>
 #include <exception>
 #include "Renderer/NFRenderDevice.hpp"
 #include "NFDllEntryPoint.hpp"
@@ -21,11 +20,11 @@ namespace nfe
 
   void Renderer::CreateDevice( const String& apiName )
   {
+#ifdef WIN32
     if( apiName == "DirectX" )
     {
       INativeModule* renderModule = GPlatform->LoadModule( "NiFrameD3DX.dll" );
       m_RenderModule = renderModule;
-
       decltype( CreateRenderDevice )* _CreateRenderDevice = nullptr;
 
       //Get CreateRenderDevice function pointer from dll
@@ -36,6 +35,19 @@ namespace nfe
         // TODO: Log
       }
     }
+#elif ORBIS
+    // On the PS4 only one device exists
+    m_RenderModule = GPlatform->LoadModule( "RenderDevice" );
+    decltype( CreateRenderDevice )* _CreateRenderDevice = nullptr;
+
+    //Get CreateRenderDevice function pointer from dll
+    _CreateRenderDevice = m_RenderModule->GetModuleFunctionPointer<decltype( CreateRenderDevice )>( "CreateRenderDevice" );
+    _CreateRenderDevice( &m_RenderDevice );
+    if( m_RenderDevice == nullptr )
+    {
+      // TODO: Log
+    }
+#endif
   }
 
   void Renderer::Release()

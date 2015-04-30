@@ -15,7 +15,7 @@ namespace nfe
 
   protected:
 
-    virtual void* GetNativeModuleFunctionPointer( const char* name ) = 0;
+    virtual void * GetNativeModuleFunctionPointer( const char* name ) = 0;
 
   private:
 
@@ -25,7 +25,7 @@ namespace nfe
   inline
   T* nfe::INativeModule::GetModuleFunctionPointer( const char* name )
   {
-    return static_cast< T* >( GetNativeModuleFunctionPointer( name ) );
+    return ( T* )( GetNativeModuleFunctionPointer( name ) );
   }
 
 }
