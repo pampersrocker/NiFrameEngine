@@ -5,7 +5,7 @@
 namespace nfe
 {
   class INativeModule;
-  class IPlatform
+  class NIFRAME_DLL_EXPORT IPlatform
   {
   public:
     virtual ~IPlatform() {}

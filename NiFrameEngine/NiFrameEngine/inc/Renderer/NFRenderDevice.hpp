@@ -22,6 +22,8 @@ namespace nfe
 
     virtual void Initialize() = 0;
 
+    virtual void Release() = 0;
+
     virtual const RenderDeviceParams& GetRenderParams( void ) const = 0;
 
     virtual void Clear( bool clearPixel , bool clearDepth ) = 0;

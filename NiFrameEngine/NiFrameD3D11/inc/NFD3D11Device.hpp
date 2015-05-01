@@ -29,7 +29,12 @@ namespace nfe
 
     virtual const RenderDeviceParams& GetRenderParams( void ) const override;
 
+    virtual void Release() override;
+
   private:
+
+    ID3D11Device* m_Device;
+    ID3D11DeviceContext* m_Context;
 
   };
 

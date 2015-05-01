@@ -52,4 +52,6 @@
     pointer = nullptr;    \
   }
 
+#define NF_ASSERT(assertion, msg) assert( assertion && msg )
+
 #endif // NiFrameMacros_h__

@@ -10,8 +10,13 @@
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
-
+#include <d3d11.h>
+#include <dxgi.h>
 #include "NFEnginePCH.hpp"
+
+#ifndef SAFE_RELEASE
+#define SAFE_RELEASE( p ) { if( p ) { ( p )->Release(); ( p ) = NULL; } }
+#endif
 
 
 // TODO: reference additional headers your program requires here
