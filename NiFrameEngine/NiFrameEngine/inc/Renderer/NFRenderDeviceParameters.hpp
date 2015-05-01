@@ -22,6 +22,16 @@ namespace nfe
       uint32 msaaQuality = 0
       );
 
+    nfe::Resolution InternalResolution() const;
+    void InternalResolution( nfe::Resolution val );
+    bool FullScreen() const;
+    void FullScreen( bool val );
+    bool TripleBuffering() const;
+    void TripleBuffering( bool val );
+    nfe::uint32 MSAACount() const;
+    void MSAACount( nfe::uint32 val );
+    nfe::uint32 MSAAQuality() const;
+    void MSAAQuality( nfe::uint32 val );
 
   private:
 
@@ -30,7 +40,6 @@ namespace nfe
     bool m_TripleBuffering;
     uint32 m_MSAACount;
     uint32 m_MSAAQuality;
-
 
   };
 }

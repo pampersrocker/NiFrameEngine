@@ -3,6 +3,7 @@
 #include "stdafx.hpp"
 #include "NiFrameD3D11.hpp"
 #include <Renderer/NFRenderDevice.hpp>
+#include <Renderer/NFRenderDeviceParameters.hpp>
 
 namespace nfe
 {
@@ -33,8 +34,12 @@ namespace nfe
 
   private:
 
+    RenderDeviceParams m_Params;
+
     ID3D11Device* m_Device;
     ID3D11DeviceContext* m_Context;
+
+    IDXGISwapChain1* m_SwapChain;
 
   };
 
