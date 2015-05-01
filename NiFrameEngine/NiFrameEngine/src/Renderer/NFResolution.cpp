@@ -25,6 +25,14 @@ namespace nfe
 
   }
 
+  Resolution::Resolution( Resolution&& rhs ) :
+    m_Width(rhs.m_Width),
+    m_Height(rhs.m_Height),
+    m_RefreshRate(rhs.m_RefreshRate)
+  {
+
+  }
+
   Resolution::~Resolution()
   {
   }

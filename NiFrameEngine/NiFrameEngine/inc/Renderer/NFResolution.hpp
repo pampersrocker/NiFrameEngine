@@ -13,6 +13,7 @@ namespace nfe
   {
   public:
     Resolution();
+    Resolution( Resolution&& rhs );
 
     Resolution( uint32 width, uint32 height, uint32 refreshRate = 60 );
     virtual ~Resolution();
