@@ -20,4 +20,9 @@ namespace nfe
     return std::to_string( value );
   }
 
+  nfe::String StringUtils::ToString( const Rational& value )
+  {
+    return ToString( value.GetNominator() ) + "/" + ToString( value.GetDenominator() );
+  }
+
 }
