@@ -21,6 +21,8 @@ namespace nfe
 
   };
 
+  EXPORT_TPL( Vector<int> );
+
   extern Engine* GEngine;
 
 }

@@ -64,7 +64,7 @@ namespace nfe
     {
       m_Allocator = GetDefaultAllocator();
     }
-    m_Data = static_cast< uint8* >( m_Allocator->Allocate( m_ReservedSize * sizeof( T ) ) );
+    m_Data = static_cast< T* >( m_Allocator->Allocate( m_ReservedSize * sizeof( T ) ) );
     for( uint64 idx = 0; idx < m_Size; idx++ )
     {
       m_Data[ idx ] = rhs.m_Data[ idx ];
@@ -90,7 +90,7 @@ namespace nfe
       if( newSize > m_ReservedSize )
       {
         // Create new Memory Block
-        T* newData = m_Allocator->Allocate( newSize * sizeof( T ) );
+        T* newData = static_cast< T* >( m_Allocator->Allocate( newSize * sizeof( T ) ) );
         NF_ASSERT( newData, "Failed to allocate memory for resizing" );
         // Copy over data to new Block
         for( uint64 i = 0; i < newSize && i < m_Size; i++ )
