@@ -10,7 +10,7 @@ namespace nfe
   {
   public:
 
-    static_assert( std::is_trivially_constructible<T>::value, "Template Type for Vector must be trivially constructible" );
+    static_assert( std::is_constructible<T>::value, "Template Type for Vector must be trivially constructible" );
     static_assert( std::is_copy_assignable<T>::value, "Template Type for Vector must be assignable" );
     Vector( IAllocator* allocator = nullptr );
     Vector( uint64 reservedSize, IAllocator* allocator = nullptr );

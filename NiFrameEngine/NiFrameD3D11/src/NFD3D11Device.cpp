@@ -4,7 +4,7 @@
 #include <Renderer/NFRenderDeviceParameters.hpp>
 #include <NFArrayUtils.hpp>
 #include "NiFrameWin32Platform.h"
-#include <STL/NFVector.hpp>
+#include <NFSTL/NFVector.hpp>
 
 
 namespace nfe

@@ -21,7 +21,7 @@ namespace nfe
 
   };
 
-  IAllocator* GetDefaultAllocator();
+  NIFRAME_DLL_EXPORT IAllocator* GetDefaultAllocator();
 
   template< typename T, typename ...Params>
   T* nfnew( IAllocator* allocator = nullptr, Params... parameters );
