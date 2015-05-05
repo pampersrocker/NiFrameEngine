@@ -4,6 +4,7 @@
 
 namespace nfe
 {
+
   class NIFRAME_DLL_EXPORT IAllocator
   {
   public:
@@ -20,4 +21,34 @@ namespace nfe
 
   };
 
+  IAllocator* GetDefaultAllocator();
+
+  template< typename T, typename ...Params>
+  T* nfnew( IAllocator* allocator = nullptr, Params... parameters );
+  template< typename T>
+  void nfdelete(T* object, IAllocator* allocator = nullptr);
+}
+
+template< typename T>
+void nfe::nfdelete(T* object, IAllocator* allocator /*= nullptr*/ )
+{
+  if (allocator == nullptr)
+  {
+    allocator = GetDefaultAllocator();
+  }
+  object->~T();
+  allocator->Deallocate( object );
+}
+
+template< typename T, typename ...Params>
+inline
+T* nfe::nfnew( IAllocator* allocator /*= nullptr */, Params... parameters )
+{
+  if (allocator == nullptr)
+  {
+    allocator = GetDefaultAllocator();
+  }
+  void* memBlock = allocator->Allocate( sizeof( T ) );
+  T* newData = new ( memBlock ) T( parameters );
+  return newData;
 }
