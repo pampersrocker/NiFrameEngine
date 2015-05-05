@@ -32,6 +32,8 @@ namespace nfe
 
     virtual void Release() override;
 
+    virtual nfe::Vector<Resolution> GetSupportedResolutions() override;
+
   private:
 
     RenderDeviceParams m_Params;

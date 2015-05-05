@@ -5,6 +5,7 @@
 #include "NFEnginePCH.hpp"
 #include "NFMesh.hpp"
 #include "Platform/NFRenderWindow.hpp"
+#include "NFSTL/NFVector.hpp"
 
 namespace nfe
 {
@@ -23,6 +24,8 @@ namespace nfe
     virtual void Initialize() = 0;
 
     virtual void Release() = 0;
+
+    virtual Vector<Resolution> GetSupportedResolutions() = 0;
 
     virtual const RenderDeviceParams& GetRenderParams( void ) const = 0;
 

@@ -4,6 +4,7 @@
 #include <Renderer/NFRenderDeviceParameters.hpp>
 #include <NFArrayUtils.hpp>
 #include "NiFrameWin32Platform.h"
+#include <STL/NFVector.hpp>
 
 
 namespace nfe
@@ -128,7 +129,12 @@ namespace nfe
 
   const RenderDeviceParams& NFD3D11Device::GetRenderParams( void ) const
   {
-    throw std::exception( "The method or operation is not implemented." );
+    return m_Params;
+  }
+
+  nfe::Vector<Resolution> NFD3D11Device::GetSupportedResolutions()
+  {
+    return Vector<Resolution>();
   }
 
 }
