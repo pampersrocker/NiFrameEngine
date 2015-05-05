@@ -96,10 +96,10 @@
     <ClCompile Include="src\Memory\NFIAllocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inc\NFEngine.cpp">
+    <ClCompile Include="src\Memory\NFDefaultAllocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Memory\NFDefaultAllocator.cpp">
+    <ClCompile Include="src\NFEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -198,6 +198,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\Memory\NFDefaultAllocator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NFSTL\NFVector.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

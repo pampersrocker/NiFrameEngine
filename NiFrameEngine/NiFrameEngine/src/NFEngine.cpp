@@ -4,6 +4,8 @@
 
 using namespace nfe;
 
+// Storage for the Most Basic Engine and default allocator.
+// Before the engine runs there is no default allocator instantiated
 uint8 engineMem[ sizeof( Engine ) ];
 
 uint8 defaultAllocMem[ sizeof( DefaultAllocator ) ];

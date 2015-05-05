@@ -273,11 +273,12 @@
     <ClInclude Include="inc\Platform\NFNativeModule.hpp" />
     <ClInclude Include="inc\Platform\NFPlatform.hpp" />
     <ClInclude Include="inc\Platform\NFPlatformManager.hpp" />
+    <ClInclude Include="inc\NFSTL\NFVector.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Memory\NFDefaultAllocator.cpp" />
-    <ClCompile Include="inc\NFEngine.cpp" />
+    <ClCompile Include="src\NFEngine.cpp" />
     <ClCompile Include="src\Memory\NFIAllocator.cpp" />
     <ClCompile Include="src\Memory\NFStackAllocator.cpp" />
     <ClCompile Include="src\Platform\NFRenderWindow.cpp" />
