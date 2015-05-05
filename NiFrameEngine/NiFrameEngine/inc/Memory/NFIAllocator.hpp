@@ -25,8 +25,34 @@ namespace nfe
 
   template< typename T, typename ...Params>
   T* nfnew( IAllocator* allocator = nullptr, Params... parameters );
+  template< typename T, typename ...Params>
+  T* nfnewArray( uint64 arraySize, IAllocator* allocator = nullptr, Params... parameters );
   template< typename T>
   void nfdelete(T* object, IAllocator* allocator = nullptr);
+  template< typename T>
+  void nfdeleteArray( T* object, IAllocator* allocator = nullptr );
+}
+
+template< typename T>
+void nfe::nfdeleteArray( T* object, IAllocator* allocator /*= nullptr */ )
+{
+  if( allocator == nullptr )
+  {
+    allocator = GetDefaultAllocator();
+  }
+  allocator->Deallocate( object );
+}
+
+template< typename T, typename ...Params>
+inline
+T* nfe::nfnewArray( uint64 arraySize, IAllocator* allocator /*= nullptr*/, Params... parameters )
+{
+  if( allocator == nullptr )
+  {
+    allocator = GetDefaultAllocator();
+  }
+  void* memBlock = allocator->Allocate( sizeof( T ) * arraySize );
+  return static_cast< T* >( memBlock );
 }
 
 template< typename T>

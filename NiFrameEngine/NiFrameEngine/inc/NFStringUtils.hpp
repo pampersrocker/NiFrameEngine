@@ -3,9 +3,11 @@
 #define StringUtils_h__
 
 #include "NFEnginePCH.hpp"
+#include "Utils/NFRational.hpp"
 
 namespace nfe
 {
+
   class StringUtils
   {
   public:
@@ -14,6 +16,7 @@ namespace nfe
     static String ToString( unsigned int );
     static String ToString( int );
     static String ToString( Real );
+    static String ToString( const Rational& );
 
   private:
 

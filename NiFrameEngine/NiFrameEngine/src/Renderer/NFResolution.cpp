@@ -13,7 +13,7 @@ namespace nfe
          + "Hz";
   }
 
-  Resolution::Resolution( uint32 width, uint32 height, uint32 refreshRate ) :
+  Resolution::Resolution( uint32 width, uint32 height, const Rational& refreshRate ) :
     m_Width( width ),
     m_Height( height ),
     m_RefreshRate( refreshRate )
@@ -47,7 +47,7 @@ namespace nfe
     return m_Height;
   }
 
-  nfe::uint32 Resolution::GetRefreshRate( void ) const
+  const Rational& Resolution::GetRefreshRate( void ) const
   {
     return m_RefreshRate;
   }

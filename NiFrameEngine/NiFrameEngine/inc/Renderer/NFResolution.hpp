@@ -5,6 +5,7 @@
   #include "NFEnginePCH.hpp"
   #include "NFStringableObject.hpp"
   #include "NFStringUtils.hpp"
+  #include "Utils/NFRational.hpp"
 
 namespace nfe
 {
@@ -15,7 +16,7 @@ namespace nfe
     Resolution();
     Resolution( Resolution&& rhs );
 
-    Resolution( uint32 width, uint32 height, uint32 refreshRate = 60 );
+    Resolution( uint32 width, uint32 height, const Rational& refreshRate = Rational(60,1) );
     virtual ~Resolution();
 
     virtual String ToString() const override;
@@ -24,11 +25,12 @@ namespace nfe
 
     uint32 GetHeight( void ) const;
 
-    uint32 GetRefreshRate( void ) const;
+    const Rational& GetRefreshRate( void ) const;
 
   private:
 
-    uint32 m_Width, m_Height, m_RefreshRate;
+    uint32 m_Width, m_Height;
+    Rational m_RefreshRate;
   };
 }
 

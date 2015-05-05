@@ -36,6 +36,13 @@ namespace nfe
 
   private:
 
+    IAllocator* m_RenderDeviceAllocator;
+    IAllocator* m_TmpAllocator;
+
+    IDXGIFactory2 * m_IDXGIFactory;
+    IDXGIAdapter * m_DXGIAdapter;
+
+
     RenderDeviceParams m_Params;
 
     ID3D11Device* m_Device;

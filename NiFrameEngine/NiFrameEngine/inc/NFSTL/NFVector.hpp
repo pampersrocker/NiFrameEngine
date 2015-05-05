@@ -122,7 +122,7 @@ namespace nfe
     if (m_ReservedSize < newReserve)
     {
       // Create new Memory Block
-      T* newData = m_Allocator->Allocate( newReserve * sizeof( T ) );
+      T* newData = static_cast< T* >( m_Allocator->Allocate( newReserve * sizeof( T ) ) );
       NF_ASSERT( newData, "Failed to allocate memory for resizing" );
       // Copy over data to new Block
       for( uint64 i = 0; i < m_Size; i++ )

@@ -12,9 +12,13 @@ namespace nfe
 
   NFD3D11Device::NFD3D11Device() :
     m_Device( nullptr ),
-    m_Context( nullptr )
+    m_Context( nullptr ),
+    m_IDXGIFactory( nullptr ),
+    m_DXGIAdapter( nullptr ),
+    m_RenderDeviceAllocator( nullptr )
   {
-
+    m_RenderDeviceAllocator = GetDefaultAllocator();
+    m_TmpAllocator = GetDefaultAllocator();
   }
 
   NFD3D11Device::~NFD3D11Device()
@@ -33,6 +37,32 @@ namespace nfe
 
   void NFD3D11Device::Initialize()
   {
+    D3D_FEATURE_LEVEL featureLevel;
+
+    D3D_FEATURE_LEVEL featureLevels [] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_11_1 };
+
+    HRESULT hr;
+
+    hr = D3D11CreateDevice(
+      nullptr,
+      D3D_DRIVER_TYPE_HARDWARE,
+      nullptr,
+      0,
+      featureLevels,
+      arraySize( featureLevels ),
+      D3D11_SDK_VERSION,
+      &m_Device,
+      &featureLevel,
+      &m_Context );
+    NF_ASSERT_HR( hr );
+
+    IDXGIDevice * pDXGIDevice;
+    hr = m_Device->QueryInterface( __uuidof( IDXGIDevice ), reinterpret_cast< void ** >( &pDXGIDevice ) );
+    NF_ASSERT_HR( hr );
+    hr = pDXGIDevice->GetParent( __uuidof( IDXGIAdapter ), reinterpret_cast< void ** >( &m_DXGIAdapter ) );
+    NF_ASSERT_HR( hr );
+    hr = m_DXGIAdapter->GetParent( __uuidof( IDXGIFactory2 ), reinterpret_cast< void ** >( &m_IDXGIFactory ) );
+    NF_ASSERT_HR( hr );
   }
 
   const uint32 NFD3D11Device::GetDeviceCount( void ) const
@@ -66,34 +96,7 @@ namespace nfe
 
     HWND windowHandle = mainWindow.GetNativeHandle();
 
-    D3D_FEATURE_LEVEL featureLevel;
-
-    D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0, D3D_FEATURE_LEVEL_11_1 };
-
     HRESULT hr;
-
-    hr = D3D11CreateDevice(
-      nullptr,
-      D3D_DRIVER_TYPE_HARDWARE,
-      nullptr,
-      0,
-      featureLevels,
-      arraySize(featureLevels),
-      D3D11_SDK_VERSION,
-      &m_Device,
-      &featureLevel,
-      &m_Context);
-    NF_ASSERT_HR( hr );
-
-    IDXGIDevice * pDXGIDevice;
-    hr = m_Device->QueryInterface( __uuidof( IDXGIDevice ), reinterpret_cast<void ** >(&pDXGIDevice) );
-    NF_ASSERT_HR( hr );
-    IDXGIAdapter * pDXGIAdapter;
-    hr = pDXGIDevice->GetParent( __uuidof( IDXGIAdapter ), reinterpret_cast<void ** >(&pDXGIAdapter) );
-    NF_ASSERT_HR( hr );
-    IDXGIFactory2 * pIDXGIFactory;
-    hr = pDXGIAdapter->GetParent( __uuidof( IDXGIFactory2 ), reinterpret_cast<void ** >(&pIDXGIFactory) );
-    NF_ASSERT_HR( hr );
 
     DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
     swapChainDesc.BufferCount = renderDeviceParameters.TripleBuffering() ? 3 : 2;
@@ -117,7 +120,7 @@ namespace nfe
     // TODO: Fullscreen Windowed?
     fullscreenDesc.Windowed = false;
 
-    hr = pIDXGIFactory->CreateSwapChainForHwnd(
+    hr = m_IDXGIFactory->CreateSwapChainForHwnd(
       m_Device,
       windowHandle,
       &swapChainDesc,
@@ -134,7 +137,37 @@ namespace nfe
 
   nfe::Vector<Resolution> NFD3D11Device::GetSupportedResolutions()
   {
-    return Vector<Resolution>();
+    IDXGIOutput* pOutput = nullptr;
+    HRESULT hr;
+
+    hr = m_DXGIAdapter->EnumOutputs( 0, &pOutput );
+
+    UINT numModes = 0;
+    DXGI_MODE_DESC* displayModes = nullptr;
+    DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UINT;
+
+    // Get the number of elements
+    hr = pOutput->GetDisplayModeList( format, 0, &numModes, nullptr );
+
+    displayModes = nfnewArray<DXGI_MODE_DESC>(numModes, m_TmpAllocator);
+
+    // Get the list
+    hr = pOutput->GetDisplayModeList( format, 0, &numModes, displayModes );
+
+    Vector<Resolution> resolutions( numModes, m_RenderDeviceAllocator );
+
+    for( uint64 idx = 0; idx < numModes; idx++ )
+    {
+      Resolution res(
+        displayModes[ idx ].Width,
+        displayModes[ idx ].Height,
+        Rational( displayModes[ idx ].RefreshRate.Numerator, displayModes[ idx ].RefreshRate.Denominator ) );
+      resolutions.Add( res );
+    }
+
+    nfdeleteArray(displayModes, m_TmpAllocator );
+
+    return resolutions;
   }
 
 }

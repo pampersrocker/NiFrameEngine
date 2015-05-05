@@ -70,5 +70,5 @@ nfe::Resolution NiFrameWin32Platform::GetNativeResolution( uint32 monitorIdx ) c
   MONITORINFO monitorInfo;
   GetMonitorInfo( data.monitor, &monitorInfo );
 
-  return Resolution( monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top - monitorInfo.rcMonitor.bottom, 0 );
+  return Resolution( monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.top - monitorInfo.rcMonitor.bottom, Rational() );
 }
