@@ -242,7 +242,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Memory\NFDefaultAllocator.hpp" />
+    <ClInclude Include="inc\Memory\NFIAllocator.hpp" />
+    <ClInclude Include="inc\Memory\NFStackAllocator.hpp" />
     <ClInclude Include="inc\NFArrayUtils.hpp" />
+    <ClInclude Include="inc\NFEngine.hpp" />
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
     <ClInclude Include="inc\Platform\NFRenderWindow.hpp" />
@@ -272,6 +276,10 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Memory\NFDefaultAllocator.cpp" />
+    <ClCompile Include="inc\NFEngine.cpp" />
+    <ClCompile Include="src\Memory\NFIAllocator.cpp" />
+    <ClCompile Include="src\Memory\NFStackAllocator.cpp" />
     <ClCompile Include="src\Platform\NFRenderWindow.cpp" />
     <ClCompile Include="src\Platform\NFPlatform.cpp" />
     <ClCompile Include="src\Platform\NFPlatformManager.cpp" />
