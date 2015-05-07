@@ -315,6 +315,9 @@
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="inc\NFSTL\NFVector.inl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
