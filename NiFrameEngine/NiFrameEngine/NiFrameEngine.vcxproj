@@ -279,6 +279,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Memory\NFBlockAllocator.cpp" />
     <ClCompile Include="src\Utils\NFRational.cpp" />
     <ClCompile Include="src\Memory\NFDefaultAllocator.cpp" />
     <ClCompile Include="src\NFEngine.cpp" />

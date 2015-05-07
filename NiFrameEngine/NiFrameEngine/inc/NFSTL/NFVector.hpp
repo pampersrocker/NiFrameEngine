@@ -18,6 +18,8 @@ namespace nfe
     Vector( Vector<T>&& rhs );
     ~Vector();
 
+    Vector<T>& operator =( const Vector<T>& rhs );
+
     void Add( const T& member );
     void Insert( uint64 idx, const T& member );
     void Remove( const T& member );
@@ -26,6 +28,7 @@ namespace nfe
     void Reserve( uint64 newReserve );
 
     T& operator[]( uint64 idx );
+    const T& operator[]( uint64 idx ) const;
 
     nfe::uint64 Size() const;
     uint64 ReservedSize() const;
@@ -38,6 +41,8 @@ namespace nfe
     uint64 m_ReservedSize;
     IAllocator* m_Allocator;
   };
+
+
 
   template< typename T>
   inline
@@ -78,7 +83,6 @@ namespace nfe
   {
     if( newSize != m_Size )
     {
-      uint64 oldSize = m_Size;
       // Destruct the entries which are going to be deleted
       if( newSize < m_Size )
       {
@@ -206,21 +210,27 @@ namespace nfe
   template< typename T>
   inline
   nfe::Vector<T>::Vector( uint64 reservedSize, IAllocator* allocator /*= nullptr */ ) :
-    m_Allocator( allocator ),
+    m_Size( 0U ),
     m_ReservedSize( reservedSize ),
-    m_Size( 0U )
+    m_Allocator( allocator )
   {
     if( m_Allocator == nullptr )
     {
       m_Allocator = GetDefaultAllocator();
     }
-
     m_Data = static_cast< T* >( m_Allocator->Allocate( sizeof( T ) * m_ReservedSize ) );
   }
 
   template< typename T>
   inline
   T& nfe::Vector<T>::operator[]( uint64 idx )
+  {
+    NF_ASSERT( idx < m_Size, "Index is out of range" );
+    return m_Data[ idx ];
+  }
+
+  template< typename T>
+  const T& nfe::Vector<T>::operator[]( uint64 idx ) const
   {
     NF_ASSERT( idx < m_Size, "Index is out of range" );
     return m_Data[ idx ];
@@ -252,6 +262,23 @@ namespace nfe
     }
   }
 
+  template <typename T>
+  inline
+  Vector<T>& Vector<T>::operator=(const Vector<T>& rhs)
+  {
+    this->~Vector();
+    m_Allocator = rhs.m_Allocator;
+    m_Data = static_cast< T* >( m_Allocator->Allocate( sizeof( T ) * rhs.m_ReservedSize ) );
+    m_Size = rhs.m_Size;
+    m_ReservedSize = rhs.m_ReservedSize;
+
+    for( uint64 idx = 0; idx < m_Size; idx++ )
+    {
+      m_Data[ idx ] = rhs[ idx ];
+    }
+
+    return *this;
+  }
 
 
   template< typename T>

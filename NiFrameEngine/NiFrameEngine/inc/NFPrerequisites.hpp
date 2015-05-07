@@ -30,10 +30,22 @@ namespace nfe
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector3_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector2_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Matrix4x4_tpl< Real >;
+#elif defined(ORBIS)
+
+}
+namespace LinearMath
+{
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector3_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector2_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Matrix4x4_tpl < nfe::Real > ;
+
+}
+namespace nfe
+{
 #endif
-  typedef LinearMath::Vector3_tpl< Real > NIFRAME_DLL_EXPORT Vector3;
-  typedef LinearMath::Vector2_tpl< Real > NIFRAME_DLL_EXPORT Vector2;
-  typedef LinearMath::Matrix4x4_tpl< Real > NIFRAME_DLL_EXPORT Matrix4x4;
+  typedef LinearMath::Vector3_tpl< Real > Vector3;
+  typedef LinearMath::Vector2_tpl< Real > Vector2;
+  typedef LinearMath::Matrix4x4_tpl< Real > Matrix4x4;
 
 
   struct RealHelper

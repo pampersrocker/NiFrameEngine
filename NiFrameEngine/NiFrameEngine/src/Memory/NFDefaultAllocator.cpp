@@ -19,6 +19,6 @@ void* nfe::DefaultAllocator::Allocate( uint64 size )
 
 void nfe::DefaultAllocator::Deallocate( void* address )
 {
-  delete [] address;
+  delete [] static_cast< uint8* >( address );
 }
 
