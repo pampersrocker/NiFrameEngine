@@ -19,6 +19,8 @@ namespace nfe
     Resolution( uint32 width, uint32 height, const Rational& refreshRate = Rational(60,1) );
     virtual ~Resolution();
 
+    Resolution& operator = ( const Resolution& resolution );
+
     virtual String ToString() const override;
 
     uint32 GetWidth( void ) const;

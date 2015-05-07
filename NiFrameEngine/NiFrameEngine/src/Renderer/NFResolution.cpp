@@ -51,4 +51,13 @@ namespace nfe
   {
     return m_RefreshRate;
   }
+
+  Resolution& Resolution::operator=( const Resolution& resolution )
+  {
+    m_Width = resolution.m_Width;
+    m_Height = resolution.m_Height;
+    m_RefreshRate = resolution.m_RefreshRate;
+    return *this;
+  }
+
 }

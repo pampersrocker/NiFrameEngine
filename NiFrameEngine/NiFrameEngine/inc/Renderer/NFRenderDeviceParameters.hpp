@@ -22,7 +22,7 @@ namespace nfe
       uint32 msaaQuality = 0
       );
 
-    nfe::Resolution InternalResolution() const;
+    const nfe::Resolution& InternalResolution() const;
     void InternalResolution( nfe::Resolution val );
     bool FullScreen() const;
     void FullScreen( bool val );

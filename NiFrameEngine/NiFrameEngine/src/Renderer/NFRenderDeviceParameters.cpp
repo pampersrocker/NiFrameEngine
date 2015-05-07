@@ -58,7 +58,7 @@ namespace nfe
     m_InternalResolution = val;
   }
 
-  nfe::Resolution RenderDeviceParams::InternalResolution() const
+  const nfe::Resolution& RenderDeviceParams::InternalResolution() const
   {
     return m_InternalResolution;
   }

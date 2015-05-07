@@ -21,6 +21,8 @@ namespace nfe
     const Resolution& GetResolution() const;
     virtual void SetResolution( const Resolution& resolution );
 
+
+
     NativeWindow GetNativeHandle() const;
 
   private:
