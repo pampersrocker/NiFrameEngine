@@ -242,6 +242,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Memory\NFBlockAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFDefaultAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFIAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFStackAllocator.hpp" />

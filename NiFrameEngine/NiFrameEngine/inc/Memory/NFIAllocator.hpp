@@ -24,9 +24,11 @@ namespace nfe
   NIFRAME_DLL_EXPORT IAllocator* GetDefaultAllocator();
 
   template< typename T, typename ...Params>
-  T* nfnew( IAllocator* allocator = nullptr, Params... parameters );
-  template< typename T, typename ...Params>
-  T* nfnewArray( uint64 arraySize, IAllocator* allocator = nullptr, Params... parameters );
+  T* nfnew( IAllocator* allocator, Params...parameters );
+  template< typename T >
+  T* nfnew( IAllocator* allocator = nullptr );
+  template< typename T >
+  T* nfnewArray( uint64 arraySize, IAllocator* allocator);
   template< typename T>
   void nfdelete(T* object, IAllocator* allocator = nullptr);
   template< typename T>
@@ -43,9 +45,9 @@ void nfe::nfdeleteArray( T* object, IAllocator* allocator /*= nullptr */ )
   allocator->Deallocate( object );
 }
 
-template< typename T, typename ...Params>
+template< typename T>
 inline
-T* nfe::nfnewArray( uint64 arraySize, IAllocator* allocator /*= nullptr*/, Params... parameters )
+T* nfe::nfnewArray( uint64 arraySize, IAllocator* allocator /*= nullptr*/ )
 {
   if( allocator == nullptr )
   {
@@ -68,13 +70,27 @@ void nfe::nfdelete(T* object, IAllocator* allocator /*= nullptr*/ )
 
 template< typename T, typename ...Params>
 inline
-T* nfe::nfnew( IAllocator* allocator /*= nullptr */, Params... parameters )
+T* nfe::nfnew( IAllocator* allocator, Params... parameters )
 {
   if (allocator == nullptr)
   {
     allocator = GetDefaultAllocator();
   }
   void* memBlock = allocator->Allocate( sizeof( T ) );
-  T* newData = new ( memBlock ) T( parameters );
+  T* newData = new ( memBlock ) T( parameters... );
   return newData;
+}
+
+template< typename T >
+inline
+T* nfe::nfnew( IAllocator* allocator /*= nullptr */ )
+{
+  if( allocator == nullptr )
+  {
+    allocator = GetDefaultAllocator();
+  }
+  void* memBlock = allocator->Allocate( sizeof( T ) );
+  T* newData = new ( memBlock ) T();
+  return newData;
+
 }
