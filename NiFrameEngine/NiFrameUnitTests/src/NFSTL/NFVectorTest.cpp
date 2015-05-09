@@ -3,6 +3,7 @@
 #include "NFEngine.hpp"
 #include "NFSTL/NFVector.hpp"
 #include "catch.hpp"
+#include <Memory/NFDefaultAllocator.hpp>
 
 
 using namespace nfe;
@@ -246,5 +247,30 @@ SCENARIO("Vector insertion", "[vector]")
       }
     }
 
+  }
+}
+
+SCENARIO("Vector allocator Passing test", "[vector]")
+{
+  GIVEN("A custom allocator created vector, containing a vector in it self")
+  {
+    DefaultAllocator customAllocatorObj;
+    Vector<Vector<int>> vec( &customAllocatorObj );
+
+    THEN("The vector should contain the allocator and not the default one")
+    {
+      REQUIRE( vec.Allocator() == &customAllocatorObj );
+      REQUIRE( vec.Allocator() != GetDefaultAllocator() );
+    }
+
+    WHEN( "Resizing the vector with vectors in it")
+    {
+      vec.Resize( 10 );
+      THEN("The inner vectors should also have the same allocator")
+      for( size_t i = 0; i < 10; i++ )
+      {
+        REQUIRE(vec[ i ].Allocator() == &customAllocatorObj);
+      }
+    }
   }
 }

@@ -246,7 +246,19 @@ namespace nfe
   inline
     Vector<T>& Vector<T>::operator=( const Vector<T>& rhs )
   {
-    this->~Vector();
+    // Check if we are actually valid (e.g. was set invalid from move)
+    if( m_Allocator != nullptr && m_Data != nullptr )
+    {
+
+      for( uint64 idx = 0; idx < m_Size; idx++ )
+      {
+        m_Data[ idx ].~T();
+      }
+      m_Allocator->Deallocate( m_Data );
+      m_Data = nullptr;
+      m_Size = 0U;
+      m_ReservedSize = 0U;
+    }
     m_Allocator = rhs.m_Allocator;
     m_Data = static_cast< T* >( m_Allocator->Allocate( sizeof( T ) * rhs.m_ReservedSize ) );
     m_Size = rhs.m_Size;

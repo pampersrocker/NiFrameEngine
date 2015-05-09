@@ -7,7 +7,7 @@ namespace nfe
   /**
   @brief Implements a default new/delete Allocator used for basic allocation
   */
-  class DefaultAllocator : public IAllocator
+  class NIFRAME_DLL_EXPORT DefaultAllocator : public IAllocator
   {
   public:
     DefaultAllocator( const char* name = "NFDefaultAllocator" );

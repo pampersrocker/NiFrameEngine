@@ -51,14 +51,14 @@ namespace nfe
   inline
     void construct_( T* ptr, IAllocator* allocator, std::true_type*, Args...arguments )
   {
-    *ptr = T( allocator, arguments... );
+    new (ptr) T( allocator, arguments... );
   }
 
   template<typename T, typename ...Args>
   inline
     void construct_( T* ptr, IAllocator* allocator, std::false_type*, Args...arguments )
   {
-    *ptr = T(arguments...);
+    new(ptr) T(arguments...);
   }
 
   template<typename T, typename ...Args>
@@ -69,7 +69,7 @@ namespace nfe
       "A type of T can not constructed with the given arguments, with or without allocator" );
     construct_( ptr, allocator,
       static_cast< std::conditional <
-      std::is_constructible<T, IAllocator, Args...>::value, std::true_type, std::false_type>::type* >( nullptr ),
+      std::is_constructible<T, IAllocator*, Args...>::value, std::true_type, std::false_type>::type* >( nullptr ),
       arguments... );
   }
 
