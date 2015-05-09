@@ -27,6 +27,9 @@ namespace nfe
     void Resize( uint64 newSize );
     void Reserve( uint64 newReserve );
 
+    IAllocator* Allocator() const;
+    T* Data() const;
+
     T& operator[]( uint64 idx );
     const T& operator[]( uint64 idx ) const;
 
@@ -41,6 +44,7 @@ namespace nfe
     uint64 m_ReservedSize;
     IAllocator* m_Allocator;
   };
+
 
 }
 

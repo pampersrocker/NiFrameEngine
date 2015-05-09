@@ -17,11 +17,8 @@ namespace nfe
   private:
 
     IAllocator* m_DefaultAllocator;
-    Vector < int > test;
 
   };
-
-  EXPORT_TPL( Vector<int> );
 
   extern Engine* GEngine;
 

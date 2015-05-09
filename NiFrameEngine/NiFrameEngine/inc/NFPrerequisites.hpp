@@ -55,10 +55,10 @@ namespace nfe
     static const Real NEGATIVE_ONE;
   };
 #ifdef WIN32
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT std::basic_string< char >;
+  NIFRAME_DLL_EXPORT std::string;
 #endif
 
-  typedef std::basic_string< char > String;
+  typedef std::string String;
   typedef std::stringbuf StringBuffer;
 
   typedef uint64_t uint64;

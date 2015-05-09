@@ -38,9 +38,19 @@ namespace nfe
   }
 
 
+  template< typename T>
+  inline
+  IAllocator* nfe::Vector<T>::Allocator() const
+  {
+    return m_Allocator;
+  }
 
-
-
+  template< typename T>
+  inline
+    T* nfe::Vector<T>::Data() const
+  {
+    return m_Data;
+  }
 
   template< typename T>
   inline

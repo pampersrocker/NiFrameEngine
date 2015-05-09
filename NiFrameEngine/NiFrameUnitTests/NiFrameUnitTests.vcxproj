@@ -79,12 +79,14 @@
     <Import Project="..\layout.props" />
     <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
     <Import Project="..\NiFrameEngineAdditionalLibs_Win32.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\layout.props" />
     <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
     <Import Project="..\NiFrameEngineAdditionalLibs_Win32.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ORBIS'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -93,18 +95,21 @@
     <Import Project="..\NiFrameEngineAdditionalLbis_Orbis.props" />
     <Import Project="..\Orbis.props" />
     <Import Project="..\Orbis_Debug.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\layout.props" />
     <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
     <Import Project="..\NiFrameEngineAdditionalLibs_Win32.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\layout.props" />
     <Import Project="..\NiFrameEngineAdditionalIncludes.props" />
     <Import Project="..\NiFrameEngineAdditionalLibs_Win32.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|ORBIS'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -113,6 +118,7 @@
     <Import Project="..\NiFrameEngineAdditionalLbis_Orbis.props" />
     <Import Project="..\Orbis.props" />
     <Import Project="..\Orbis_Release.props" />
+    <Import Project="..\NiFrameEngine_Lib.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -232,6 +238,7 @@
     <ClInclude Include="inc\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\NFSTL\NFVectorTest.cpp" />
     <ClCompile Include="src\NiFrameUnitTests.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
