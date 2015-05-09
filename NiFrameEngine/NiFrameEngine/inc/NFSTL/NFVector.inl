@@ -153,7 +153,7 @@ namespace nfe
       // Amortized Doubling of the reserved size
       Reserve( m_ReservedSize * 2 );
     }
-    for( uint64 i = idx; i < m_Size; i++ )
+    for( uint64 i = m_Size; i >= idx && i != -1; i-- )
     {
       m_Data[ i + 1 ] = m_Data[ i ];
     }
