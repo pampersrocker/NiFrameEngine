@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NFSTL/NFVector.hpp"
+#include "NFTraits.hpp"
 
 namespace nfe
 {
@@ -52,6 +53,8 @@ namespace nfe
     return m_Data;
   }
 
+
+
   template< typename T>
   inline
     void nfe::Vector<T>::Resize( uint64 newSize )
@@ -86,7 +89,9 @@ namespace nfe
       {
         for( uint64 i = m_Size; i < newSize; i++ )
         {
-          m_Data[ i ] = T();
+          constructWithAllocatorIfPossible( m_Data + i, m_Allocator );
+          //m_Data[ i ] = T();
+
         }
       }
       m_Size = newSize;

@@ -250,6 +250,7 @@
     <ClInclude Include="inc\NFEngine.hpp" />
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
+    <ClInclude Include="inc\NFSTL\NFTraits.hpp" />
     <ClInclude Include="inc\Platform\NFRenderWindow.hpp" />
     <ClInclude Include="inc\Renderer\NFColourValue.hpp" />
     <ClInclude Include="inc\NFEnginePCH.hpp" />

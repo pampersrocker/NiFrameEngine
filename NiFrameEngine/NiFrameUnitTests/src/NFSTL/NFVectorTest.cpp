@@ -147,5 +147,104 @@ SCENARIO("Vector insertion", "[vector]")
       }
     }
 
+    WHEN("Inserting a value at the last position")
+    {
+      vec.Insert( 5, 10 );
+
+      THEN("The size of the vector should be changed")
+      {
+        REQUIRE(vec.Size() == 6);
+      }
+
+      THEN("All values currently in the vector should be at the same position")
+      {
+        for( uint64 i = 0; i < vec.Size() - 1; i++ )
+        {
+          REQUIRE( vec[ i ] == i );
+        }
+      }
+
+      THEN( "The last element should be the inserted one" )
+      {
+        REQUIRE( vec[ 5 ] == 10 );
+      }
+    }
+
+    WHEN("Inserting a value in the middle")
+    {
+      vec.Insert( 2, 10 );
+
+      THEN( "The size of the vector should be changed" )
+      {
+        REQUIRE( vec.Size() == 6 );
+      }
+
+      THEN("The values before this index should be the same")
+      {
+        for( size_t i = 0; i < 2; i++ )
+        {
+          REQUIRE( vec[ i ] == i );
+        }
+      }
+
+      THEN("The value at the inserted position should be the new one")
+      {
+        REQUIRE(vec[ 2 ] == 10);
+      }
+
+      THEN("The value after the inserted position should be the original value")
+      {
+        REQUIRE( vec[ 3 ] == 2 );
+      }
+
+      THEN("The rest of the values should be offest by one")
+      {
+        for( size_t i = 3; i < 6; i++ )
+        {
+          REQUIRE( vec[ i ] == i - 1 );
+        }
+      }
+    }
+
+    WHEN("Resizing the vector to 2")
+    {
+      vec.Resize( 2 );
+      THEN("The vector should have a size of 2")
+      {
+        REQUIRE( vec.Size() == 2 );
+      }
+
+      THEN("The vector should only contain the first two values")
+      {
+        REQUIRE( vec[ 0 ] == 0 );
+        REQUIRE( vec[ 1 ] == 1 );
+      }
+    }
+
+    WHEN( "Resizing the vector to 10" )
+    {
+      vec.Resize( 10 );
+      THEN( "The vector should have a size of 1" )
+      {
+        REQUIRE( vec.Size() == 10 );
+      }
+
+      THEN( "The vector should only contain all the values as before" )
+      {
+        for( uint64 i = 0; i < 5; i++ )
+        {
+          REQUIRE( vec[ i ] == i );
+        }
+      }
+
+      THEN( "The new created objects should be default constructed")
+      {
+        for( uint64 i = 5; i < 10; i++ )
+        {
+          REQUIRE( vec[ i ] == 0 );
+        }
+      }
+    }
+
   }
 }
