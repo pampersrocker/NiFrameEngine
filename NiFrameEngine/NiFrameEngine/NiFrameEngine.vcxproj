@@ -245,6 +245,7 @@
     <ClInclude Include="inc\Memory\NFBlockAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFDefaultAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFIAllocator.hpp" />
+    <ClInclude Include="inc\Memory\NFProxyAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFStackAllocator.hpp" />
     <ClInclude Include="inc\NFArrayUtils.hpp" />
     <ClInclude Include="inc\NFEngine.hpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Memory\NFProxyAllocator.cpp" />
     <ClCompile Include="src\Memory\NFBlockAllocator.cpp" />
     <ClCompile Include="src\Utils\NFRational.cpp" />
     <ClCompile Include="src\Memory\NFDefaultAllocator.cpp" />

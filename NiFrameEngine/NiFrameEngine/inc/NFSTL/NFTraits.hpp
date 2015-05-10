@@ -58,7 +58,7 @@ namespace nfe
   inline
     void construct_( T* ptr, IAllocator* allocator, std::false_type*, Args...arguments )
   {
-    new(ptr) T(arguments...);
+    new (ptr) T(arguments...);
   }
 
   template<typename T, typename ...Args>

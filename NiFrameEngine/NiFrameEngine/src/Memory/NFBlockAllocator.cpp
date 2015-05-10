@@ -37,10 +37,11 @@ nfe::BlockAllocatorType nfe::BlockAllocator::GetAllocatorType() const
 
 void* nfe::BlockAllocator::Allocate( uint64 size )
 {
+  NF_ASSERT( false, "Not Implemented" );
   return nullptr;
 }
 
 void nfe::BlockAllocator::Deallocate( void* address )
 {
-
+  NF_ASSERT( false, "Not implemented" );
 }
