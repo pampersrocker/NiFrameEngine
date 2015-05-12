@@ -33,6 +33,8 @@ namespace nfe
   void nfdelete(T* object, IAllocator* allocator = nullptr);
   template< typename T>
   void nfdeleteArray( T* object, IAllocator* allocator = nullptr );
+
+  uint64 alignedSize( uint64 size, uint32 alignment = 4U );
 }
 
 template< typename T>
