@@ -2,6 +2,10 @@
 #ifndef NiFrameMacros_h__
 #define NiFrameMacros_h__
 
+#if !defined(WIN32) && !defined(ORBIS)
+#error "No Platform defined"
+#endif
+
 #ifdef WIN32
 
 #ifdef NIFRAME_DLL_BUILD
