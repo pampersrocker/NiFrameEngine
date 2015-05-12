@@ -53,6 +53,17 @@ namespace nfe
     return m_Data;
   }
 
+  template< typename T>
+  VectorIterator< Vector<T> > nfe::Vector<T>::end() const
+  {
+    return VectorIterator< Vector<T> >( *this, m_Size );
+  }
+
+  template< typename T>
+  VectorIterator< Vector<T> > nfe::Vector<T>::begin() const
+  {
+    return VectorIterator< Vector<T> >( *this, 0 );
+  }
 
 
   template< typename T>

@@ -274,3 +274,31 @@ SCENARIO("Vector allocator Passing test", "[vector]")
     }
   }
 }
+
+SCENARIO("Vector iterator test", "[vector][iterator]")
+{
+  GIVEN("A vector with 5 Elements")
+  {
+    Vector<int> vec;
+    for( size_t i = 0; i < 5; i++ )
+    {
+      vec.Add( i );
+    }
+    WHEN("Iterating over the vector")
+    {
+      int iterationCount = 0;
+      int sum = 0;
+      for( auto it : vec )
+      {
+        iterationCount++;
+        sum += it;
+      }
+
+      THEN("The iteration count should be the same as the size of the vector and the sum should be the sum of the contents of the vector")
+      {
+        REQUIRE( iterationCount == 5 );
+        REQUIRE( sum == 10 );
+      }
+    }
+  }
+}

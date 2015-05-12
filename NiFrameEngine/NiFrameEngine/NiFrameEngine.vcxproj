@@ -252,6 +252,7 @@
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
     <ClInclude Include="inc\NFSTL\NFTraits.hpp" />
+    <ClInclude Include="inc\NFSTL\NFVectorIterator.hpp" />
     <ClInclude Include="inc\Platform\NFRenderWindow.hpp" />
     <ClInclude Include="inc\Renderer\NFColourValue.hpp" />
     <ClInclude Include="inc\NFEnginePCH.hpp" />
@@ -320,6 +321,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\NFSTL\NFVector.inl" />
+    <None Include="inc\NFSTL\NFVectorIterator.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -224,6 +224,9 @@
     <ClInclude Include="inc\Memory\NFProxyAllocator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\NFSTL\NFVectorIterator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">
@@ -232,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\NFSTL\NFVector.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\NFSTL\NFVectorIterator.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

@@ -10,6 +10,11 @@ namespace nfe
   {
   public:
 
+    typedef T DataType;
+
+    template < class Vector >
+    friend class VectorIterator;
+
     static_assert( std::is_constructible<T>::value, "Template Type for Vector must be trivially constructible" );
     static_assert( std::is_copy_assignable<T>::value, "Template Type for Vector must be assignable" );
     Vector( IAllocator* allocator = nullptr );
@@ -26,6 +31,9 @@ namespace nfe
     void RemoveAt( uint64 idx );
     void Resize( uint64 newSize );
     void Reserve( uint64 newReserve );
+
+    VectorIterator< Vector<T> > begin() const;
+    VectorIterator< Vector<T> > end() const;
 
     IAllocator* Allocator() const;
     T* Data() const;
@@ -45,7 +53,7 @@ namespace nfe
     IAllocator* m_Allocator;
   };
 
-
 }
+#include "NFSTL/NFVectorIterator.hpp"
 
 #include "NFSTL/NFVector.inl"
