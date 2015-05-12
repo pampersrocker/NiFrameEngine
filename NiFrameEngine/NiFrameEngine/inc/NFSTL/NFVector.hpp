@@ -5,6 +5,9 @@ namespace nfe
 {
   class IAllocator;
 
+  template < class Vector>
+  class VectorIterator;
+
   template< typename T>
   class Vector
   {
@@ -15,7 +18,7 @@ namespace nfe
     template < class Vector >
     friend class VectorIterator;
 
-    static_assert( std::is_constructible<T>::value, "Template Type for Vector must be trivially constructible" );
+    static_assert( std::is_constructible<T>::value, "Template Type for Vector must have a default constructor" );
     static_assert( std::is_copy_assignable<T>::value, "Template Type for Vector must be assignable" );
     Vector( IAllocator* allocator = nullptr );
     Vector( uint64 reservedSize, IAllocator* allocator = nullptr );
