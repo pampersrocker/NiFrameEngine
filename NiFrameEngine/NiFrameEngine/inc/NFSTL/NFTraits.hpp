@@ -68,8 +68,8 @@ namespace nfe
     static_assert( std::is_constructible<T, Args...>::value,
       "A type of T can not constructed with the given arguments, with or without allocator" );
     construct_( ptr, allocator,
-      static_cast< std::conditional <
-      std::is_constructible<T, IAllocator*, Args...>::value, std::true_type, std::false_type>::type* >( nullptr ),
+      static_cast< typename std::conditional <
+      std::is_constructible< T, IAllocator*, Args...>::value, typename std::true_type, std::false_type>::type* >( nullptr ),
       arguments... );
   }
 
