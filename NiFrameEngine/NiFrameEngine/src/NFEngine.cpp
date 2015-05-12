@@ -33,3 +33,8 @@ void nfe::Engine::Shutdown()
   this->~Engine();
   GEngine = nullptr;
 }
+
+void nfe::Engine::Run()
+{
+
+}

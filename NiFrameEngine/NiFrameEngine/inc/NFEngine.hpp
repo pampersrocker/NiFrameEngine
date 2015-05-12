@@ -4,13 +4,15 @@
 
 namespace nfe
 {
-  class Engine
+  class NIFRAME_DLL_EXPORT Engine
   {
   public:
     Engine();
     ~Engine();
 
     IAllocator* GetDefaultAllocator() const;
+
+    void Run();
 
     void Shutdown();
 
@@ -20,6 +22,6 @@ namespace nfe
 
   };
 
-  extern Engine* GEngine;
+  NIFRAME_DLL_EXPORT extern Engine* GEngine;
 
 }
