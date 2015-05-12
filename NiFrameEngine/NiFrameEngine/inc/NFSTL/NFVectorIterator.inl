@@ -240,7 +240,7 @@ namespace nfe
   }
 
   template< class Vector >
-  VectorIterator< Vector >::VectorIterator( const typename Vector& data, uint64 uiPos ) :
+  VectorIterator< Vector >::VectorIterator( const Vector& data, uint64 uiPos ) :
     m_T( data ),
     m_uiPos( uiPos )
   {
