@@ -3,16 +3,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(SolutionDir)/bin/$(Platform)_$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)../bin/$(Platform)_$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)/Intermediate/$(ProjectName)/$(Platform)_$(Configuration)\</IntDir>
-    <PrxStubOutputDir>$(SolutionDir)/lib/$(ProjectName)/$(Platform)_$(Configuration)\</PrxStubOutputDir>
+    <PrxStubOutputDir>$(ProjectDir)../lib/$(ProjectName)/$(Platform)_$(Configuration)\</PrxStubOutputDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)/../ThirdParty/CATCH/;$(ProjectDir)/inc/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
-      <OutputFile>$(SolutionDir)/lib/$(ProjectName)/$(Platform)_$(Configuration)/$(TargetName)$(TargetExt)</OutputFile>
+      <OutputFile>$(ProjectDir)../lib/$(ProjectName)/$(Platform)_$(Configuration)/$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
     <Link>
       <ImportLibrary>$(SolutionDir)lib\$(ProjectName)\$(Platform)_$(Configuration)\$(TargetName).lib</ImportLibrary>

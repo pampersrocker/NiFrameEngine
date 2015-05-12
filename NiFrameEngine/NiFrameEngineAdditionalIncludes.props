@@ -7,7 +7,7 @@
     <ClCompile />
     <Link />
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\lib\MathLib\MathLib\include\;$(SolutionDir)lib\VisualLeakDetector\include\;$(SolutionDir)lib\SDL\include;$(ProjectDir)/inc/;$(SolutionDir)/NiFrameEngine/inc/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MATHLIB_API)MathLib\include\;$(SolutionDir)lib\VisualLeakDetector\include\;$(SolutionDir)lib\SDL\include;$(ProjectDir)/inc/;$(SolutionDir)/NiFrameEngine/inc/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup />
