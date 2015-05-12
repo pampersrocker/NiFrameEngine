@@ -5,5 +5,7 @@ using namespace nfe;
 
 IPlatform* nfe::GPlatform = nullptr;
 
+nfe::IPlatform::IPlatform()
+{
 
-
+}

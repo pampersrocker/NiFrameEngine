@@ -9,6 +9,7 @@ namespace nfe
   class NIFRAME_DLL_EXPORT IPlatform
   {
   public:
+    IPlatform();
     virtual ~IPlatform() {}
 
     virtual INativeModule* LoadModule(const char* modulePath) = 0;
