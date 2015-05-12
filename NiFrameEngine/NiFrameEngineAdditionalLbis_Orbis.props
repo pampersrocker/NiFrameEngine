@@ -6,7 +6,7 @@
   <ItemDefinitionGroup>
     <Link>
       <AdditionalLibraryDirectories>$(ProjectDir)..\lib\MathLib\MathLib\lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(ProjectDir)..\lib\MathLib\MathLib\lib\$(Configuration)\MathLib.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(MATHLIB_API)lib\$(Configuration)\MathLib.a;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
