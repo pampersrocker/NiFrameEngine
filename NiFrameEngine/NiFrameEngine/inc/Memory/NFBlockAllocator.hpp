@@ -33,7 +33,7 @@ namespace nfe
 
   };
 
-  class NIFRAME_DLL_EXPORT BlockAllocator : IAllocator
+  class NIFRAME_DLL_EXPORT BlockAllocator : public IAllocator
   {
   public:
     BlockAllocator(

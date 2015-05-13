@@ -6,7 +6,7 @@
 namespace nfe
 {
 
-  class StackAllocator : public IAllocator
+  class NIFRAME_DLL_EXPORT StackAllocator : public IAllocator
   {
   public:
     StackAllocator(uint64 size, uint32 alignment = sizeof(void*), IAllocator* parentAllocator = nullptr, const char* name = "NFStackAllocator");
@@ -23,6 +23,7 @@ namespace nfe
     IAllocator* m_ParentAllocator;
     uint8* m_Memory;
     uint8* m_CurrentMarker;
+    uint8* m_LastAllocation;
   };
 
 }

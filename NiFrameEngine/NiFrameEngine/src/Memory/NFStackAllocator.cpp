@@ -23,18 +23,24 @@ nfe::StackAllocator::StackAllocator(
   uint64 alignedSize = ( ( size + alignment - 1 ) / alignment ) * alignment;
 
   m_Memory = static_cast< uint8* >( m_ParentAllocator->Allocate( alignedSize ) );
+  if( alignedSize != size )
+  {
 
-  uint8 offset = static_cast< uint8 >( alignment - reinterpret_cast< uintptr_t >( m_Memory ) % alignment );
-  m_Memory += offset;
-  m_Memory[ -1 ] = offset;
 
+    uint8 offset = static_cast< uint8 >( alignment - reinterpret_cast< uintptr_t >( m_Memory ) % alignment );
+    m_Memory += offset;
+    m_Memory[ -1 ] = offset;
+  }
   m_CurrentMarker = m_Memory;
 }
 
 nfe::StackAllocator::~StackAllocator()
 {
-  uint8 offset = m_Memory[ -1 ];
-  m_Memory -= offset;
+  if( m_Size % m_Alignment != 0 )
+  {
+    uint8 offset = m_Memory[ -1 ];
+    m_Memory -= offset;
+  }
   m_ParentAllocator->Deallocate( m_Memory );
 
   m_Memory = nullptr;
@@ -43,8 +49,15 @@ nfe::StackAllocator::~StackAllocator()
 
 void* nfe::StackAllocator::Allocate( uint64 size )
 {
-  NF_ASSERT( m_CurrentMarker + size < m_Memory + m_Size, "Tried to allocate more than the StackAllocator holds" );
   uint64 alignedSize = size + ( m_Alignment - ( size % m_Alignment ) );
+  uintptr_t newPtr = ( reinterpret_cast< uintptr_t >( m_CurrentMarker ) + alignedSize );
+  uintptr_t maxPtr = reinterpret_cast< uintptr_t >( m_Memory ) +m_Size;
+  NF_ASSERT( newPtr < maxPtr, "Tried to allocate more than the StackAllocator holds" );
+  if (newPtr > maxPtr)
+  {
+    return nullptr;
+  }
+  m_LastAllocation = m_CurrentMarker;
   void* allocatedAddress = m_CurrentMarker;
   m_CurrentMarker += alignedSize;
   return allocatedAddress;
@@ -55,5 +68,8 @@ void nfe::StackAllocator::Deallocate( void* address )
   NF_ASSERT( address > m_Memory && address < m_Memory + m_Size,
     "Tried to Deallocate pointer out of this allocator range" );
   // TODO: Check if skip other allocations ?
-  m_CurrentMarker = static_cast< uint8* >( address );
+  if( address == m_LastAllocation )
+  {
+    m_CurrentMarker = static_cast< uint8* >( address );
+  }
 }
