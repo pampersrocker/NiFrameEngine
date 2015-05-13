@@ -17,7 +17,7 @@ nfe::StackAllocator::StackAllocator(
 {
   if (m_ParentAllocator == nullptr)
   {
-    m_ParentAllocator = GEngine->GetDefaultAllocator();
+    m_ParentAllocator = GetDefaultAllocator();
   }
 
   uint64 alignedSize = ( ( size + alignment - 1 ) / alignment ) * alignment;

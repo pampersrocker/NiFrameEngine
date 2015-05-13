@@ -1,6 +1,7 @@
 #include "NFEnginePCH.hpp"
 #include "Memory/NFIAllocator.hpp"
 #include <NFEngine.hpp>
+#include "Platform/NFPlatform.hpp"
 
 using namespace nfe;
 
@@ -22,7 +23,8 @@ m_Name(name)
 
 IAllocator* nfe::GetDefaultAllocator()
 {
-  return nfe::GEngine->GetDefaultAllocator();
+  NF_ASSERT( GPlatform, "No platform existing yet" );
+  return ::nfe::GPlatform->GetDefaultAllocator();
 }
 
 nfe::uint64 nfe::alignedSize( uint64 size, uint32 alignment )
