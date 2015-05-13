@@ -63,6 +63,16 @@ namespace nfe
     return m_InternalResolution;
   }
 
+  RenderDeviceParams& RenderDeviceParams::operator=( const RenderDeviceParams& rhs )
+  {
+    m_InternalResolution = rhs.m_InternalResolution;
+    m_FullScreen = rhs.m_FullScreen;
+    m_TripleBuffering = rhs.m_TripleBuffering;
+    m_MSAACount = rhs.m_MSAACount;
+    m_MSAAQuality = rhs.m_MSAAQuality;
+    return *this;
+  }
+
 
 
 }

@@ -14,6 +14,9 @@ namespace nfe
 
   public:
 
+    RenderDeviceParams& operator=( const RenderDeviceParams& );
+    ~RenderDeviceParams() { }
+
     void Initialize(
       const Resolution& interalResolution,
       bool fullScreen,
