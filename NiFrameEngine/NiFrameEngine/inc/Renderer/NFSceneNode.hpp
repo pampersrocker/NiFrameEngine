@@ -8,12 +8,9 @@
 
 namespace nfe
 {
-
-
   class SceneNode;
 
-  TYPEDEF_EXPORT_REFCOUNT_PTR( SceneNode )
-
+  typedef ReferenceCounted < SceneNode > SceneNodePtr;
 
   class NIFRAME_DLL_EXPORT SceneNode : public MoveableObject
   {

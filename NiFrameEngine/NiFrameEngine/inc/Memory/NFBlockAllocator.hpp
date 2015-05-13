@@ -36,12 +36,29 @@ namespace nfe
   class NIFRAME_DLL_EXPORT BlockAllocator : public IAllocator
   {
   public:
+
+    /**
+    @brief Creates a new block allocator which can optionally pre allocate a chunk of memory on which the blocks will be created.
+
+    This allocator has 3 different Types how the chunks will be chosen on an allocation:
+    * FirstFit The first free block of memory which is found will be split and used
+    * BestFit the smallest possible free chunk available will be split and used
+    * WorstFit the biggest chunk available will be split and used used
+
+    @param const char * name The name of the allocator (for debugging)
+    @param uint32 alignment The default alignment of the allocates blocks.
+    @param BlockAllocatorType allocationType The behaviour how the free blocks will be chosen for a new allocation
+    @param uint64 initialAllocationSize The initial chunk of memory which will be allocated from the parent allocator
+    @param IAllocator * parentAllocator The parent allocator used for chunk allocation
+    @param IAllocator * internalAllocator Allocator used for internal allocator allocations, if not set will be the same as parentAllocator
+    */
     BlockAllocator(
       const char* name = "NFBlockAllocator",
       uint32 alignment = 4U,
       BlockAllocatorType allocationType = BlockAllocatorType::FirstFit,
       uint64 initialAllocationSize = 0U,
-      IAllocator* parentAllocator = nullptr);
+      IAllocator* parentAllocator = nullptr,
+      IAllocator* internalAllocator = nullptr);
     virtual ~BlockAllocator();
 
     nfe::BlockAllocatorType GetAllocatorType() const;

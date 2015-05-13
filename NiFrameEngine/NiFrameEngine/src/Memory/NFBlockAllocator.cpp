@@ -9,14 +9,15 @@ nfe::BlockAllocator::BlockAllocator(
   uint32 alignment,
   BlockAllocatorType allocationType /*= BlockAllocatorType::FirstFit*/,
   uint64 initialAllocationSize /*= 0U*/,
-  IAllocator* parentAllocator /*= nullptr*/ ) :
+  IAllocator* parentAllocator /*= nullptr*/,
+  IAllocator* internalAllocator) :
   IAllocator(name),
+  m_Alignment(alignment),
   m_ParentAllocator(parentAllocator),
   m_AllocatorType(allocationType),
-  m_Alignment(alignment),
-  m_FreeMemoryChunks( parentAllocator ),
-  m_UsedMemoryChunks( parentAllocator ),
-  m_AllocatedBlocks( parentAllocator )
+  m_AllocatedBlocks( internalAllocator ? internalAllocator : parentAllocator ),
+  m_FreeMemoryChunks( internalAllocator ? internalAllocator : parentAllocator ),
+  m_UsedMemoryChunks( internalAllocator ? internalAllocator : parentAllocator )
 {
   if (m_ParentAllocator == nullptr)
   {
@@ -242,7 +243,7 @@ bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk 
         break;
       }
     }
-    else if( chunk.Pointer = mergeChunk.EndAddress )
+    else if( chunk.Pointer == mergeChunk.EndAddress )
     {
       postAllocatorIdx = idx;
       if( preAllocatorIdx != -1 )
