@@ -10,15 +10,12 @@ namespace nfe
     Engine();
     ~Engine();
 
-    IAllocator* GetDefaultAllocator() const;
 
     void Run();
 
     void Shutdown();
 
   private:
-
-    IAllocator* m_DefaultAllocator;
 
   };
 
