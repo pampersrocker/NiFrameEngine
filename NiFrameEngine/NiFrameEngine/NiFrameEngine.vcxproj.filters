@@ -227,6 +227,9 @@
     <ClInclude Include="inc\NFSTL\NFVectorIterator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Logging\Logging.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">

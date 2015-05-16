@@ -197,7 +197,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lib\MathLib\MathLib\MathLib\MathLib.vcxproj">
+    <ProjectReference Include="..\..\..\Mathlib\MathLib\MathLib\MathLib.vcxproj">
       <Project>{92281bd6-bbb9-456d-bf18-df505fef6d4b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\NiFrameEngine\NiFrameEngine.vcxproj">
