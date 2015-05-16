@@ -5,7 +5,7 @@ namespace nfe
   class NIFRAME_DLL_EXPORT INativeModule
   {
   public:
-
+    INativeModule() { }
     virtual ~INativeModule() { }
 
     template <typename T>
