@@ -7,7 +7,7 @@
 
 namespace nfe
 {
-  class Shader;
+  class IShader;
 
   class NIFRAME_DLL_EXPORT Material
   {
@@ -15,11 +15,11 @@ namespace nfe
     Material( const String& name );
     ~Material();
 
-    Shader* GetPixelShader( void ) const;
-    Shader* GetVertexShader( void ) const;
+    IShader* GetPixelShader( void ) const;
+    IShader* GetVertexShader( void ) const;
 
-    void SetPixelShader( Shader* shader );
-    void SetVertexShader( Shader* shader );
+    void SetPixelShader( IShader* shader );
+    void SetVertexShader( IShader* shader );
 
     const String& GetName( void ) const;
 
@@ -28,8 +28,8 @@ namespace nfe
 
   protected:
 
-    Shader* m_PixelShader;
-    Shader* m_VertexShader;
+    IShader* m_PixelShader;
+    IShader* m_VertexShader;
 
   private:
 

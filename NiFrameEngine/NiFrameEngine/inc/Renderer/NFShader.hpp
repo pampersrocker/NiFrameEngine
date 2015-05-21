@@ -6,11 +6,11 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Shader
+  class NIFRAME_DLL_EXPORT IShader
   {
   public:
-    Shader();
-    virtual ~Shader();
+    IShader();
+    virtual ~IShader();
 
     virtual void SetShaderParameter( const String& paramName, const Real value ) = 0;
     virtual void SetShaderParameter( const String& paramName, const int32 value ) = 0;

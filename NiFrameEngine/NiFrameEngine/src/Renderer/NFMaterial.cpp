@@ -30,22 +30,22 @@ namespace nfe
     return m_Name;
   }
 
-  void Material::SetVertexShader( Shader* shader )
+  void Material::SetVertexShader( IShader* shader )
   {
     m_VertexShader = shader;
   }
 
-  void Material::SetPixelShader( Shader* shader )
+  void Material::SetPixelShader( IShader* shader )
   {
     m_PixelShader = shader;
   }
 
-  Shader* Material::GetVertexShader( void ) const
+  IShader* Material::GetVertexShader( void ) const
   {
     return m_VertexShader;
   }
 
-  Shader* Material::GetPixelShader( void ) const
+  IShader* Material::GetPixelShader( void ) const
   {
     return m_PixelShader;
   }
