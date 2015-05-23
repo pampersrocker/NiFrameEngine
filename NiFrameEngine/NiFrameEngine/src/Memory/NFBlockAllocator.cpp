@@ -52,11 +52,12 @@ nfe::BlockAllocatorType nfe::BlockAllocator::GetAllocatorType() const
   return m_AllocatorType;
 }
 
-void* nfe::BlockAllocator::Allocate( uint64 size )
+void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
 {
+  uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
   NF_ASSERT( size > 0, "One cannot simply allocate a size of 0!" );
   uint64 blockIdx = -1;
-  uint64 alignedSize = ::nfe::alignedSize( size );
+  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment );
   switch (m_AllocatorType)
   {
   case BlockAllocatorType::BestFit:
@@ -107,7 +108,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size )
     m_FreeMemoryChunks.RemoveAt( blockIdx );
   }
 
-  uint8 offset = static_cast< uint8 >( m_Alignment- reinterpret_cast< uintptr_t >( block.Pointer ) % m_Alignment );
+  uint8 offset = static_cast< uint8 >( usedAlignment - reinterpret_cast< uintptr_t >( block.Pointer ) % usedAlignment );
   uint8* memory = block.Pointer;
   memory += offset;
   memory[ -1 ] = offset;

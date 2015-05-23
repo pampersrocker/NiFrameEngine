@@ -13,7 +13,7 @@ namespace nfe
     DefaultAllocator( const char* name = "NFDefaultAllocator" );
     virtual ~DefaultAllocator();
 
-    virtual void* Allocate( uint64 size ) override;
+    virtual void* Allocate( uint64 size, uint32 alignment = 0 ) override;
 
     virtual void Deallocate( void* address ) override;
 

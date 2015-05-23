@@ -12,7 +12,7 @@ namespace nfe
     StackAllocator(uint64 size, uint32 alignment = sizeof(void*), IAllocator* parentAllocator = nullptr, const char* name = "NFStackAllocator");
     ~StackAllocator();
 
-    virtual void* Allocate( uint64 size ) override;
+    virtual void* Allocate( uint64 size, uint32 alignment = 0 ) override;
 
     virtual void Deallocate( void* address ) override;
 

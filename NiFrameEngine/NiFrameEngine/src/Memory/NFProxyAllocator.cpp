@@ -34,9 +34,9 @@ void nfe::ProxyAllocator::Deallocate( void* address )
   NF_ASSERT( found, "Could not find address in allocated blocks" );
 }
 
-void* nfe::ProxyAllocator::Allocate( uint64 size )
+void* nfe::ProxyAllocator::Allocate( uint64 size, uint32 alignment )
 {
-  void* m_Pointer = m_ParentAllocator->Allocate( size );
+  void* m_Pointer = m_ParentAllocator->Allocate( size, alignment );
   ProxyAllocationInfo info;
   info.Pointer = static_cast< uint8* >( m_Pointer );
   info.Size = size;

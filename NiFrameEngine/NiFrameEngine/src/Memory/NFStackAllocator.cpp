@@ -8,57 +8,50 @@ nfe::StackAllocator::StackAllocator(
   uint32 alignment /*= sizeof(void*)*/,
   IAllocator* parentAllocator /*= nullptr*/,
   const char* name /*= "NFStackAllocator"*/ ) :
-  IAllocator(name),
-  m_Size( size),
+  IAllocator( name ),
+  m_Size( size ),
   m_Alignment( alignment ),
-  m_ParentAllocator(parentAllocator),
-  m_Memory(nullptr),
-  m_CurrentMarker(nullptr)
+  m_ParentAllocator( parentAllocator ),
+  m_Memory( nullptr ),
+  m_CurrentMarker( nullptr )
 {
-  if (m_ParentAllocator == nullptr)
+  if( m_ParentAllocator == nullptr )
   {
     m_ParentAllocator = GetDefaultAllocator();
   }
 
-  uint64 alignedSize = ( ( size + alignment - 1 ) / alignment ) * alignment;
+  uint64 alignedSize = ::nfe::alignedSize( size, alignment );
 
-  m_Memory = static_cast< uint8* >( m_ParentAllocator->Allocate( alignedSize ) );
-  if( alignedSize != size )
-  {
+  m_Memory = static_cast< uint8* >( m_ParentAllocator->Allocate( alignedSize, alignment ) );
 
-
-    uint8 offset = static_cast< uint8 >( alignment - reinterpret_cast< uintptr_t >( m_Memory ) % alignment );
-    m_Memory += offset;
-    m_Memory[ -1 ] = offset;
-  }
   m_CurrentMarker = m_Memory;
 }
 
 nfe::StackAllocator::~StackAllocator()
 {
-  if( m_Size % m_Alignment != 0 )
-  {
-    uint8 offset = m_Memory[ -1 ];
-    m_Memory -= offset;
-  }
   m_ParentAllocator->Deallocate( m_Memory );
 
   m_Memory = nullptr;
   m_CurrentMarker = nullptr;
 }
 
-void* nfe::StackAllocator::Allocate( uint64 size )
+void* nfe::StackAllocator::Allocate( uint64 size, uint32 alignment )
 {
-  uint64 alignedSize = size + ( m_Alignment - ( size % m_Alignment ) );
-  uintptr_t newPtr = ( reinterpret_cast< uintptr_t >( m_CurrentMarker ) + alignedSize );
+  uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
+  uint64 alignedSize = nfe::alignedSize( size, usedAlignment );
   uintptr_t maxPtr = reinterpret_cast< uintptr_t >( m_Memory ) +m_Size;
+  m_LastAllocation = m_CurrentMarker;
+
+  uint32 offset = usedAlignment - ( reinterpret_cast< uintptr_t >( m_CurrentMarker ) % usedAlignment );
+  alignedSize += offset;
+  void* allocatedAddress = m_CurrentMarker + offset;
+
+  uintptr_t newPtr = ( reinterpret_cast< uintptr_t >( m_CurrentMarker ) + alignedSize );
   NF_ASSERT( newPtr < maxPtr, "Tried to allocate more than the StackAllocator holds" );
   if (newPtr > maxPtr)
   {
     return nullptr;
   }
-  m_LastAllocation = m_CurrentMarker;
-  void* allocatedAddress = m_CurrentMarker;
   m_CurrentMarker += alignedSize;
   return allocatedAddress;
 }

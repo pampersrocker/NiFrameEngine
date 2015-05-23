@@ -11,7 +11,7 @@ namespace nfe
     IAllocator( const char* name );
     virtual ~IAllocator();
 
-    virtual  void* Allocate( uint64 size ) = 0;
+    virtual  void* Allocate( uint64 size, uint32 alignment = 0 ) = 0;
     virtual void Deallocate( void* address ) = 0;
 
     const char* GetName() const;
