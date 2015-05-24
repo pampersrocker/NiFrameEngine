@@ -19,7 +19,7 @@ namespace nfe
 
   However it does track allocations and deallocation for debugging and statistic purpose.
   */
-  class ProxyAllocator : public IAllocator
+  class NIFRAME_DLL_EXPORT ProxyAllocator : public IAllocator
   {
   public:
     ProxyAllocator( IAllocator* parentAllocator = nullptr, const char* name = "NFProxyAllocator" );

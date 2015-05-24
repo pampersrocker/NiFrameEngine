@@ -255,6 +255,7 @@
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
     <ClInclude Include="inc\NFSTL\NFTraits.hpp" />
     <ClInclude Include="inc\NFSTL\NFVectorIterator.hpp" />
+    <ClInclude Include="inc\Platform\NFFile.hpp" />
     <ClInclude Include="inc\Platform\NFRenderWindow.hpp" />
     <ClInclude Include="inc\Renderer\NFColourValue.hpp" />
     <ClInclude Include="inc\NFEnginePCH.hpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\NFFile.cpp" />
     <ClCompile Include="src\Memory\NFProxyAllocator.cpp" />
     <ClCompile Include="src\Memory\NFBlockAllocator.cpp" />
     <ClCompile Include="src\Utils\NFRational.cpp" />

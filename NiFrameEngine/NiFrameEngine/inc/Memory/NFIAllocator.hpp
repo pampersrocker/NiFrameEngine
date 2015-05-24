@@ -28,7 +28,7 @@ namespace nfe
   template< typename T >
   T* nfnew( IAllocator* allocator = nullptr );
   template< typename T >
-  T* nfnewArray( uint64 arraySize, IAllocator* allocator);
+  T* nfnewArray( uint64 arraySize, IAllocator* allocator = nullptr);
   template< typename T>
   void nfdelete(T* object, IAllocator* allocator = nullptr);
   template< typename T>

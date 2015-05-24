@@ -3,6 +3,7 @@
 #include "NFEnginePCH.hpp"
 #include <Renderer/NFResolution.hpp>
 #include "Memory/NFIAllocator.hpp"
+#include "NFFile.hpp"
 
 namespace nfe
 {
@@ -23,13 +24,16 @@ namespace nfe
     virtual IAllocator* GetGPUAllocator() const = 0;
 
     /**
-    @brief Gets a specific Debug Allocator which can be used for debug purpose, this alloctor will not be available in shipping builds
+    @brief Gets a specific Debug Allocator which can be used for debug purpose, this allocator will not be available in shipping builds
 
     @return IAllocator*
     */
     virtual IAllocator* GetDebugAllocator() const = 0;
 
     virtual Resolution GetNativeResolution( uint32 monitorIdx ) const = 0;
+
+    virtual File* OpenFile( const String& path, const String& mode, IAllocator* allocator = nullptr ) = 0;
+    virtual void CloseFile( File* file) = 0;
 
   private:
 
