@@ -10,6 +10,8 @@
   #include <LinearMath/Vector2.hpp>
   #include <LinearMath/Vector3.hpp>
   #include <LinearMath/Matrix4x4.hpp>
+  #include "LinearMath/MathHelper.hpp"
+
 
 // Active this switch if you want do enable double precision
 // #define USE_DOUBLE_PRECISION
@@ -36,6 +38,7 @@ namespace nfe
 namespace LinearMath
 {
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector3_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector4_tpl < nfe::Real > ;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector2_tpl < nfe::Real > ;
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Matrix4x4_tpl < nfe::Real > ;
 
@@ -44,8 +47,11 @@ namespace nfe
 {
 #endif
   typedef LinearMath::Vector3_tpl< Real > Vector3;
+  typedef LinearMath::Vector4_tpl< Real > Vector4;
   typedef LinearMath::Vector2_tpl< Real > Vector2;
   typedef LinearMath::Matrix4x4_tpl< Real > Matrix4x4;
+  typedef LinearMath::Radian_tpl< Real> Radian;
+  typedef LinearMath::Degree_tpl< Real> Degree;
 
 
   struct RealHelper
