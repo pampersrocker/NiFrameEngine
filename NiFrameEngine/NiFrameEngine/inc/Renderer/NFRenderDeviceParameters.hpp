@@ -13,7 +13,9 @@ namespace nfe
   {
 
   public:
-
+    RenderDeviceParams()
+    {
+    };
     RenderDeviceParams& operator=( const RenderDeviceParams& );
     ~RenderDeviceParams() { }
 

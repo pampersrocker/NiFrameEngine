@@ -183,8 +183,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy /E /F /Y $(NF_API)\bin\$(Platform)_$(Configuration)\* $(SolutionDir)debugger\app0\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -241,6 +240,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /E /F /Y $(NF_API)\bin\$(Platform)_$(Configuration)\* $(SolutionDir)debugger\app0\</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="inc\Logging\Logging.hpp" />

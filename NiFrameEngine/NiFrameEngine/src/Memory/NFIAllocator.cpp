@@ -29,5 +29,9 @@ IAllocator* nfe::GetDefaultAllocator()
 
 nfe::uint64 nfe::alignedSize( uint64 size, uint32 alignment )
 {
+  if( size == 0 )
+  {
+    return alignment;
+  }
   return ( ( size + alignment - 1 ) / alignment ) * alignment;
 }

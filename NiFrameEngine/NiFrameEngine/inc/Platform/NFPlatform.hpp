@@ -35,6 +35,9 @@ namespace nfe
     virtual File* OpenFile( const String& path, const String& mode, IAllocator* allocator = nullptr ) = 0;
     virtual void CloseFile( File* file) = 0;
 
+    virtual void OnAllocation( void* address, uint64 size ) = 0;
+    virtual void OnDeallocation( void* address, uint64 size ) = 0;
+
   private:
 
   };

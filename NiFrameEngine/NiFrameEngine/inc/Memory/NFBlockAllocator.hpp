@@ -20,6 +20,7 @@ namespace nfe
     uint8* Pointer;
     uint8* EndAddress;
     uint64 Size;
+    uint32 Offset;
 
     void CalculateEndAddress();
 

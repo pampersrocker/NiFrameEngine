@@ -66,6 +66,8 @@ namespace nfe
   typedef uint16_t uint16;
   typedef uint8_t uint8;
 
+  static_assert( sizeof( uint8 ) == 1, "Size of uint8 is incorrect!" );
+
   typedef int64_t int64;
   typedef int32_t int32;
   typedef int16_t int16;

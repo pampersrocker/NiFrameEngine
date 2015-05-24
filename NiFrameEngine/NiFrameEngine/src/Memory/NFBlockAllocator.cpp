@@ -1,5 +1,6 @@
 #include "NFEnginePCH.hpp"
 #include "Memory/NFBlockAllocator.hpp"
+#include "Platform/NFPlatform.hpp"
 
 using namespace nfe;
 
@@ -55,9 +56,14 @@ nfe::BlockAllocatorType nfe::BlockAllocator::GetAllocatorType() const
 void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
 {
   uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
-  NF_ASSERT( size > 0, "One cannot simply allocate a size of 0!" );
+  // Add usedAlignment for the case we need to offset the allocation, so we have enough memory for the movement
+  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment ) + usedAlignment;
+  NF_ASSERT( alignedSize > 0, "One cannot simply allocate a size of 0!" );
+  if( alignedSize <= 0 )
+  {
+    return nullptr;
+  }
   uint64 blockIdx = -1;
-  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment );
   switch (m_AllocatorType)
   {
   case BlockAllocatorType::BestFit:
@@ -91,13 +97,25 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
     newBlock.Pointer = static_cast< uint8* >( m_ParentAllocator->Allocate( newBlockSize ) );
     newBlock.Size = newBlockSize;
     newBlock.CalculateEndAddress();
+    newBlock.Offset = 0;
     m_AllocatedBlocks.Add( newBlock );
     blockIdx = m_FreeMemoryChunks.Size();
     m_FreeMemoryChunks.Add( newBlock );
   }
   BlockAllocatorChunk block = m_FreeMemoryChunks[ blockIdx ];
   BlockAllocatorChunk secondChunk;
+  if( reinterpret_cast< uintptr_t >( block.Pointer ) % usedAlignment != 0 )
+  {
+    block.Offset = static_cast< uint32 >( usedAlignment - (reinterpret_cast< uintptr_t >( block.Pointer ) % usedAlignment) );
+  }
+  else
+  {
+    block.Offset = 0;
+    // Remove the extra bit for the alignment since we don't need it.
+    alignedSize -= usedAlignment;
+  }
   SplitBlock( alignedSize, block, secondChunk );
+  block.Pointer += block.Offset;
   m_UsedMemoryChunks.Add( block );
   if( secondChunk.Valid() )
   {
@@ -107,13 +125,11 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
   {
     m_FreeMemoryChunks.RemoveAt( blockIdx );
   }
-
-  uint8 offset = static_cast< uint8 >( usedAlignment - reinterpret_cast< uintptr_t >( block.Pointer ) % usedAlignment );
-  uint8* memory = block.Pointer;
-  memory += offset;
-  memory[ -1 ] = offset;
-
-  return memory;
+  if( GPlatform )
+  {
+    GPlatform->OnAllocation( block.Pointer, alignedSize );
+  }
+  return block.Pointer;
 }
 
 void nfe::BlockAllocator::Deallocate( void* address )
@@ -134,7 +150,12 @@ void nfe::BlockAllocator::Deallocate( void* address )
   NF_ASSERT( idx != m_UsedMemoryChunks.Size(), "Could not find Allocated Block" );
 
   BlockAllocatorChunk chunk = m_UsedMemoryChunks[ idx ];
+  if( GPlatform )
+  {
+    GPlatform->OnDeallocation( chunk.Pointer, chunk.Size );
+  }
   m_UsedMemoryChunks.RemoveAt( idx );
+  chunk.Pointer -= chunk.Offset;
 
   if (!TryMergeBlocks(chunk))
   {
@@ -225,6 +246,7 @@ void nfe::BlockAllocator::SplitBlock(uint64 size, BlockAllocatorChunk& firstHalf
     firstHalf.CalculateEndAddress();
     secondHalf.Pointer = firstHalf.EndAddress;
     secondHalf.Size = originalSize - size;
+    secondHalf.Offset = 0;
     secondHalf.CalculateEndAddress();
   }
 }
