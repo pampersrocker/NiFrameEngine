@@ -245,6 +245,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\IO\NFGamePad.hpp" />
     <ClInclude Include="inc\Logging\Logging.hpp" />
     <ClInclude Include="inc\Memory\NFBlockAllocator.hpp" />
     <ClInclude Include="inc\Memory\NFDefaultAllocator.hpp" />
@@ -287,6 +288,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\IO\NFGamePad.cpp" />
     <ClCompile Include="src\Platform\NFFile.cpp" />
     <ClCompile Include="src\Memory\NFProxyAllocator.cpp" />
     <ClCompile Include="src\Memory\NFBlockAllocator.cpp" />

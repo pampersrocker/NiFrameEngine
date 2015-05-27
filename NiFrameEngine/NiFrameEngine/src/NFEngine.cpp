@@ -1,6 +1,7 @@
 #include "NFEnginePCH.hpp"
 #include "NFEngine.hpp"
 #include "Memory/NFDefaultAllocator.hpp"
+#include "Platform/NFPlatform.hpp"
 
 using namespace nfe;
 
@@ -29,5 +30,26 @@ void nfe::Engine::Shutdown()
 
 void nfe::Engine::Run()
 {
+
+}
+
+void nfe::Engine::Update()
+{
+  if( GPlatform )
+  {
+    GPlatform->Update();
+  }
+}
+
+void nfe::Engine::Initialize()
+{
+  NF_ASSERT( GPlatform, "Not platform on initialization!" );
+  GPlatform->Initialize();
+}
+
+void nfe::Engine::Release()
+{
+  NF_ASSERT( GPlatform, "Not platform on release!" );
+  GPlatform->Release();
 
 }

@@ -12,6 +12,9 @@ namespace nfe
 
 
     void Run();
+    void Initialize();
+    void Update();
+    void Release();
 
     void Shutdown();
 

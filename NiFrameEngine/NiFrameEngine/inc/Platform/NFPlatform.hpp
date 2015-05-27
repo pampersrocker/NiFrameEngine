@@ -4,6 +4,7 @@
 #include <Renderer/NFResolution.hpp>
 #include "Memory/NFIAllocator.hpp"
 #include "NFFile.hpp"
+#include "IO/NFGamePad.hpp"
 
 namespace nfe
 {
@@ -29,6 +30,9 @@ namespace nfe
     @return IAllocator*
     */
     virtual IAllocator* GetDebugAllocator() const = 0;
+    virtual void Initialize() = 0;
+    virtual void Update() = 0;
+    virtual void Release() = 0;
 
     virtual Resolution GetNativeResolution( uint32 monitorIdx ) const = 0;
 
@@ -37,6 +41,8 @@ namespace nfe
 
     virtual void OnAllocation( void* address, uint64 size ) = 0;
     virtual void OnDeallocation( void* address, uint64 size ) = 0;
+
+    virtual const GamePad& GetGamePadStatus( uint8 playerIdx ) = 0;
 
   private:
 
