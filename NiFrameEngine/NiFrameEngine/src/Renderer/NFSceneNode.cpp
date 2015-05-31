@@ -4,11 +4,11 @@
 namespace nfe
 {
   SceneNode::SceneNode(
+    IAllocator* allocator,
     const String& name,
-    const Vector3& position /*= Vector3( 0 )*/,
-    const Matrix4x4& orientation /*= Matrix4x4::IDENTITY */,
-    const Vector3& scale ) :
-    MoveableObject( name, MoveableObject::SCENENODE, position, orientation, scale )
+    const Transform& transform) :
+    MoveableObject(allocator, name, MoveableObject::SCENENODE, transform ),
+    m_Children(allocator)
   {
   }
 
@@ -16,21 +16,20 @@ namespace nfe
   {
   }
 
-  nfe::SceneNodePtr SceneNode::CreateChildSceneNode( const String& name )
-  {
-    //TODO: Create an actual sceneNode
-    return SceneNodePtr( nullptr );
-  }
-
-  void SceneNode::RemoveChild( const uint32& hash )
-  {
-  }
-
   void SceneNode::RemoveChild( const String& name )
   {
+    for( MoveableObjectPtr& child : m_Children )
+    {
+      if( child->GetName() == name )
+      {
+        m_Children.Remove( child );
+        break;
+      }
+    }
   }
 
   void SceneNode::AddChild( MoveableObjectPtr object )
   {
+    m_Children.Add( object );
   }
 }

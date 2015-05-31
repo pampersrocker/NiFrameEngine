@@ -254,6 +254,7 @@
     <ClInclude Include="inc\Memory\NFStackAllocator.hpp" />
     <ClInclude Include="inc\NFArrayUtils.hpp" />
     <ClInclude Include="inc\NFEngine.hpp" />
+    <ClInclude Include="inc\NFReferenceCountPolicy.hpp" />
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
     <ClInclude Include="inc\NFSTL\NFTraits.hpp" />
@@ -268,6 +269,7 @@
     <ClInclude Include="inc\Renderer\NFMesh.hpp" />
     <ClInclude Include="inc\Renderer\NFMovableObject.hpp" />
     <ClInclude Include="inc\NFReferenceCounted.hpp" />
+    <ClInclude Include="inc\Renderer\NFRotator.hpp" />
     <ClInclude Include="inc\Renderer\NFScene.hpp" />
     <ClInclude Include="inc\Renderer\NFSceneNode.hpp" />
     <ClInclude Include="inc\Renderer\NFShader.hpp" />
@@ -284,10 +286,13 @@
     <ClInclude Include="inc\Platform\NFPlatform.hpp" />
     <ClInclude Include="inc\Platform\NFPlatformManager.hpp" />
     <ClInclude Include="inc\NFSTL\NFVector.hpp" />
+    <ClInclude Include="inc\Renderer\NFTransform.hpp" />
     <ClInclude Include="inc\Utils\NFRational.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\NFTransform.cpp" />
+    <ClCompile Include="src\Renderer\NFRotator.cpp" />
     <ClCompile Include="src\IO\NFGamePad.cpp" />
     <ClCompile Include="src\Platform\NFFile.cpp" />
     <ClCompile Include="src\Memory\NFProxyAllocator.cpp" />
@@ -328,6 +333,7 @@
     <ResourceCompile Include="NiFrameEngine.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="inc\NFReferenceCounted.inl" />
     <None Include="inc\NFSTL\NFVector.inl" />
     <None Include="inc\NFSTL\NFVectorIterator.inl" />
   </ItemGroup>

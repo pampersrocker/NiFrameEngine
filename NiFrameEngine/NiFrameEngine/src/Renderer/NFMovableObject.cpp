@@ -1,32 +1,27 @@
 #include "NFEnginePCH.hpp"
 #include "Renderer/NFMovableObject.hpp"
+#include "Platform/NFPlatform.hpp"
 
 namespace nfe
 {
   MoveableObject::MoveableObject(
+    IAllocator* allocator,
     const String& name,
     MoveableObjectType type,
-    const Vector3& pos /*= Vector3( 0.0f )*/,
-    const Matrix4x4& orientation /*= Matrix4x4::IDENTITY */,
-    const Vector3& scale /* = Vector3( 1.0f )*/ ) :
+    const Transform& transform) :
     m_Name( name ),
-    m_Transformation( Matrix4x4::IDENTITY ),
-    m_Position( pos ),
-    m_Scale( scale ),
-    m_Orientation( orientation ),
-    m_Type( type )
+    m_Transform(transform),
+    m_Type( type ),
+    m_Allocator(allocator)
   {
-    UpdateTransformationMatrix();
+    if( m_Allocator == nullptr )
+    {
+      m_Allocator = GPlatform->GetDefaultAllocator();
+    }
   }
 
   MoveableObject::~MoveableObject()
   {
-  }
-
-  void MoveableObject::UpdateTransformationMatrix( void )
-  {
-    m_Transformation = Matrix4x4::CreateTranslationMatrix( m_Position ) * m_Orientation
-      * Matrix4x4::CreateScaleMatrix( m_Scale );
   }
 
   nfe::MoveableObject::MoveableObjectType MoveableObject::GetType( void ) const
@@ -36,24 +31,22 @@ namespace nfe
 
   void MoveableObject::SetPosition( const Vector3& newPos )
   {
-    m_Position = newPos;
-    UpdateTransformationMatrix();
+    m_Transform.Position(newPos);
   }
 
   const Vector3& MoveableObject::GetPosition( void ) const
   {
-    return m_Position;
+    return m_Transform.Position();
   }
 
-  void MoveableObject::SetOrientation( const Matrix4x4& newOrientation )
+  void MoveableObject::SetOrientation( const Rotator& newOrientation )
   {
-    m_Orientation = newOrientation;
-    UpdateTransformationMatrix();
+    m_Transform.Rotation(newOrientation);
   }
 
-  const Matrix4x4& MoveableObject::GetOrientation( void ) const
+  const Rotator& MoveableObject::GetOrientation( void ) const
   {
-    return m_Orientation;
+    return m_Transform.Rotation();
   }
 
   const String& MoveableObject::GetName( void ) const
@@ -66,19 +59,13 @@ namespace nfe
     m_Name = name;
   }
 
-  const Matrix4x4& MoveableObject::GetTransformation( void ) const
-  {
-    return m_Transformation;
-  }
-
   void MoveableObject::SetScale( const Vector3& val )
   {
-    m_Scale = val;
-    UpdateTransformationMatrix();
+    m_Transform.Scale();
   }
 
   const Vector3& MoveableObject::GetScale( void ) const
   {
-    return m_Scale;
+    return m_Transform.Scale();
   }
 }

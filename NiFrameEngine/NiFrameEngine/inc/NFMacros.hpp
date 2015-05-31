@@ -38,8 +38,8 @@
 #define EXPORT_TPL( tpl ) \
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
 
-#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef ReferenceCounted< tpl > tpl ## Ptr; \
-  EXPORT_TPL( ReferenceCounted< tpl > )
+#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl> tpl ## Ptr; \
+  EXPORT_TPL( nfe::ReferenceCounted< tpl > )
 #elif ORBIS
 
 #define EXPORT_STL( tpl ) \
@@ -51,8 +51,8 @@
 #define EXPORT_TPL( tpl ) \
   NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
 
-#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef ReferenceCounted< tpl > tpl ## Ptr; \
-  EXPORT_TPL( ReferenceCounted< tpl > )
+#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl > tpl ## Ptr; \
+  EXPORT_TPL( nfe::ReferenceCounted< tpl > )
 #endif
 #define SAFE_DELETE(pointer)  \
   if( pointer != nullptr )  \

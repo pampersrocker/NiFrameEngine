@@ -3,29 +3,84 @@
 #define NiFrameReferenceCounted_h__
 
 #include "NFEnginePCH.hpp"
+#include "NFReferenceCountPolicy.hpp"
+#include "Platform/NFPlatform.hpp"
 
 namespace nfe
 {
-  template< typename T >
+  class RefCountAllocator : public IAllocator
+  {
+  public:
+    RefCountAllocator(const char* name = "RefCountAllocator") :
+      IAllocator(name)
+    { }
+
+    ~RefCountAllocator() { }
+
+    void* AllocateBytes( uint32 size )
+    {
+      return Allocate( size );
+    }
+    void FreeBytes( void* pointer )
+    {
+      Deallocate( pointer );
+    }
+
+    virtual void* Allocate( uint64 size, uint32 alignment = 0 ) override
+    {
+      return GPlatform->GetDefaultAllocator()->Allocate( size );
+
+    }
+
+    virtual void Deallocate( void* address ) override
+    {
+      GPlatform->GetDefaultAllocator()->Deallocate( address );
+    }
+
+  };
+
+  /**
+  \brief Reference Counter class for copy on write functionality of the UTFString.
+
+  */
+  template< typename T, typename Allocator = RefCountAllocator, typename RefCountPolicy = DefaultRefCountPolicy >
   class ReferenceCounted
   {
   public:
     ReferenceCounted( void );
-    ReferenceCounted( T* pointer );
-    ReferenceCounted( const ReferenceCounted< T > & refCount );
-    ReferenceCounted( ReferenceCounted< T >&& refCount );
+    explicit ReferenceCounted( T* pointer );
+    ReferenceCounted( const ReferenceCounted< T, Allocator, RefCountPolicy > & refCount );
+    ReferenceCounted( ReferenceCounted< T, Allocator, RefCountPolicy >&& refCount );
     ~ReferenceCounted();
-    
 
-    ReferenceCounted< T >& operator =( const ReferenceCounted< T >& refCount );
-    ReferenceCounted< T >& operator =( ReferenceCounted< T >&& refCount );
 
-    T* operator ->();
+    ReferenceCounted< T, Allocator, RefCountPolicy >& operator =( T* pointer );
+    ReferenceCounted< T, Allocator, RefCountPolicy >& operator =( nullptr_t pointer );
+    ReferenceCounted< T, Allocator, RefCountPolicy >& operator =( const ReferenceCounted< T, Allocator, RefCountPolicy >& refCount );
+    ReferenceCounted< T, Allocator, RefCountPolicy >& operator =( ReferenceCounted< T, Allocator, RefCountPolicy >&& refCount );
 
-    T* operator *();
+    bool operator ==( const ReferenceCounted< T, Allocator, RefCountPolicy >& rhs ) const;
+    bool operator !=( const ReferenceCounted< T, Allocator, RefCountPolicy >& rhs ) const;
+
+    T* operator ->( );
+
+    T& operator *( );
+
+    T* Ptr( void ) const;
+
+    T& operator []( uint32 idx );
+    const T& operator []( uint32 idx ) const;
+
+    void SetNull( void );
+
+    bool Valid( void ) const;
+
+    bool Null( void ) const;
+
+    uint32 Count( void ) const;
 
   private:
-    
+
     void IncRef( void );
 
     void DecRef( void );
@@ -34,117 +89,11 @@ namespace nfe
 
     uint32* m_Count;
 
+    Allocator m_Alloc;
+
   };
 
-  template< typename T >
-  nfe::ReferenceCounted<T>::ReferenceCounted( void ):
-    m_CountedPointer( nullptr ),
-    m_Count( new uint32( 1 ) )
-  {
-
-  }
-
-  template< typename T >
-  nfe::ReferenceCounted<T>::ReferenceCounted( ReferenceCounted< T >&& refCount ) :
-    m_CountedPointer( refCount.m_CountedPointer ),
-    m_Count( refCount.m_Count )
-  {
-    refCount.m_CountedPointer = nullptr;
-    m_Count = nullptr;
-  }
-
-  template< typename T >
-  nfe::ReferenceCounted<T>::~ReferenceCounted()
-  {
-    DecRef();
-  }
-
-  template< typename T >
-  nfe::ReferenceCounted<T>::ReferenceCounted( const ReferenceCounted< T >& refCount )
-  {
-    //DecRef();
-
-    //this = &refCount;
-    m_Count = refCount.m_Count;
-    m_CountedPointer = refCount.m_CountedPointer;
-
-    IncRef();
-
-  }
-
-  template< typename T >
-  nfe::ReferenceCounted<T>::ReferenceCounted( T* pointer ) :
-    m_CountedPointer( pointer ),
-    m_Count( new uint32( 1 ) )
-  {
-  }
-
-  template< typename T >
-  T* nfe::ReferenceCounted<T>::operator*()
-  {
-    return m_CountedPointer;
-  }
-
-  template< typename T >
-  T* nfe::ReferenceCounted<T>::operator->()
-  {
-    return m_CountedPointer;
-  }
-
-  template< typename T >
-  ReferenceCounted< T >& nfe::ReferenceCounted<T>::operator=( ReferenceCounted< T >&& refCount )
-  {
-    if ( this != &refCount )
-    {
-      DecRef();
-      m_CountedPointer = refCount.m_CountedPointer;
-      m_Count = refCount.m_Count;
-
-      refCount.m_CountedPointer = nullptr;
-      refCount.m_Count = nullptr;
-    }
-
-    return *this;
-
-  }
-
-  template< typename T >
-  ReferenceCounted< T >& nfe::ReferenceCounted<T>::operator=( const ReferenceCounted< T >& refCount )
-  {
-    if ( m_Count != refCount.m_Count )
-    {
-      m_CountedPointer = refCount.m_CountedPointer;
-      
-      m_Count = refCount.m_Count;
-      
-      IncRef();
-    }
-
-    return *this;
-  }
-
-  template< typename T >
-  void nfe::ReferenceCounted<T>::DecRef( void )
-  {
-    if ( (* m_Count ) > 1 )
-    {
-      --(* m_Count);
-    }
-    else
-    {
-      SAFE_DELETE( m_CountedPointer )
-      SAFE_DELETE( m_Count )
-    }
-  }
-
-  template< typename T >
-  void nfe::ReferenceCounted<T>::IncRef( void )
-  {
-    if ( ( *m_Count ) > 0 )
-    {
-      ++( *m_Count );
-    }
-  }
+#include "NFReferenceCounted.inl"
 
 }
 

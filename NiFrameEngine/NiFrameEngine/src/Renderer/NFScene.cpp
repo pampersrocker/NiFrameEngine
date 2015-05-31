@@ -4,7 +4,7 @@
 namespace nfe
 {
   Scene::Scene( const String& sceneName ) :
-    m_RootSceneNode( SceneNodePtr( new SceneNode( sceneName ) ) )
+    m_RootSceneNode( SceneNodePtr( new SceneNode(nullptr, sceneName ) ) )
   {
 
   }

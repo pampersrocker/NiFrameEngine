@@ -14,12 +14,11 @@ namespace nfe
   {
   public:
 
-    Entity( 
-      const String& name, 
-      MeshPtr mesh, 
-      const Vector3& translation = Vector3(0), 
-      const Matrix4x4& rotation = Matrix4x4::IDENTITY, 
-      const Vector3& scale = Vector3(1) 
+    Entity(
+      IAllocator* allocator = nullptr,
+      const String& name = "",
+      MeshPtr mesh = MeshPtr( nullptr ),
+      const Transform& transform = Transform()
     );
 
     ~Entity( void );

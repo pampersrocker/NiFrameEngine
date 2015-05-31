@@ -4,12 +4,11 @@
 namespace nfe
 {
   Entity::Entity(
+    IAllocator* allocator,
     const String& name,
     MeshPtr mesh,
-    const Vector3& translation /*= Vector3(0)*/,
-    const Matrix4x4& rotation /*= Matrix4x4::IDENTITY*/,
-    const Vector3& scale /*= Vector3(1) */ ) :
-    MoveableObject( name, MoveableObject::ENTITIY, translation, rotation, scale ),
+    const Transform& transform) :
+    MoveableObject(allocator, name, MoveableObject::ENTITIY, transform ),
     m_MeshPointer( mesh )
   {
   }

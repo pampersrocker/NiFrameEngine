@@ -4,6 +4,7 @@
 
   #include "NFEnginePCH.hpp"
   #include "NFReferenceCounted.hpp"
+#include "Renderer/NFTransform.hpp"
 
 namespace nfe
 {
@@ -19,12 +20,11 @@ namespace nfe
     };
 
 
-    MoveableObject( 
-      const String& name,
-      MoveableObjectType type,
-      const Vector3& pos = Vector3( 0.0f ),
-      const Matrix4x4& orientation = Matrix4x4::IDENTITY,
-      const Vector3& scale = Vector3( 1.0f ) );
+    MoveableObject(
+      IAllocator* allocator = nullptr,
+      const String& name = "",
+      MoveableObjectType type = MoveableObjectType::SCENENODE,
+      const ::nfe::Transform& transform = ::nfe::Transform() );
     ~MoveableObject();
 
     MoveableObjectType GetType( void ) const;
@@ -32,8 +32,8 @@ namespace nfe
     void SetPosition( const Vector3& newPos );
     const Vector3& GetPosition( void ) const;
 
-    void SetOrientation( const Matrix4x4& newOrientation );
-    const Matrix4x4& GetOrientation( void ) const;
+    void SetOrientation( const Rotator& newOrientation );
+    const Rotator& GetOrientation( void ) const;
 
     const Vector3& GetScale( void ) const;
     void SetScale( const Vector3& val );
@@ -47,12 +47,11 @@ namespace nfe
 
     String m_Name;
 
-    Matrix4x4 m_Transformation;
-    Vector3 m_Position, m_Scale;
-    Matrix4x4 m_Orientation;
+    nfe::Transform m_Transform;
     MoveableObjectType m_Type;
 
-    void UpdateTransformationMatrix( void );
+    IAllocator* m_Allocator;
+
 
   private:
   };

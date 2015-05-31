@@ -117,6 +117,12 @@
     <ClCompile Include="src\IO\NFGamePad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer\NFRotator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\NFTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -242,6 +248,15 @@
     <ClInclude Include="inc\IO\NFGamePad.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Renderer\NFTransform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Renderer\NFRotator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NFReferenceCountPolicy.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">
@@ -253,6 +268,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="inc\NFSTL\NFVectorIterator.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\NFReferenceCounted.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
