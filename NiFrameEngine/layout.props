@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir>$(ProjectDir)../bin/$(Platform)_$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)/Intermediate/$(ProjectName)/$(Platform)_$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\bin\$(Platform)_$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\$(Platform)_$(Configuration)\</IntDir>
     <PrxStubOutputDir>$(ProjectDir)../lib/$(ProjectName)/$(Platform)_$(Configuration)\</PrxStubOutputDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
