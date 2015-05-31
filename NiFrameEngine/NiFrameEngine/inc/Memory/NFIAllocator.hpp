@@ -39,6 +39,7 @@ namespace nfe
 }
 
 template< typename T>
+inline
 void nfe::nfdeleteArray( T* object, IAllocator* allocator /*= nullptr */ )
 {
   if( allocator == nullptr )
@@ -61,6 +62,7 @@ T* nfe::nfnewArray( uint64 arraySize, IAllocator* allocator /*= nullptr*/ )
 }
 
 template< typename T>
+inline
 void nfe::nfdelete(T* object, IAllocator* allocator /*= nullptr*/ )
 {
   if (allocator == nullptr)

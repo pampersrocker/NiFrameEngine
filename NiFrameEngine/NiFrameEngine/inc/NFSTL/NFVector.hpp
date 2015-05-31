@@ -34,6 +34,7 @@ namespace nfe
     void RemoveAt( uint64 idx );
     void Resize( uint64 newSize );
     void Reserve( uint64 newReserve );
+    void Clear();
 
     VectorIterator< Vector<T> > begin() const;
     VectorIterator< Vector<T> > end() const;
@@ -55,6 +56,7 @@ namespace nfe
     uint64 m_ReservedSize;
     IAllocator* m_Allocator;
   };
+
 
 }
 #include "NFSTL/NFVectorIterator.hpp"

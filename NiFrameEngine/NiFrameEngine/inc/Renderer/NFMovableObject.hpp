@@ -43,7 +43,14 @@ namespace nfe
 
     const Matrix4x4& GetTransformation( void ) const;
 
+    void AddChild( ReferenceCounted< MoveableObject > object );
+    void RemoveChild( const String& name );
+    void RemoveAllChildrenRecursive();
+    void RemoveAllChildren();
+    MoveableObject* Parent() const;
+
   protected:
+    Vector< ReferenceCounted< MoveableObject > > m_Children;
 
     String m_Name;
 
@@ -52,7 +59,7 @@ namespace nfe
 
     IAllocator* m_Allocator;
 
-
+    MoveableObject* m_Parent;
   private:
   };
 

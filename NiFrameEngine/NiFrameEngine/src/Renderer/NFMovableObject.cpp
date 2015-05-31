@@ -9,10 +9,12 @@ namespace nfe
     const String& name,
     MoveableObjectType type,
     const Transform& transform) :
+    m_Children(allocator),
     m_Name( name ),
     m_Transform(transform),
     m_Type( type ),
-    m_Allocator(allocator)
+    m_Allocator(allocator),
+    m_Parent(nullptr)
   {
     if( m_Allocator == nullptr )
     {
@@ -68,4 +70,46 @@ namespace nfe
   {
     return m_Transform.Scale();
   }
+
+  void MoveableObject::RemoveChild( const String& name )
+  {
+    for( MoveableObjectPtr& child : m_Children )
+    {
+      if( child->GetName() == name )
+      {
+        m_Children.Remove( child );
+        break;
+      }
+    }
+  }
+
+  void MoveableObject::AddChild( MoveableObjectPtr object )
+  {
+    m_Children.Add( object );
+    object->m_Parent = this;
+  }
+
+  void MoveableObject::RemoveAllChildrenRecursive()
+  {
+    for( auto& child : m_Children )
+    {
+      child->RemoveAllChildrenRecursive();
+    }
+    RemoveAllChildren();
+  }
+
+  void MoveableObject::RemoveAllChildren()
+  {
+    for( auto& child : m_Children )
+    {
+      child->m_Parent = nullptr;
+    }
+    m_Children.Clear();
+  }
+
+  MoveableObject* MoveableObject::Parent() const
+  {
+    return m_Parent;
+  }
+
 }

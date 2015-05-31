@@ -7,8 +7,7 @@ namespace nfe
     IAllocator* allocator,
     const String& name,
     const Transform& transform) :
-    MoveableObject(allocator, name, MoveableObject::SCENENODE, transform ),
-    m_Children(allocator)
+    MoveableObject(allocator, name, MoveableObject::SCENENODE, transform )
   {
   }
 
@@ -16,20 +15,6 @@ namespace nfe
   {
   }
 
-  void SceneNode::RemoveChild( const String& name )
-  {
-    for( MoveableObjectPtr& child : m_Children )
-    {
-      if( child->GetName() == name )
-      {
-        m_Children.Remove( child );
-        break;
-      }
-    }
-  }
 
-  void SceneNode::AddChild( MoveableObjectPtr object )
-  {
-    m_Children.Add( object );
-  }
+
 }

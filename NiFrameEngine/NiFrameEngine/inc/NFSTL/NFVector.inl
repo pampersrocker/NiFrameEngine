@@ -111,6 +111,14 @@ namespace nfe
 
   template< typename T>
   inline
+  void nfe::Vector<T>::Clear()
+  {
+    Resize( 0 );
+  }
+
+
+  template< typename T>
+  inline
     void nfe::Vector<T>::Reserve( uint64 newReserve )
   {
     // Check if we actually need to increase reserve

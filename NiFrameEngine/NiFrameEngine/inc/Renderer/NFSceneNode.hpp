@@ -24,13 +24,7 @@ namespace nfe
       );
     ~SceneNode();
 
-    void AddChild( MoveableObjectPtr object );
-    void RemoveChild( const String& name );
 
-
-  private:
-
-    Vector< MoveableObjectPtr > m_Children;
   };
 
 }
