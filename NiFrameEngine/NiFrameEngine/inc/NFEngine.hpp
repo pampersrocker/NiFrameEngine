@@ -4,7 +4,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Engine
+  class NIFRAME_API Engine
   {
   public:
     Engine();
@@ -22,6 +22,6 @@ namespace nfe
 
   };
 
-  NIFRAME_DLL_EXPORT extern Engine* GEngine;
+  NIFRAME_API extern Engine* GEngine;
 
 }

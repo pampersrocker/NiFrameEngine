@@ -14,7 +14,7 @@ namespace nfe
 
   typedef map< String, uint32> SelectedRenderDevVals;
 
-  class NIFRAME_DLL_EXPORT RenderDevice
+  class NIFRAME_API RenderDevice
   {
   public:
 

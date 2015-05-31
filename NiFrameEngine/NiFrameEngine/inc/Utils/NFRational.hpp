@@ -4,7 +4,7 @@
 namespace nfe
 {
 
-  class NIFRAME_DLL_EXPORT Rational
+  class NIFRAME_API Rational
   {
   public:
     Rational();

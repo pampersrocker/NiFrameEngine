@@ -6,7 +6,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT StringableBool : public IStringableObject
+  class NIFRAME_API StringableBool : public IStringableObject
   {
   public:
     StringableBool( bool value );
@@ -18,9 +18,9 @@ namespace nfe
   private:
 
     bool m_Bool;
-    
-    
-  }; 
+
+
+  };
 }
 
 #endif // FullScreen_h__

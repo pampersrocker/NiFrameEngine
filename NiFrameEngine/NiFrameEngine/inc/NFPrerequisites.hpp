@@ -29,18 +29,18 @@ namespace nfe
   typedef float Real;
   #endif  // USE_DOUBLE_PRECISSION
 #ifdef WIN32
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector3_tpl< Real >;
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Vector2_tpl< Real >;
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT LinearMath::Matrix4x4_tpl< Real >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector3_tpl< Real >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector2_tpl< Real >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Matrix4x4_tpl< Real >;
 #elif defined(ORBIS)
 
 }
 namespace LinearMath
 {
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector3_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector4_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Vector2_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT Matrix4x4_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector3_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector4_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector2_tpl < nfe::Real > ;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API Matrix4x4_tpl < nfe::Real > ;
 
 }
 namespace nfe
@@ -61,7 +61,7 @@ namespace nfe
     static const Real NEGATIVE_ONE;
   };
 #ifdef WIN32
-  NIFRAME_DLL_EXPORT std::string;
+  NIFRAME_API std::string;
 #endif
 
   typedef std::string String;

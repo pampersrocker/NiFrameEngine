@@ -9,10 +9,10 @@
 #ifdef WIN32
 
 #ifdef NIFRAME_DLL_BUILD
-#define NIFRAME_DLL_EXPORT __declspec( dllexport )
+#define NIFRAME_API __declspec( dllexport )
 #define NIFRAME_TPL_EXPORT
 #else
-#define NIFRAME_DLL_EXPORT __declspec( dllimport )
+#define NIFRAME_API __declspec( dllimport )
 #define NIFRAME_TPL_EXPORT extern
 #endif
 
@@ -20,10 +20,10 @@
 
 
 #ifdef NIFRAME_DLL_BUILD
-#define NIFRAME_DLL_EXPORT __declspec( dllexport )
+#define NIFRAME_API __declspec( dllexport )
 #define NIFRAME_TPL_EXPORT
 #else
-#define NIFRAME_DLL_EXPORT __declspec( dllimport )
+#define NIFRAME_API __declspec( dllimport )
 #define NIFRAME_TPL_EXPORT extern
 #endif
 #endif
@@ -31,12 +31,12 @@
 #ifdef WIN32
 #define EXPORT_STL( tpl ) \
   namespace std{\
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;\
+  NIFRAME_TPL_EXPORT template class NIFRAME_API tpl;\
   }
 
 
 #define EXPORT_TPL( tpl ) \
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API tpl;
 
 #define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl> tpl ## Ptr; \
   EXPORT_TPL( nfe::ReferenceCounted< tpl > )
@@ -44,15 +44,15 @@
 
 #define EXPORT_STL( tpl ) \
   namespace std{\
-  NIFRAME_TPL_EXPORT template NIFRAME_DLL_EXPORT tpl;\
+  NIFRAME_TPL_EXPORT template NIFRAME_API tpl;\
         }
 
 
 #define EXPORT_TPL( tpl ) \
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT tpl;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API tpl;
 
-#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl > tpl ## Ptr; \
-  EXPORT_TPL( nfe::ReferenceCounted< tpl > )
+#define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef ReferenceCounted< tpl > tpl ## Ptr; \
+  EXPORT_TPL( ReferenceCounted< tpl > )
 #endif
 #define SAFE_DELETE(pointer)  \
   if( pointer != nullptr )  \

@@ -9,7 +9,7 @@ namespace nfe
   class INativeModule;
   class RenderDevice;
 
-  class NIFRAME_DLL_EXPORT Renderer
+  class NIFRAME_API Renderer
   {
   public:
     Renderer();

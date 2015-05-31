@@ -5,7 +5,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT File
+  class NIFRAME_API File
   {
   public:
     File( IAllocator* allocator, uint8* data, uint64 size, String fileName );

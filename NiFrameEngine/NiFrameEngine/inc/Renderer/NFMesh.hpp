@@ -10,10 +10,10 @@ typedef nfe::vector<nfe::uint32> IndexBuffer;
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Mesh
+  class NIFRAME_API Mesh
   {
   public:
-    
+
     Mesh( VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer );
     virtual ~Mesh( void );
 
@@ -27,10 +27,10 @@ namespace nfe
   protected:
 
     VertexBuffer* m_Vertices;
-    IndexBuffer* m_Indices; 
-  
+    IndexBuffer* m_Indices;
+
   private:
-    
+
 
   };
 

@@ -4,7 +4,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Rotator
+  class NIFRAME_API Rotator
   {
   public:
     Rotator( const Radian& roll = Radian( 0 ), const Radian& pitch = Radian( 0 ), const Radian& yaw = Radian( 0 ) );

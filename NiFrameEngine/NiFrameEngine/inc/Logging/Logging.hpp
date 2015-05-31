@@ -28,7 +28,7 @@ namespace nfe
     All
   };
 
-  class NIFRAME_DLL_EXPORT Logger
+  class NIFRAME_API Logger
   {
   public:
     Logger();

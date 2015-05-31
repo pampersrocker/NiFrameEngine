@@ -6,7 +6,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT IShader
+  class NIFRAME_API IShader
   {
   public:
     IShader();

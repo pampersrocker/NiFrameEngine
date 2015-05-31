@@ -12,7 +12,7 @@ namespace nfe
   typedef uint32 NativeWindow;
 #endif
 
-  class NIFRAME_DLL_EXPORT RenderWindow
+  class NIFRAME_API RenderWindow
   {
   public:
     RenderWindow() = default;

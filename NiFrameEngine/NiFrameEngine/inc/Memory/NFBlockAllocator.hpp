@@ -15,7 +15,7 @@ namespace nfe
     WorstFit
   };
 
-  struct NIFRAME_DLL_EXPORT BlockAllocatorChunk
+  struct NIFRAME_API BlockAllocatorChunk
   {
     uint8* Pointer;
     uint8* EndAddress;
@@ -45,7 +45,7 @@ namespace nfe
   * BestFit the smallest possible free chunk available will be split and used
   * WorstFit the biggest chunk available will be split and used
   */
-  class NIFRAME_DLL_EXPORT BlockAllocator : public IAllocator
+  class NIFRAME_API BlockAllocator : public IAllocator
   {
   public:
 

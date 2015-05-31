@@ -2,7 +2,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT INativeModule
+  class NIFRAME_API INativeModule
   {
   public:
     INativeModule() { }

@@ -5,7 +5,7 @@
 namespace nfe
 {
 
-  class NIFRAME_DLL_EXPORT IAllocator
+  class NIFRAME_API IAllocator
   {
   public:
     IAllocator( const char* name );
@@ -21,7 +21,7 @@ namespace nfe
 
   };
 
-  NIFRAME_DLL_EXPORT IAllocator* GetDefaultAllocator();
+  NIFRAME_API IAllocator* GetDefaultAllocator();
 
   template< typename T, typename ...Params>
   T* nfnew( IAllocator* allocator, Params...parameters );
@@ -34,7 +34,7 @@ namespace nfe
   template< typename T>
   void nfdeleteArray( T* object, IAllocator* allocator = nullptr );
 
-  NIFRAME_DLL_EXPORT uint64 alignedSize( uint64 size, uint32 alignment = 4U );
+  NIFRAME_API uint64 alignedSize( uint64 size, uint32 alignment = 4U );
 }
 
 template< typename T>

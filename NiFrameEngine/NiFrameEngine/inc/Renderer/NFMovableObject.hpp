@@ -8,7 +8,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT MoveableObject
+  class NIFRAME_API MoveableObject
   {
   public:
 
@@ -56,7 +56,7 @@ namespace nfe
   private:
   };
 
-  NIFRAME_TPL_EXPORT template class NIFRAME_DLL_EXPORT ReferenceCounted< MoveableObject >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API ReferenceCounted< MoveableObject >;
 
   typedef ReferenceCounted< MoveableObject > MoveableObjectPtr;
 }

@@ -9,7 +9,7 @@ namespace nfe
 {
   class IShader;
 
-  class NIFRAME_DLL_EXPORT Material
+  class NIFRAME_API Material
   {
   public:
     Material( const String& name );

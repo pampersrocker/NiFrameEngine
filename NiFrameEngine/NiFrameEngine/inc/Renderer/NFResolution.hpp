@@ -9,7 +9,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Resolution :
+  class NIFRAME_API Resolution :
     public IStringableObject
   {
   public:

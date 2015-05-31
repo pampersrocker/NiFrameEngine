@@ -6,7 +6,7 @@
 namespace nfe
 {
 
-  class NIFRAME_DLL_EXPORT StackAllocator : public IAllocator
+  class NIFRAME_API StackAllocator : public IAllocator
   {
   public:
     StackAllocator(uint64 size, uint32 alignment = sizeof(void*), IAllocator* parentAllocator = nullptr, const char* name = "NFStackAllocator");

@@ -5,7 +5,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT IStringableObject
+  class NIFRAME_API IStringableObject
   {
   public:
 

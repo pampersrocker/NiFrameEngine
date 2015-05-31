@@ -10,7 +10,7 @@
 namespace nfe
 {
 
-  class NIFRAME_DLL_EXPORT Entity : public MoveableObject
+  class NIFRAME_API Entity : public MoveableObject
   {
   public:
 

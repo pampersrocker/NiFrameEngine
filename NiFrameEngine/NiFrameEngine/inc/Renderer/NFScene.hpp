@@ -8,7 +8,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Scene
+  class NIFRAME_API Scene
   {
   public:
     Scene( const String& sceneName );

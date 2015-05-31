@@ -5,7 +5,7 @@
 
 namespace nfe
 {
-  class NIFRAME_DLL_EXPORT Transform
+  class NIFRAME_API Transform
   {
   public:
     Transform(const Vector3& position = Vector3(0),

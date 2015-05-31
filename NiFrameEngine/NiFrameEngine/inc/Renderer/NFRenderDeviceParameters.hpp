@@ -9,7 +9,7 @@ namespace nfe
 {
   class IStringableObject;
 
-  class NIFRAME_DLL_EXPORT RenderDeviceParams
+  class NIFRAME_API RenderDeviceParams
   {
 
   public:

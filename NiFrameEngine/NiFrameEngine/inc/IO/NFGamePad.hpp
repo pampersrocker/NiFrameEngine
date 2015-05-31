@@ -4,7 +4,7 @@
 
 namespace nfe
 {
-  struct NIFRAME_DLL_EXPORT DigitalButtonState
+  struct NIFRAME_API DigitalButtonState
   {
     /* Is the button currently pressed ?*/
     bool Down;
@@ -14,7 +14,7 @@ namespace nfe
     bool Released;
   };
 
-  class NIFRAME_DLL_EXPORT GamePad
+  class NIFRAME_API GamePad
   {
   public:
     GamePad();

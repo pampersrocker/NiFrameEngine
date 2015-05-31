@@ -9,7 +9,7 @@
 namespace nfe
 {
   class INativeModule;
-  class NIFRAME_DLL_EXPORT IPlatform
+  class NIFRAME_API IPlatform
   {
   public:
     IPlatform();
@@ -48,5 +48,5 @@ namespace nfe
 
   };
 
-  extern NIFRAME_DLL_EXPORT IPlatform* GPlatform;
+  extern NIFRAME_API IPlatform* GPlatform;
 }

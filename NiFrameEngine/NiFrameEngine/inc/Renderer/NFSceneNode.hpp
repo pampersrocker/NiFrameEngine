@@ -13,7 +13,7 @@ namespace nfe
 
   typedef ReferenceCounted < SceneNode > SceneNodePtr;
 
-  class NIFRAME_DLL_EXPORT SceneNode : public MoveableObject
+  class NIFRAME_API SceneNode : public MoveableObject
   {
   public:
 
