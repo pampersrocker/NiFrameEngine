@@ -20,6 +20,8 @@
 
 #include "NFPrerequisites.hpp"
 #include "NFSTLTypes.hpp"
+#include "NFSTL/NFVector.hpp"
+#include "Memory/NFIAllocator.hpp"
 
 #ifdef WIN32
 #ifdef _DEBUG

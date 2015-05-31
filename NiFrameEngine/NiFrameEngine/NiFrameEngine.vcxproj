@@ -287,10 +287,12 @@
     <ClInclude Include="inc\Platform\NFPlatformManager.hpp" />
     <ClInclude Include="inc\NFSTL\NFVector.hpp" />
     <ClInclude Include="inc\Renderer\NFTransform.hpp" />
+    <ClInclude Include="inc\Renderer\NFWorld.hpp" />
     <ClInclude Include="inc\Utils\NFRational.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\NFWorld.cpp" />
     <ClCompile Include="src\Renderer\NFTransform.cpp" />
     <ClCompile Include="src\Renderer\NFRotator.cpp" />
     <ClCompile Include="src\IO\NFGamePad.cpp" />

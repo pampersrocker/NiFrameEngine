@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NFEnginePCH.hpp"
+#include "NFSTL/NFTraits.hpp"
 
 namespace nfe
 {
@@ -78,8 +79,9 @@ T* nfe::nfnew( IAllocator* allocator, Params... parameters )
   {
     allocator = GetDefaultAllocator();
   }
-  void* memBlock = allocator->Allocate( sizeof( T ) );
-  T* newData = new ( memBlock ) T( parameters... );
+
+  T* newData = static_cast<T*>( allocator->Allocate( sizeof( T ) ) );
+  constructWithAllocatorIfPossible<T>(newData, allocator, parameters...);
   return newData;
 }
 
@@ -91,8 +93,9 @@ T* nfe::nfnew( IAllocator* allocator /*= nullptr */ )
   {
     allocator = GetDefaultAllocator();
   }
-  void* memBlock = allocator->Allocate( sizeof( T ) );
-  T* newData = new ( memBlock ) T();
+
+  T* newData = static_cast< T* >( allocator->Allocate( sizeof( T ) ) );
+  constructWithAllocatorIfPossible<T>( newData, allocator);
   return newData;
 
 }

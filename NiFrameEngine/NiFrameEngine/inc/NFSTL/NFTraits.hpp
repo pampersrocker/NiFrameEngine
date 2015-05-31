@@ -5,7 +5,7 @@
 
 namespace nfe
 {
-
+  class IAllocator;
   template<class F>
   struct function_traits;
 
@@ -61,11 +61,23 @@ namespace nfe
     new (ptr) T(arguments...);
   }
 
+
+  /**
+  @brief Checks if Type T is constructible with an allocator as its first parameter at compile time.
+
+  If so pass the allocator given to construct the object itself to the objects constructor
+  If thats not the case check if its possible to construct the object with the given parameters, otherwise a static_assert will fail.
+
+  @param ptr The pointer to construct (placement new)
+  @param allocator The allocator which should be passed to the object if possible
+  @param arguments Other optional arguments for the constructor
+
+  */
   template<typename T, typename ...Args>
   inline
     void constructWithAllocatorIfPossible( T* ptr, IAllocator* allocator, Args...arguments )
   {
-    static_assert( std::is_constructible<T, Args...>::value,
+    static_assert( std::is_constructible<T, Args...>::value || std::is_constructible<T, IAllocator*, Args...>::value,
       "A type of T can not constructed with the given arguments, with or without allocator" );
     construct_( ptr, allocator,
       static_cast< typename std::conditional <
