@@ -19,6 +19,11 @@ const nfe::SceneNodePtr& nfe::World::RootSceneNode() const
   return m_RootSceneNode;
 }
 
+nfe::SceneNodePtr& nfe::World::RootSceneNode()
+{
+  return m_RootSceneNode;
+}
+
 
 void nfe::World::Initialize()
 {
@@ -27,5 +32,6 @@ void nfe::World::Initialize()
 
 void nfe::World::Release()
 {
+  m_RootSceneNode->RemoveAllChildrenRecursive();
   m_RootSceneNode.SetNull();
 }

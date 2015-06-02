@@ -11,12 +11,14 @@ namespace nfe
   {
   public:
     World( IAllocator* allocator = nullptr );
+    ~World() { }
 
     void Initialize();
 
     void Release();
 
     const nfe::SceneNodePtr& RootSceneNode() const;
+    nfe::SceneNodePtr& RootSceneNode();
     void RootSceneNode( const nfe::SceneNodePtr& val );
   private:
 
