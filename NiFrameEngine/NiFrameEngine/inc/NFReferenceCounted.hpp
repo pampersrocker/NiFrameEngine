@@ -80,7 +80,14 @@ namespace nfe
 
     uint32 Count( void ) const;
 
+    template<typename Other>
+    ReferenceCounted< Other, Allocator, RefCountPolicy> StaticCastTo();
+    template<typename Other>
+    ReferenceCounted< Other, Allocator, RefCountPolicy> DynamicCastTo();
+
   private:
+    ReferenceCounted( T* pointer, uint32* count );
+
 
     void IncRef( void );
 
@@ -93,6 +100,19 @@ namespace nfe
     Allocator m_Alloc;
 
   };
+
+  template< typename Other, typename T, typename Allocator, typename RefCountPolicy>
+  inline
+    ReferenceCounted< Other, Allocator, RefCountPolicy > StaticCast( const ReferenceCounted<T, Allocator, RefCountPolicy >& ptr )
+  {
+    return ptr. template StaticCastTo<Other>();
+  }
+  template< typename Other, typename T, typename Allocator, typename RefCountPolicy>
+  inline
+    ReferenceCounted< Other, Allocator, RefCountPolicy > DynamicCast( const ReferenceCounted<T, Allocator, RefCountPolicy >& ptr )
+  {
+    return ptr. template DynamicCastTo<Other>();
+  }
 
 #include "NFReferenceCounted.inl"
 

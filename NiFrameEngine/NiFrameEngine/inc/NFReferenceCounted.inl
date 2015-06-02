@@ -4,6 +4,7 @@
 // Reference Counted Implementation
 //////////////////////////////////////////////////////////////////////////
 
+
 template< typename T, typename Allocator, typename RefCountPolicy >
 bool ReferenceCounted<T, Allocator, RefCountPolicy>::operator!=( const ReferenceCounted<T, Allocator, RefCountPolicy>& rhs ) const
 {
@@ -146,6 +147,34 @@ ReferenceCounted<T, Allocator, RefCountPolicy>& ReferenceCounted<T, Allocator, R
 
 }
 
+template< typename T, typename Allocator /*= RefCountAllocator*/, typename RefCountPolicy /*= DefaultRefCountPolicy */>
+nfe::ReferenceCounted<T, Allocator, RefCountPolicy>::ReferenceCounted( T* pointer, uint32* count ) :
+m_CountedPointer( pointer),
+m_Count( count),
+m_Alloc()
+{
+  IncRef();
+}
+
+
+template< typename T, typename Allocator /*= RefCountAllocator*/, typename RefCountPolicy /*= DefaultRefCountPolicy */>
+template<typename Other>
+inline
+ReferenceCounted< Other, Allocator, RefCountPolicy>
+ReferenceCounted<T, Allocator, RefCountPolicy>::StaticCastTo()
+{
+  return ReferenceCounted < Other, Allocator, RefCountPolicy>( static_cast< Other* >( m_CountedPointer ), m_Count );
+}
+
+template< typename T, typename Allocator /*= RefCountAllocator*/, typename RefCountPolicy /*= DefaultRefCountPolicy */>
+template<typename Other>
+inline
+ReferenceCounted< Other, Allocator, RefCountPolicy>
+ReferenceCounted<T, Allocator, RefCountPolicy>::DynamicCastTo()
+{
+  Other* pointer = dynamic_cast< Other* >( m_CountedPointer );
+  return ReferenceCounted < Other, Allocator, RefCountPolicy>( pointer, pointer != nullptr ? m_Count : nullptr );
+}
 
 template< typename T, typename Allocator, typename RefCountPolicy /*= DefaultRefCountPolicy */>
 ReferenceCounted< T, Allocator, RefCountPolicy >& nfe::ReferenceCounted<T, Allocator, RefCountPolicy>::operator=( nullptr_t pointer )
