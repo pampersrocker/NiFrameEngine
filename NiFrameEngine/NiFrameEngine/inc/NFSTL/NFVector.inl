@@ -2,6 +2,7 @@
 
 #include "NFSTL/NFVector.hpp"
 #include "NFTraits.hpp"
+#include "Platform/NFPlatform.hpp"
 
 namespace nfe
 {
@@ -194,6 +195,7 @@ namespace nfe
       // Amortized Doubling of the reserved size
       Reserve( m_ReservedSize * 2 );
     }
+    new ( m_Data + m_Size ) T();
     m_Data[ m_Size ] = member;
     ++m_Size;
   }
