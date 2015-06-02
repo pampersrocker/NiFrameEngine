@@ -16,6 +16,9 @@ namespace nfe
     const nfe::Radian& Yaw() const;
     void Yaw( const nfe::Radian& val );
 
+    Vector3 GetRadianVector() const;
+    Vector3 GetDegreeVector() const;
+
   private:
     Radian m_Roll;
     Radian m_Pitch;

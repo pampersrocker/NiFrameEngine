@@ -43,3 +43,13 @@ nfe::Rotator::~Rotator()
 {
 
 }
+
+nfe::Vector3 nfe::Rotator::GetRadianVector() const
+{
+  return Vector3( m_Roll.AsRadianValue(), m_Pitch.AsRadianValue(), m_Yaw.AsRadianValue() );
+}
+
+nfe::Vector3 nfe::Rotator::GetDegreeVector() const
+{
+  return Vector3( m_Roll.AsDegreeValue(), m_Pitch.AsDegreeValue(), m_Yaw.AsDegreeValue() );
+}
