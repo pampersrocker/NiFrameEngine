@@ -10,7 +10,7 @@ namespace nfe
   public:
     Transform(const Vector3& position = Vector3(0),
       const Rotator& rotation = Rotator(),
-      const Vector3& scale = Vector3( 0 ) );
+      const Vector3& scale = Vector3( 1 ) );
     ~Transform();
 
     const nfe::Vector3& Position() const;
