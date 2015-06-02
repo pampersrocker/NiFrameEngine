@@ -45,11 +45,28 @@ void nfe::Engine::Initialize()
 {
   NF_ASSERT( GPlatform, "Not platform on initialization!" );
   GPlatform->Initialize();
+  m_Worlds = nfnew<Vector<World*>>( GPlatform->GetDefaultAllocator() );
 }
 
 void nfe::Engine::Release()
 {
   NF_ASSERT( GPlatform, "Not platform on release!" );
+  nfdelete( m_Worlds, GPlatform->GetDefaultAllocator() );
   GPlatform->Release();
 
+}
+
+void nfe::Engine::AddWorld( World* world )
+{
+  m_Worlds->Add( world );
+}
+
+void nfe::Engine::RemoveWorld( World* world )
+{
+  m_Worlds->Remove( world );
+}
+
+const Vector< World* >& nfe::Engine::Worlds() const
+{
+  return *m_Worlds;
 }

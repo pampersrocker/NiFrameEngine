@@ -1,6 +1,7 @@
 #pragma once
 #include "Memory/NFIAllocator.hpp"
 #include "NFSTL/NFVector.hpp"
+#include "Renderer/NFWorld.hpp"
 
 namespace nfe
 {
@@ -18,7 +19,14 @@ namespace nfe
 
     void Shutdown();
 
+    void AddWorld( World* world );
+    void RemoveWorld( World* world );
+
+    const Vector< World* >& Worlds() const;
+
   private:
+
+    Vector< World* >* m_Worlds;
 
   };
 
