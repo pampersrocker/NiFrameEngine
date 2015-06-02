@@ -22,8 +22,10 @@ namespace nfe
   class NIFRAME_API ProxyAllocator : public IAllocator
   {
   public:
-    ProxyAllocator( IAllocator* parentAllocator = nullptr, const char* name = "NFProxyAllocator" );
+    ProxyAllocator( IAllocator* parentAllocator = nullptr, uint32 defaultAlignment = 0U, const char* name = "NFProxyAllocator" );
     ~ProxyAllocator();
+
+    ProxyAllocator& operator =( const ProxyAllocator& rhs );
 
     /**
     @brief Returns detailed information of allocation which went through this allocator
@@ -38,5 +40,6 @@ namespace nfe
   private:
     IAllocator* m_ParentAllocator;
     Vector<ProxyAllocationInfo> m_AllocationInfos;
+    uint32 m_DefaultAlignment;
   };
 }

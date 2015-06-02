@@ -4,7 +4,7 @@
 using namespace nfe;
 
 nfe::World::World( IAllocator* allocator /*= nullptr */ ) :
-m_Allocator(allocator, "WorldAllocator")
+m_Allocator(allocator, 0U, "WorldAllocator")
 {
 
 }

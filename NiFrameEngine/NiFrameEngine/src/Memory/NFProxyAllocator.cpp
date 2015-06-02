@@ -4,10 +4,11 @@
 using namespace nfe;
 
 nfe::ProxyAllocator::ProxyAllocator(
-  IAllocator* parentAllocator /*= nullptr*/, const char* name /*= "NFProxyAllocator" */ ) :
+  IAllocator* parentAllocator /*= nullptr*/, uint32 alignment, const char* name /*= "NFProxyAllocator" */ ) :
   IAllocator(name),
 m_ParentAllocator(parentAllocator),
-m_AllocationInfos(parentAllocator)
+m_AllocationInfos(parentAllocator),
+m_DefaultAlignment( alignment )
 {
   if (m_ParentAllocator == nullptr)
   {
@@ -32,11 +33,12 @@ void nfe::ProxyAllocator::Deallocate( void* address )
     }
   }
   NF_ASSERT( found, "Could not find address in allocated blocks" );
+  m_ParentAllocator->Deallocate( address );
 }
 
 void* nfe::ProxyAllocator::Allocate( uint64 size, uint32 alignment )
 {
-  void* m_Pointer = m_ParentAllocator->Allocate( size, alignment );
+  void* m_Pointer = m_ParentAllocator->Allocate( size, alignment == 0 ? m_DefaultAlignment : alignment );
   ProxyAllocationInfo info;
   info.Pointer = static_cast< uint8* >( m_Pointer );
   info.Size = size;
@@ -48,5 +50,13 @@ void* nfe::ProxyAllocator::Allocate( uint64 size, uint32 alignment )
 Vector<ProxyAllocationInfo> nfe::ProxyAllocator::AllocationInfos() const
 {
   return m_AllocationInfos;
+}
+
+ProxyAllocator& nfe::ProxyAllocator::operator=( const ProxyAllocator& rhs )
+{
+  m_ParentAllocator = rhs.m_ParentAllocator;
+  m_AllocationInfos = rhs.m_AllocationInfos;
+  m_DefaultAlignment = rhs.m_DefaultAlignment;
+  return *this;
 }
 
