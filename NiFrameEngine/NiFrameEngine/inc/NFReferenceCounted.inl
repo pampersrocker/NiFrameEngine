@@ -122,6 +122,14 @@ T* ReferenceCounted<T, Allocator, RefCountPolicy>::operator->( )
   return m_CountedPointer;
 }
 
+
+template< typename T, typename Allocator /*= RefCountAllocator*/, typename RefCountPolicy /*= DefaultRefCountPolicy */>
+const T* nfe::ReferenceCounted<T, Allocator, RefCountPolicy>::operator->( ) const
+{
+  return m_CountedPointer;
+}
+
+
 template< typename T, typename Allocator, typename RefCountPolicy>
 ReferenceCounted<T, Allocator, RefCountPolicy>& ReferenceCounted<T, Allocator, RefCountPolicy>::operator=( ReferenceCounted<T, Allocator, RefCountPolicy>&& refCount )
 {

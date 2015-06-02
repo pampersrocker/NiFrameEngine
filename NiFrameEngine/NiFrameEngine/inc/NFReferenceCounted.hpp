@@ -63,6 +63,7 @@ namespace nfe
     bool operator !=( const ReferenceCounted< T, Allocator, RefCountPolicy >& rhs ) const;
 
     T* operator ->( );
+    const T* operator ->( ) const;
 
     T& operator *( );
 
