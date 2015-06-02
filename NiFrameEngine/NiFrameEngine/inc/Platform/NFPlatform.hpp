@@ -34,6 +34,8 @@ namespace nfe
     virtual void Update() = 0;
     virtual void Release() = 0;
 
+    virtual void Assert( bool assertion, const char* msg ) = 0;
+
     virtual Resolution GetNativeResolution( uint32 monitorIdx ) const = 0;
 
     virtual File* OpenFile( const String& path, const String& mode, IAllocator* allocator = nullptr ) = 0;

@@ -61,6 +61,6 @@
     pointer = nullptr;    \
   }
 
-#define NF_ASSERT(assertion, msg) assert( assertion && msg )
+#define NF_ASSERT(assertion, msg) do{if(GPlatform!= nullptr){GPlatform->Assert( assertion, msg );}else{assert(assertion&& msg);}}while(0)
 
 #endif // NiFrameMacros_h__
