@@ -134,32 +134,47 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
 
 void nfe::BlockAllocator::Deallocate( void* address )
 {
-  uint8 offset = static_cast< uint8* >( address )[ -1 ];
-  uint8* pointer = static_cast< uint8* >( address ) -offset;
-
-  uint64 idx = 0;
-  for( auto& chunk : m_UsedMemoryChunks )
+  if( address != nullptr )
   {
-    if (chunk.Pointer == pointer)
+    uint64 idx = 0;
+    for( auto& chunk : m_UsedMemoryChunks )
     {
-      break;
+      if( chunk.Pointer == address )
+      {
+        break;
+      }
+      idx++;
     }
-    idx++;
-  }
+    uint8 offset = static_cast< uint8* >( address )[ -1 ];
+    uint8* pointer = static_cast< uint8* >( address ) -offset;
+    if( idx == m_UsedMemoryChunks.Size() )
+    {
+      idx = 0;
+      for( auto& chunk : m_UsedMemoryChunks )
+      {
+        if( chunk.Pointer == pointer )
+        {
+          break;
+        }
+        idx++;
+      }
+    }
 
-  NF_ASSERT( idx != m_UsedMemoryChunks.Size(), "Could not find Allocated Block" );
+    NF_ASSERT( idx != m_UsedMemoryChunks.Size(), "Could not find Allocated Block" );
 
-  BlockAllocatorChunk chunk = m_UsedMemoryChunks[ idx ];
-  if( GPlatform )
-  {
-    GPlatform->OnDeallocation( chunk.Pointer, chunk.Size );
-  }
-  m_UsedMemoryChunks.RemoveAt( idx );
-  chunk.Pointer -= chunk.Offset;
+    BlockAllocatorChunk chunk = m_UsedMemoryChunks[ idx ];
+    memset( chunk.Pointer, 0xFF, chunk.Size );
+    if( GPlatform )
+    {
+      GPlatform->OnDeallocation( chunk.Pointer, chunk.Size );
+    }
+    m_UsedMemoryChunks.RemoveAt( idx );
+    chunk.Pointer -= chunk.Offset;
 
-  if (!TryMergeBlocks(chunk))
-  {
-    m_FreeMemoryChunks.Add( chunk );
+    if( !TryMergeBlocks( chunk ) )
+    {
+      m_FreeMemoryChunks.Add( chunk );
+    }
   }
 }
 
