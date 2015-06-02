@@ -112,4 +112,14 @@ namespace nfe
     return m_Parent;
   }
 
+  const Transform& MoveableObject::GetTransformation( void ) const
+  {
+    return m_Transform;
+  }
+
+  const Vector<ReferenceCounted<MoveableObject>>& MoveableObject::Children() const
+  {
+    return m_Children;
+  }
+
 }

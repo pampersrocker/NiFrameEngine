@@ -41,13 +41,15 @@ namespace nfe
     const String& GetName( void ) const;
     void SetName( const String& name );
 
-    const Matrix4x4& GetTransformation( void ) const;
+    const Transform& GetTransformation( void ) const;
 
     void AddChild( ReferenceCounted< MoveableObject > object );
     void RemoveChild( const String& name );
     void RemoveAllChildrenRecursive();
     void RemoveAllChildren();
     MoveableObject* Parent() const;
+
+    const Vector<ReferenceCounted<MoveableObject>>& Children() const;
 
   protected:
     Vector< ReferenceCounted< MoveableObject > > m_Children;
