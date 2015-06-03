@@ -176,6 +176,19 @@ ReferenceCounted<T, Allocator, RefCountPolicy>::DynamicCastTo()
   return ReferenceCounted < Other, Allocator, RefCountPolicy>( pointer, pointer != nullptr ? m_Count : nullptr );
 }
 
+template< typename T, typename Allocator /*= RefCountAllocator*/, typename RefCountPolicy /*= DefaultRefCountPolicy */>
+template<typename Other>
+inline
+ReferenceCounted< Other, Allocator, RefCountPolicy>
+ReferenceCounted<T, Allocator, RefCountPolicy>::FastCastTo()
+{
+#if _DEBUG
+  return DynamicCastTo<Other>();
+#else
+  return StaticCastTo<Other>();
+#endif
+}
+
 template< typename T, typename Allocator, typename RefCountPolicy /*= DefaultRefCountPolicy */>
 ReferenceCounted< T, Allocator, RefCountPolicy >& nfe::ReferenceCounted<T, Allocator, RefCountPolicy>::operator=( nullptr_t pointer )
 {
