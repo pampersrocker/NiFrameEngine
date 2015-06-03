@@ -40,8 +40,8 @@ namespace nfe
   private:
   };
 
-  //typedef ReferenceCounted< Entity > EntityPtr;
-  TYPEDEF_EXPORT_REFCOUNT_PTR( Entity )
+  typedef ReferenceCounted< Entity > EntityPtr;
+  //TYPEDEF_EXPORT_REFCOUNT_PTR( Entity )
 
 }
 

@@ -37,10 +37,10 @@ namespace nfe
 }
 namespace LinearMath
 {
-  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector3_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector4_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_API Vector2_tpl < nfe::Real > ;
-  NIFRAME_TPL_EXPORT template class NIFRAME_API Matrix4x4_tpl < nfe::Real > ;
+  //NIFRAME_TPL_EXPORT template class NIFRAME_API Vector3_tpl < nfe::Real > ;
+  //NIFRAME_TPL_EXPORT template class NIFRAME_API Vector4_tpl < nfe::Real > ;
+  //NIFRAME_TPL_EXPORT template class NIFRAME_API Vector2_tpl < nfe::Real > ;
+  //NIFRAME_TPL_EXPORT template class NIFRAME_API Matrix4x4_tpl < nfe::Real > ;
 
 }
 namespace nfe

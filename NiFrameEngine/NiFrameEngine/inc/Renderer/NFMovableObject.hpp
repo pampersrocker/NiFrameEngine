@@ -65,7 +65,7 @@ namespace nfe
   private:
   };
 
-  NIFRAME_TPL_EXPORT template class NIFRAME_API ReferenceCounted< MoveableObject >;
+  //NIFRAME_TPL_EXPORT template class NIFRAME_API ReferenceCounted< MoveableObject >;
 
   typedef ReferenceCounted< MoveableObject > MoveableObjectPtr;
 }
