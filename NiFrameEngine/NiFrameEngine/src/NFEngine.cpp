@@ -39,6 +39,11 @@ void nfe::Engine::Update()
   {
     GPlatform->Update();
   }
+
+  for( auto& subsystem : *m_Subsystems )
+  {
+    subsystem.Update( 0.016f );
+  }
 }
 
 void nfe::Engine::Initialize()
@@ -46,14 +51,22 @@ void nfe::Engine::Initialize()
   NF_ASSERT( GPlatform, "Not platform on initialization!" );
   GPlatform->Initialize();
   m_Worlds = nfnew<Vector<World*>>( GPlatform->GetDefaultAllocator() );
+  m_Subsystems = nfnew<Vector<ISubsystem>>( GPlatform->GetDefaultAllocator() );
+
 }
 
 void nfe::Engine::Release()
 {
   NF_ASSERT( GPlatform, "Not platform on release!" );
+  for( auto& system : *m_Subsystems )
+  {
+    system.Release();
+  }
   nfdelete( m_Worlds, GPlatform->GetDefaultAllocator() );
+  m_Worlds = nullptr;
+  nfdelete( m_Subsystems, GPlatform->GetDefaultAllocator() );
+  m_Subsystems = nullptr;
   GPlatform->Release();
-
 }
 
 void nfe::Engine::AddWorld( World* world )
@@ -69,4 +82,16 @@ void nfe::Engine::RemoveWorld( World* world )
 const Vector< World* >& nfe::Engine::Worlds() const
 {
   return *m_Worlds;
+}
+
+void nfe::Engine::AddSubsystem( ISubsystem system )
+{
+  system.Initialize();
+  m_Subsystems->Add( system );
+}
+
+void nfe::Engine::RemoveSubsystems( ISubsystem system )
+{
+  system.Release();
+  m_Subsystems->Remove( system );
 }

@@ -263,6 +263,9 @@
     <ClInclude Include="inc\Renderer\NFWorld.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Subsystems\NFSubsystem.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">
