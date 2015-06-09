@@ -77,10 +77,19 @@ namespace nfe
     {
       if( child->GetName() == name )
       {
+        NF_ASSERT( child->m_Parent == this, "Cannot remove child if this is not its parent!" );
         m_Children.Remove( child );
+        child->m_Parent = nullptr;
         break;
       }
     }
+  }
+
+  void MoveableObject::RemoveChild( ReferenceCounted<MoveableObject> object )
+  {
+    NF_ASSERT( object->m_Parent == this, "Cannot remove child if this is not its parent!" );
+    m_Children.Remove( object );
+    object->m_Parent = nullptr;
   }
 
   void MoveableObject::AddChild( MoveableObjectPtr object )

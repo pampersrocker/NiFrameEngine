@@ -45,6 +45,7 @@ namespace nfe
 
     void AddChild( ReferenceCounted< MoveableObject > object );
     void RemoveChild( const String& name );
+    void RemoveChild( ReferenceCounted<MoveableObject> object );
     void RemoveAllChildrenRecursive();
     void RemoveAllChildren();
     MoveableObject* Parent() const;
