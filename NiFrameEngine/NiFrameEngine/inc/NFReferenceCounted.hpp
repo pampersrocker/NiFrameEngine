@@ -87,6 +87,9 @@ namespace nfe
     template<typename Other>
     ReferenceCounted< Other, Allocator, RefCountPolicy> FastCastTo();
 
+    template <typename Other, typename OtherAllocator, typename OtherRefCountPolicy>
+    friend class ReferenceCounted;
+
   private:
     ReferenceCounted( T* pointer, uint32* count );
 
