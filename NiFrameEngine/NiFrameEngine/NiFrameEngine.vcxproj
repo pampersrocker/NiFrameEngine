@@ -290,6 +290,17 @@
     <ClInclude Include="inc\Renderer\NFWorld.hpp" />
     <ClInclude Include="inc\Subsystems\NFSubsystem.hpp" />
     <ClInclude Include="inc\Utils\NFRational.hpp" />
+    <ClInclude Include="inc\Utils\NFSIAcceleration.hpp" />
+    <ClInclude Include="inc\Utils\NFSIDensity.hpp" />
+    <ClInclude Include="inc\Utils\NFSIKgM2Mixin.hpp" />
+    <ClInclude Include="inc\Utils\NFSIKgM2S2Mixin.hpp" />
+    <ClInclude Include="inc\Utils\NFSIM3_S2Mixin.hpp" />
+    <ClInclude Include="inc\Utils\NFSIMetre.hpp" />
+    <ClInclude Include="inc\Utils\NFSIPascal.hpp" />
+    <ClInclude Include="inc\Utils\NFSISeconds.hpp" />
+    <ClInclude Include="inc\Utils\NFSISquareMetre.hpp" />
+    <ClInclude Include="inc\Utils\NFSITypes.hpp" />
+    <ClInclude Include="inc\Utils\NFSIVolumeVelocity.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +342,7 @@
     <ClCompile Include="src\Renderer\NFRenderer.cpp" />
     <ClCompile Include="src\Renderer\NFResolution.cpp" />
     <ClCompile Include="src\NFStringableBool.cpp" />
+    <ClCompile Include="src\Utils\NFSITypes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc" />
@@ -339,6 +351,16 @@
     <None Include="inc\NFReferenceCounted.inl" />
     <None Include="inc\NFSTL\NFVector.inl" />
     <None Include="inc\NFSTL\NFVectorIterator.inl" />
+    <None Include="inc\Utils\NFSIAcceleration.inl" />
+    <None Include="inc\Utils\NfSIDensity.inl" />
+    <None Include="inc\Utils\NFSIKgM2Mixin.inl" />
+    <None Include="inc\Utils\NFSIKgM2S2Mixin.inl" />
+    <None Include="inc\Utils\NFSIM3_S2Mixin.inl" />
+    <None Include="inc\Utils\NFSIMetre.inl" />
+    <None Include="inc\Utils\NFSIPascal.inl" />
+    <None Include="inc\Utils\NFSISeconds.inl" />
+    <None Include="inc\Utils\NFSISquareMetre.inl" />
+    <None Include="inc\Utils\NFSIVolumeVelocity.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

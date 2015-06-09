@@ -126,6 +126,9 @@
     <ClCompile Include="src\Renderer\NFWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\NFSITypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -266,6 +269,39 @@
     <ClInclude Include="inc\Subsystems\NFSubsystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Utils\NFSITypes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIMetre.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIPascal.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIDensity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIAcceleration.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSISeconds.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIVolumeVelocity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIKgM2Mixin.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIKgM2S2Mixin.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSISquareMetre.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIM3_S2Mixin.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">
@@ -280,6 +316,36 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="inc\NFReferenceCounted.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIMetre.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIPascal.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIAcceleration.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NfSIDensity.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSISeconds.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIVolumeVelocity.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIKgM2Mixin.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIKgM2S2Mixin.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSISquareMetre.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIM3_S2Mixin.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
