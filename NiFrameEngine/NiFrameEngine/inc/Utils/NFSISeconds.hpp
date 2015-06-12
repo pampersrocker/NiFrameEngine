@@ -26,10 +26,9 @@ namespace nfe
     Seconds operator +( ) const;
 
     VolumeVelocity operator*( const M3_S2Mixin& volvel ) const;
+    Volume operator*( const VolumeVelocity& volvel ) const;
 
-    friend class Density;
-    friend class KgM2Mixin;
-    friend class Pascal;
+    FRIEND_SI;
 
     friend Seconds operator "" _s( long double value );
 

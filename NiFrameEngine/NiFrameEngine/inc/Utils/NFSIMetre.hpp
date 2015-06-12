@@ -31,12 +31,12 @@ namespace nfe
 
     Pascal operator *( const KgM2S2Mixin& mixin ) const;
     KgM2Mixin operator *( const Density& density ) const;
+    SquareMetre operator *( const Metre& metre ) const;
 
     friend Metre operator "" _m( long double value );
 
 
-    friend class KgM2S2Mixin;
-    friend class Density;
+    FRIEND_SI;
 
 
     float Value() const;

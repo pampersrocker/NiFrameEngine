@@ -302,6 +302,9 @@
     <ClInclude Include="inc\Utils\NFSIM3_S2Mixin.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\Utils\NFSIVolume.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="NiFrameEngine.rc">
@@ -346,6 +349,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="inc\Utils\NFSIM3_S2Mixin.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="inc\Utils\NFSIVolume.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

@@ -23,14 +23,13 @@ namespace nfe
     VolumeVelocity operator /( Real scalar ) const;
     VolumeVelocity& operator /=( Real scalar );
 
+    Volume operator* ( const Seconds& seconds ) const;
 
     VolumeVelocity operator -( ) const;
     VolumeVelocity operator +( ) const;
 
-    friend class Density;
-    friend class KgM2Mixin;
-    friend class Pascal;
-    friend class Seconds;
+    FRIEND_SI;
+
 
     friend VolumeVelocity operator "" _Q( long double value );
 

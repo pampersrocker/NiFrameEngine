@@ -125,6 +125,12 @@ namespace nfe
     return VolumeVelocity( m_Value * volvel.m_Value );
   }
 
+  inline
+  nfe::Volume Seconds::operator*( const VolumeVelocity& volvel ) const
+  {
+    return Volume( m_Value*volvel.m_Value );
+  }
+
 
 
 

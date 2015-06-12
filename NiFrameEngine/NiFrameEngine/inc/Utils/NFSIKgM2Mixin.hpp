@@ -20,10 +20,7 @@ namespace nfe
 
     Pascal operator *( const Acceleration& acceleration ) const;
 
-    friend class Acceleration;
-    friend class Metre;
-    friend class Density;
-    friend class Pascal;
+    FRIEND_SI;
 
 
     float Value() const;

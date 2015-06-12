@@ -127,4 +127,12 @@ namespace nfe
   {
     return Metre( m_Value );
   }
+
+  inline
+  nfe::SquareMetre Metre::operator*( const Metre& metre ) const
+  {
+    return SquareMetre( m_Value * metre.m_Value );
+  }
+
+
 }

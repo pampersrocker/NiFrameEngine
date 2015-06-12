@@ -14,6 +14,21 @@ namespace nfe
   class Seconds;
   class M3_S2Mixin;
   class SquareMetre;
+  class Volume;
+
+#define FRIEND_SI\
+  friend class Pascal;\
+  friend class KgM2S2Mixin;\
+  friend class KgM2Mixin;\
+  friend class Acceleration;\
+  friend class Density;\
+  friend class Metre;\
+  friend class VolumeVelocity;\
+  friend class Seconds;\
+  friend class M3_S2Mixin;\
+  friend class SquareMetre;\
+  friend class Volume
+
 }
 
 #include "NFSIMetre.hpp"
@@ -26,6 +41,7 @@ namespace nfe
 #include "NFSIKgM2S2Mixin.hpp"
 #include "NFSISquareMetre.hpp"
 #include "NFSIM3_S2Mixin.hpp"
+#include "NFSIVolume.hpp"
 
 #include "NFSIMetre.inl"
 #include "NFSIPascal.inl"
@@ -37,3 +53,4 @@ namespace nfe
 #include "NFSIKgM2S2Mixin.inl"
 #include "NFSISquareMetre.inl"
 #include "NFSIM3_S2Mixin.inl"
+#include "NFSIVolume.inl"

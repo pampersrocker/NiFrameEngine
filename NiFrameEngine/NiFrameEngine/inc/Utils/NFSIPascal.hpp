@@ -28,11 +28,7 @@ namespace nfe
     Pascal operator -( ) const;
     Pascal operator +( ) const;
 
-    friend class Metre;
-    friend class Acceleration;
-    friend class Density;
-    friend class KgM2Mixin;
-    friend class KgM2S2Mixin;
+    FRIEND_SI;
 
     friend Pascal operator "" _Pa( long double value );
 

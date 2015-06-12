@@ -28,11 +28,8 @@ namespace nfe
 
     M3_S2Mixin operator *( const Acceleration& accel ) const;
 
-    friend class Metre;
-    friend class Acceleration;
-    friend class Density;
-    friend class KgM2Mixin;
-    friend class KgM2S2Mixin;
+    FRIEND_SI;
+
 
     friend SquareMetre operator "" _m2( long double value );
 

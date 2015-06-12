@@ -33,11 +33,8 @@ namespace nfe
     Acceleration operator -( ) const;
     Acceleration operator +( ) const;
 
-    friend class Density;
-    friend class KgM2Mixin;
-    friend class Pascal;
-    friend class M3_S2Mixin;
-    friend class SquareMetre;
+    FRIEND_SI;
+
 
     friend Acceleration operator "" _a( long double value );
 

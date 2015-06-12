@@ -300,6 +300,7 @@
     <ClInclude Include="inc\Utils\NFSISeconds.hpp" />
     <ClInclude Include="inc\Utils\NFSISquareMetre.hpp" />
     <ClInclude Include="inc\Utils\NFSITypes.hpp" />
+    <ClInclude Include="inc\Utils\NFSIVolume.hpp" />
     <ClInclude Include="inc\Utils\NFSIVolumeVelocity.hpp" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -360,6 +361,7 @@
     <None Include="inc\Utils\NFSIPascal.inl" />
     <None Include="inc\Utils\NFSISeconds.inl" />
     <None Include="inc\Utils\NFSISquareMetre.inl" />
+    <None Include="inc\Utils\NFSIVolume.inl" />
     <None Include="inc\Utils\NFSIVolumeVelocity.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
