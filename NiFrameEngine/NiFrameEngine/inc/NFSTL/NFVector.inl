@@ -131,6 +131,7 @@ namespace nfe
       // Copy over data to new Block
       for( uint64 i = 0; i < m_Size; i++ )
       {
+        new ( &newData[ i ] ) T();
         newData[ i ] = m_Data[ i ];
       }
       // Free the old memory block

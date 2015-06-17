@@ -27,7 +27,6 @@ namespace nfe
     return m_Value;
   }
 
-
   inline
     Acceleration& Acceleration::operator-=( const Acceleration& acceleration )
   {
