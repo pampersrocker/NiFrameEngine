@@ -289,6 +289,7 @@
     <ClInclude Include="inc\Renderer\NFTransform.hpp" />
     <ClInclude Include="inc\Renderer\NFWorld.hpp" />
     <ClInclude Include="inc\Subsystems\NFSubsystem.hpp" />
+    <ClInclude Include="inc\Utils\NFEnumUtils.hpp" />
     <ClInclude Include="inc\Utils\NFRational.hpp" />
     <ClInclude Include="inc\Utils\NFSIAcceleration.hpp" />
     <ClInclude Include="inc\Utils\NFSIDensity.hpp" />

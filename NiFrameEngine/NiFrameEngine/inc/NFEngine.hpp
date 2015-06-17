@@ -3,6 +3,7 @@
 #include "NFSTL/NFVector.hpp"
 #include "Renderer/NFWorld.hpp"
 #include "Subsystems/NFSubsystem.hpp"
+#include "Utils/NFEnumUtils.hpp"
 
 namespace nfe
 {
