@@ -28,6 +28,12 @@
 #endif
 #endif
 
+#if defined(_MSC_VER)
+#define NF_FORCE_INLINE inline __forceinline
+#elif defined(__clang__)
+#define NF_FORCE_INLINE inline __attribute__( ( always_inline ) )
+#endif
+
 #ifdef WIN32
 #define EXPORT_STL( tpl ) \
   namespace std{\
