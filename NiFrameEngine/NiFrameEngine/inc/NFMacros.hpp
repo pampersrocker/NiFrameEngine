@@ -27,11 +27,14 @@
 #define NIFRAME_TPL_EXPORT extern
 #endif
 #endif
-
+#ifndef _DEBUG
 #if defined(_MSC_VER)
 #define NF_FORCE_INLINE inline __forceinline
 #elif defined(__clang__)
 #define NF_FORCE_INLINE inline __attribute__( ( always_inline ) )
+#endif
+#else
+#define NF_FORCE_INLINE inline
 #endif
 
 #ifdef WIN32
