@@ -6,6 +6,7 @@
 #include "NFReferenceCounted.hpp"
 #include "NFMesh.hpp"
 #include "NFMovableObject.hpp"
+#include "Renderer/NFMaterial.hpp"
 
 namespace nfe
 {
@@ -28,6 +29,8 @@ namespace nfe
 
     void Release( void );
 
+    const nfe::MaterialPtr& Material() const;
+    void Material( const nfe::MaterialPtr& val );
   protected:
 
     void UpdateModelMatrix( void );
@@ -37,6 +40,7 @@ namespace nfe
 
     MeshPtr m_MeshPointer;
 
+    MaterialPtr m_Material;
   private:
   };
 

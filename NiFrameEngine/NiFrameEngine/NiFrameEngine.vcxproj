@@ -269,6 +269,7 @@
     <ClInclude Include="inc\Renderer\NFMesh.hpp" />
     <ClInclude Include="inc\Renderer\NFMovableObject.hpp" />
     <ClInclude Include="inc\NFReferenceCounted.hpp" />
+    <ClInclude Include="inc\Renderer\NFRenderContext.hpp" />
     <ClInclude Include="inc\Renderer\NFRotator.hpp" />
     <ClInclude Include="inc\Renderer\NFScene.hpp" />
     <ClInclude Include="inc\Renderer\NFSceneNode.hpp" />
@@ -306,6 +307,8 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Renderer\NFRenderContext.cpp" />
+    <ClCompile Include="src\NFShader.cpp" />
     <ClCompile Include="src\Renderer\NFWorld.cpp" />
     <ClCompile Include="src\Renderer\NFTransform.cpp" />
     <ClCompile Include="src\Renderer\NFRotator.cpp" />

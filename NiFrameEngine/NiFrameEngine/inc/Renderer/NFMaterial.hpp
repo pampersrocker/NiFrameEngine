@@ -7,7 +7,8 @@
 
 namespace nfe
 {
-  class IShader;
+  class Shader;
+  class IRenderContext;
 
   class NIFRAME_API Material
   {
@@ -15,27 +16,24 @@ namespace nfe
     Material( const String& name );
     ~Material();
 
-    IShader* GetPixelShader( void ) const;
-    IShader* GetVertexShader( void ) const;
+    virtual void Initialize();
 
-    void SetPixelShader( IShader* shader );
-    void SetVertexShader( IShader* shader );
+    Shader* GetPixelShader( void ) const;
+    Shader* GetVertexShader( void ) const;
+
+    void SetPixelShader( Shader* shader );
+    void SetVertexShader( Shader* shader );
 
     const String& GetName( void ) const;
 
-    void SetWireFrame( bool drawWireframe );
-    bool GetDrawWireframe( void ) const;
-
   protected:
 
-    IShader* m_PixelShader;
-    IShader* m_VertexShader;
+    Shader* m_PixelShader;
+    Shader* m_VertexShader;
 
   private:
 
     String m_Name;
-
-    bool m_bWireframe;
 
   };
 

@@ -9,7 +9,8 @@ namespace nfe
     MeshPtr mesh,
     const Transform& transform) :
     MoveableObject(allocator, name, MoveableObject::ENTITIY, transform ),
-    m_MeshPointer( mesh )
+    m_MeshPointer( mesh ),
+    m_Material( nullptr )
   {
   }
 
@@ -32,4 +33,15 @@ namespace nfe
   {
     return m_MeshPointer;
   }
+
+  void Entity::Material( const MaterialPtr& val )
+  {
+    m_Material = val;
+  }
+
+  const nfe::MaterialPtr& Entity::Material() const
+  {
+    return m_Material;
+  }
+
 }

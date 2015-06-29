@@ -10,7 +10,7 @@
 namespace nfe
 {
   class RenderDeviceParams;
-  class IShader;
+  class Shader;
 
   typedef map< String, uint32> SelectedRenderDevVals;
 

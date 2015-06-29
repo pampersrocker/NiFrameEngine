@@ -6,28 +6,26 @@
 
 namespace nfe
 {
-  class NIFRAME_API IShader
+  class IRenderContext;
+
+  class NIFRAME_API Shader
   {
   public:
-    IShader();
-    virtual ~IShader();
+    Shader();
+    virtual ~Shader();
 
-    virtual void SetShaderParameter( const String& paramName, const Real value ) = 0;
-    virtual void SetShaderParameter( const String& paramName, const int32 value ) = 0;
-    virtual void SetShaderParameter( const String& paramName, const Matrix4x4& value ) = 0;
-    virtual void SetShaderParameter( const String& paramName, const Vector3& value ) = 0;
+    virtual void Initialize( const String& fileName );
 
-    virtual Real GetShaderParameterReal( const String& paramName ) const = 0;
-    virtual int32 GetShaderParameterInt( const String& paramName ) const = 0;
-    virtual Matrix4x4 GetShaderParameterMatrix( const String& paramName ) const = 0;
-    virtual Vector3 GetShaderParameterVector3( const String& paramName ) const = 0;
+    virtual void PrepareShader( IRenderContext* context ) = 0;
+
+    const nfe::String& ShaderFileName() const;
+
 
   private:
 
-    String m_ShaderName;
     String m_ShaderFileName;
-
   };
+
 }
 
 #endif // NiFramePixelShader_h__
