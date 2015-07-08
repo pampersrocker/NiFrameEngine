@@ -192,7 +192,7 @@ nfe::uint64 nfe::BlockAllocator::FindFirstFitBlock( uint64 size )
     idx++;
   }
 
-  return idx;
+  return firstIdx;
 }
 
 nfe::uint64 nfe::BlockAllocator::FindBestFitBlock( uint64 size )
