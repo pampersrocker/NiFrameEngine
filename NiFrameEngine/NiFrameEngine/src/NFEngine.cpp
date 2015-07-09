@@ -93,5 +93,8 @@ void nfe::Engine::AddSubsystem( ISubsystem system )
 void nfe::Engine::RemoveSubsystems( ISubsystem system )
 {
   system.Release();
-  m_Subsystems->Remove( system );
+  if( m_Subsystems )
+  {
+    m_Subsystems->Remove( system );
+  }
 }
