@@ -17,6 +17,19 @@ namespace nfe
 
   struct NIFRAME_API BlockAllocatorChunk
   {
+    BlockAllocatorChunk()
+    {
+    };
+
+    BlockAllocatorChunk( const BlockAllocatorChunk& chunk ) :
+      Pointer( chunk.Pointer ),
+      EndAddress( chunk.EndAddress ),
+      Size( chunk.Size ),
+      Offset( chunk.Offset )
+    {
+
+    }
+
     uint8* Pointer;
     uint8* EndAddress;
     uint64 Size;

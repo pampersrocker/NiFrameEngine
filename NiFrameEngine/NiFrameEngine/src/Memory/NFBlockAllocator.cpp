@@ -57,7 +57,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
 {
   uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
   // Add usedAlignment for the case we need to offset the allocation, so we have enough memory for the movement
-  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment ) + usedAlignment;
+  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment ) + usedAlignment + 4;
   NF_ASSERT( alignedSize > 0, "One cannot simply allocate a size of 0!" );
   if( alignedSize <= 0 )
   {
@@ -116,6 +116,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
   }
   SplitBlock( alignedSize, block, secondChunk );
   block.Pointer += block.Offset;
+
   m_UsedMemoryChunks.Add( block );
   if( secondChunk.Valid() )
   {
@@ -129,6 +130,15 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
   {
     GPlatform->OnAllocation( block.Pointer, alignedSize );
   }
+  uint8* address = (uint8*)block.Pointer;
+  address -= block.Offset;
+  address += block.Size - 4;
+  address[ 0 ] = 0xBA;
+  address[ 1 ] = 0xDF;
+  address[ 2 ] = 0x00;
+  address[ 3 ] = 0x0D;
+
+  NF_ASSERT( reinterpret_cast< uintptr_t >( block.Pointer ) % usedAlignment == 0, "Failed to align block!" );
   return block.Pointer;
 }
 
@@ -145,31 +155,27 @@ void nfe::BlockAllocator::Deallocate( void* address )
       }
       idx++;
     }
-    uint8 offset = static_cast< uint8* >( address )[ -1 ];
-    uint8* pointer = static_cast< uint8* >( address ) -offset;
-    if( idx == m_UsedMemoryChunks.Size() )
-    {
-      idx = 0;
-      for( auto& chunk : m_UsedMemoryChunks )
-      {
-        if( chunk.Pointer == pointer )
-        {
-          break;
-        }
-        idx++;
-      }
-    }
 
     NF_ASSERT( idx != m_UsedMemoryChunks.Size(), "Could not find Allocated Block" );
 
+
     BlockAllocatorChunk chunk = m_UsedMemoryChunks[ idx ];
-    memset( chunk.Pointer, 0xFF, chunk.Size );
+
     if( GPlatform )
     {
       GPlatform->OnDeallocation( chunk.Pointer, chunk.Size );
     }
     m_UsedMemoryChunks.RemoveAt( idx );
     chunk.Pointer -= chunk.Offset;
+    chunk.Offset = 0;
+
+    uint8* address = ( uint8* ) chunk.Pointer;
+    address += chunk.Size - 4;
+    NF_ASSERT( address[ 0 ] == 0xBA, "Heap corruption detected!" );
+    NF_ASSERT( address[ 1 ] == 0xDF, "Heap corruption detected!" );
+    NF_ASSERT( address[ 2 ] == 0x00, "Heap corruption detected!" );
+    NF_ASSERT( address[ 3 ] == 0x0D, "Heap corruption detected!" );
+    memset( chunk.Pointer, 0xFE, chunk.Size );
 
     if( !TryMergeBlocks( chunk ) )
     {
