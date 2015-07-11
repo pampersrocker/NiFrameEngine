@@ -6,10 +6,13 @@
 #include "NFFile.hpp"
 #include "IO/NFGamePad.hpp"
 #include "Async/NFThread.hpp"
+#include "Async/NFSemaphore.hpp"
 
 namespace nfe
 {
   class INativeModule;
+  class IBarrier;
+
   class NIFRAME_API IPlatform
   {
   public:
@@ -41,6 +44,27 @@ namespace nfe
 
     */
     virtual void DestroyThread( IThread* thread ) = 0;
+
+    virtual IBarrier* CreateBarrier( uint32 count, const String& name = "" ) = 0;
+
+    /**
+    @brief Destroys a barrier
+
+    \note The barrier must be empty (no threads waiting for it) before it can be destroyed.
+
+    @param barrier The barrier to destroy
+
+    */
+    virtual void DestroyBarrier( IBarrier* barrier ) = 0;
+
+    virtual ISemaphore* CreateSemaphore(
+      uint32 semaphoreMaxCount,
+      uint32 initialCount,
+      SemaphoreQueueType type = SemaphoreQueueType::FIFO,
+      const String& name = "" ) = 0;
+
+    virtual void DestroySemaphore(ISemaphore* semaphore) = 0;
+
 
     virtual void Assert( bool assertion, const char* msg ) = 0;
 
