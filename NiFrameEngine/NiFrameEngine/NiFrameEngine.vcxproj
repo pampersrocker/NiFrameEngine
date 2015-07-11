@@ -245,6 +245,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="inc\Async\NFThread.hpp" />
     <ClInclude Include="inc\IO\NFGamePad.hpp" />
     <ClInclude Include="inc\Logging\Logging.hpp" />
     <ClInclude Include="inc\Memory\NFBlockAllocator.hpp" />
@@ -307,6 +308,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="inc\Async\NFThread.cpp" />
     <ClCompile Include="src\Renderer\NFRenderContext.cpp" />
     <ClCompile Include="src\NFShader.cpp" />
     <ClCompile Include="src\Renderer\NFWorld.cpp" />

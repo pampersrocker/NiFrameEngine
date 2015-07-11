@@ -85,4 +85,14 @@ namespace nfe
       arguments... );
   }
 
+  /**
+  @brief If type T is a pointer itself just initialize it with null
+  */
+  template<typename T, typename ...Args>
+  inline
+    void constructWithAllocatorIfPossible( T** ptr, IAllocator* allocator, Args...arguments )
+  {
+    *ptr = nullptr;
+  }
+
 }

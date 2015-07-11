@@ -5,6 +5,7 @@
 #include "Memory/NFIAllocator.hpp"
 #include "NFFile.hpp"
 #include "IO/NFGamePad.hpp"
+#include "Async/NFThread.hpp"
 
 namespace nfe
 {
@@ -33,6 +34,13 @@ namespace nfe
     virtual void Initialize() = 0;
     virtual void Update() = 0;
     virtual void Release() = 0;
+
+    virtual IThread* CreateThread( IThread::IThreadFunc* func, const std::string& name = "" ) = 0;
+    /**
+    @brief Destroys the thread handle, but does not stop the thread
+
+    */
+    virtual void DestroyThread( IThread* thread ) = 0;
 
     virtual void Assert( bool assertion, const char* msg ) = 0;
 
