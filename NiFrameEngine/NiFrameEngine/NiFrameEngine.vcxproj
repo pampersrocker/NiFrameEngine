@@ -248,6 +248,7 @@
     <ClInclude Include="inc\Async\NFBarrier.hpp" />
     <ClInclude Include="inc\Async\NFSemaphore.hpp" />
     <ClInclude Include="inc\Async\NFThread.hpp" />
+    <ClInclude Include="inc\Async\NFWorkerManager.hpp" />
     <ClInclude Include="inc\IO\NFGamePad.hpp" />
     <ClInclude Include="inc\Logging\Logging.hpp" />
     <ClInclude Include="inc\Memory\NFBlockAllocator.hpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="inc\NFReferenceCountPolicy.hpp" />
     <ClInclude Include="inc\NFResourceLoader.hpp" />
     <ClInclude Include="inc\NFDllEntryPoint.hpp" />
+    <ClInclude Include="inc\NFSTL\NFThreadingPolicy.hpp" />
     <ClInclude Include="inc\NFSTL\NFTraits.hpp" />
     <ClInclude Include="inc\NFSTL\NFVectorIterator.hpp" />
     <ClInclude Include="inc\Platform\NFFile.hpp" />
@@ -310,6 +312,8 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Async\NFWorkerManager.cpp" />
+    <ClCompile Include="inc\NFSTL\NFThreadingPolicy.cpp" />
     <ClCompile Include="src\Async\NFSemaphore.cpp" />
     <ClCompile Include="src\Async\NFBarrier.cpp" />
     <ClCompile Include="src\Async\NFThread.cpp" />

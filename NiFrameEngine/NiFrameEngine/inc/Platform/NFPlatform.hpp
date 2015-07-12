@@ -78,6 +78,9 @@ namespace nfe
 
     virtual const GamePad& GetGamePadStatus( uint8 playerIdx ) = 0;
 
+    virtual void USleepThread( uint32 uSeconds ) = 0;
+
+
   private:
 
   };

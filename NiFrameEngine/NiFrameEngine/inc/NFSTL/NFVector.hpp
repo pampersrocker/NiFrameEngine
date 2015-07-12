@@ -1,5 +1,6 @@
 #pragma once
 #include <Memory/NFIAllocator.hpp>
+#include "NFThreadingPolicy.hpp"
 
 namespace nfe
 {
@@ -8,7 +9,9 @@ namespace nfe
   template < class Vector>
   class VectorIterator;
 
-  template< typename T>
+
+
+  template< typename T, typename ThreadingPolicy = NoSTLThreadingPolicy >
   class Vector
   {
   public:
@@ -22,11 +25,11 @@ namespace nfe
     static_assert( std::is_copy_assignable<T>::value, "Template Type for Vector must be assignable" );
     Vector( IAllocator* allocator = nullptr );
     Vector( uint64 reservedSize, IAllocator* allocator = nullptr );
-    Vector( const Vector<T>& rhs );
-    Vector( Vector<T>&& rhs );
+    Vector( const Vector<T, ThreadingPolicy>& rhs );
+    Vector( Vector<T, ThreadingPolicy>&& rhs );
     ~Vector();
 
-    Vector<T>& operator =( const Vector<T>& rhs );
+    Vector<T, ThreadingPolicy>& operator =( const Vector<T, ThreadingPolicy>& rhs );
 
     void Add( const T& member );
     void Insert( uint64 idx, const T& member );
@@ -34,10 +37,11 @@ namespace nfe
     void RemoveAt( uint64 idx );
     void Resize( uint64 newSize );
     void Reserve( uint64 newReserve );
+    bool TryPop( T* result );
     void Clear();
 
-    VectorIterator< Vector<T> > begin() const;
-    VectorIterator< Vector<T> > end() const;
+    VectorIterator< Vector<T, ThreadingPolicy> > begin() const;
+    VectorIterator< Vector<T, ThreadingPolicy> > end() const;
 
     IAllocator* Allocator() const;
     T* Data() const;
@@ -55,6 +59,7 @@ namespace nfe
 
     uint64 m_ReservedSize;
     IAllocator* m_Allocator;
+    mutable ThreadingPolicy m_ThreadingPolicy;
   };
 
 

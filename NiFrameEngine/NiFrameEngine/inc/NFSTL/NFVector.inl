@@ -7,13 +7,14 @@
 namespace nfe
 {
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T>::Vector( Vector<T>&& rhs ) :
+    nfe::Vector<T, ThreadingPolicy>::Vector( Vector<T, ThreadingPolicy>&& rhs ) :
     m_Data( rhs.m_Data ),
     m_Size( rhs.m_Size ),
     m_ReservedSize( rhs.m_ReservedSize ),
-    m_Allocator( rhs.m_Allocator )
+    m_Allocator( rhs.m_Allocator ),
+    m_ThreadingPolicy()
   {
     rhs.m_Size = 0U;
     rhs.m_ReservedSize = 0U;
@@ -21,12 +22,13 @@ namespace nfe
     rhs.m_Allocator = nullptr;
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T>::Vector( const Vector<T>& rhs ) :
+    nfe::Vector<T, ThreadingPolicy>::Vector( const Vector<T, ThreadingPolicy>& rhs ) :
     m_Size( rhs.m_Size ),
     m_ReservedSize( rhs.m_ReservedSize ),
-    m_Allocator( rhs.m_Allocator )
+    m_Allocator( rhs.m_Allocator ),
+    m_ThreadingPolicy()
   {
     if( m_Allocator == nullptr )
     {
@@ -40,37 +42,40 @@ namespace nfe
   }
 
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-  IAllocator* nfe::Vector<T>::Allocator() const
+  IAllocator* nfe::Vector<T, ThreadingPolicy>::Allocator() const
   {
     return m_Allocator;
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    T* nfe::Vector<T>::Data() const
+    T* nfe::Vector<T, ThreadingPolicy>::Data() const
   {
     return m_Data;
   }
 
-  template< typename T>
-  VectorIterator< Vector<T> > nfe::Vector<T>::end() const
+  template< typename T, typename ThreadingPolicy >
+  VectorIterator< Vector<T, ThreadingPolicy> > nfe::Vector<T, ThreadingPolicy>::end() const
   {
-    return VectorIterator< Vector<T> >( *this, m_Size );
+    return VectorIterator< Vector<T, ThreadingPolicy> >( *this, m_Size );
+
   }
 
-  template< typename T>
-  VectorIterator< Vector<T> > nfe::Vector<T>::begin() const
+  template< typename T, typename ThreadingPolicy >
+  VectorIterator< Vector<T, ThreadingPolicy> > nfe::Vector<T, ThreadingPolicy>::begin() const
   {
-    return VectorIterator< Vector<T> >( *this, 0 );
+    return VectorIterator< Vector<T, ThreadingPolicy> >( *this, 0 );
+
   }
 
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    void nfe::Vector<T>::Resize( uint64 newSize )
+    void nfe::Vector<T, ThreadingPolicy>::Resize( uint64 newSize )
   {
+    m_ThreadingPolicy.Lock();
     if( newSize != m_Size )
     {
       // Destruct the entries which are going to be deleted
@@ -108,20 +113,24 @@ namespace nfe
       }
       m_Size = newSize;
     }
+    m_ThreadingPolicy.Unlock();
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-  void nfe::Vector<T>::Clear()
+  void nfe::Vector<T, ThreadingPolicy>::Clear()
   {
+    // Resize itself does lock, so no locking required here
     Resize( 0 );
   }
 
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    void nfe::Vector<T>::Reserve( uint64 newReserve )
+    void nfe::Vector<T, ThreadingPolicy>::Reserve( uint64 newReserve )
   {
+    //m_ThreadingPolicy.Lock();
+
     // Check if we actually need to increase reserve
     if( m_ReservedSize < newReserve )
     {
@@ -139,11 +148,15 @@ namespace nfe
       m_Data = newData;
       m_ReservedSize = newReserve;
     }
+    //m_ThreadingPolicy.Unlock();
+
   }
 
-  template< typename T>
-  void nfe::Vector<T>::RemoveAt( uint64 idx )
+  template< typename T, typename ThreadingPolicy >
+  void nfe::Vector<T, ThreadingPolicy>::RemoveAt( uint64 idx )
   {
+    m_ThreadingPolicy.Lock();
+
     NF_ASSERT( idx < m_Size, "Idx is out of range" );
 
     m_Data[ idx ].~T();
@@ -153,31 +166,44 @@ namespace nfe
       m_Data[ i ] = m_Data[ i + 1 ];
     }
     --m_Size;
+    m_ThreadingPolicy.Unlock();
   }
 
-  template< typename T>
-  void nfe::Vector<T>::Remove( const T& member )
+  template< typename T, typename ThreadingPolicy >
+  void nfe::Vector<T, ThreadingPolicy>::Remove( const T& member )
   {
+    m_ThreadingPolicy.Lock();
+
     for( uint64 i = 0; i < m_Size; i++ )
     {
       if( member == m_Data[ i ] )
       {
+        // Need to unlock here, because RemoveAt does lock
+        m_ThreadingPolicy.Unlock();
         RemoveAt( i );
         return;
       }
     }
     NF_ASSERT( false, "Could not find member" );
+    // Should never be reached
+    m_ThreadingPolicy.Unlock();
   }
 
-  template< typename T>
-  void nfe::Vector<T>::Insert( uint64 idx, const T& member )
+  template< typename T, typename ThreadingPolicy >
+  void nfe::Vector<T, ThreadingPolicy>::Insert( uint64 idx, const T& member )
   {
+    m_ThreadingPolicy.Lock();
     NF_ASSERT( idx <= m_Size, "Index is out of range for insertion" );
     //Check if we need to increase space
     if( m_Size >= m_ReservedSize )
     {
+      m_ThreadingPolicy.Unlock();
+
       // Amortized Doubling of the reserved size
+
       Reserve( m_ReservedSize * 2 );
+      m_ThreadingPolicy.Lock();
+
     }
     for( uint64 i = m_Size; i >= idx && i != -1; i-- )
     {
@@ -185,36 +211,46 @@ namespace nfe
     }
     m_Data[ idx ] = member;
     ++m_Size;
+    m_ThreadingPolicy.Unlock();
   }
 
-  template< typename T>
-  void nfe::Vector<T>::Add( const T& member )
+  template< typename T, typename ThreadingPolicy >
+  void nfe::Vector<T, ThreadingPolicy>::Add( const T& member )
   {
+    m_ThreadingPolicy.Lock();
+
     //Check if we need to increase space
     if( m_Size >= m_ReservedSize )
     {
+      //m_ThreadingPolicy.Unlock();
+
       // Amortized Doubling of the reserved size
       Reserve( m_ReservedSize * 2 );
+      //m_ThreadingPolicy.Lock();
+
     }
     new ( m_Data + m_Size ) T();
     m_Data[ m_Size ] = member;
     ++m_Size;
+    m_ThreadingPolicy.Unlock();
+
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T>::Vector( IAllocator* allocator /*= nullptr */ ) :
-    Vector<T>( 2U, allocator )
+    nfe::Vector<T, ThreadingPolicy>::Vector( IAllocator* allocator /*= nullptr */ ) :
+    Vector<T, ThreadingPolicy>( 2U, allocator )
   {
 
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T>::Vector( uint64 reservedSize, IAllocator* allocator /*= nullptr */ ) :
+    nfe::Vector<T, ThreadingPolicy>::Vector( uint64 reservedSize, IAllocator* allocator /*= nullptr */ ) :
     m_Size( 0U ),
     m_ReservedSize( reservedSize ),
-    m_Allocator( allocator )
+    m_Allocator( allocator ),
+    m_ThreadingPolicy()
   {
     if( m_Allocator == nullptr )
     {
@@ -223,32 +259,41 @@ namespace nfe
     m_Data = static_cast< T* >( m_Allocator->Allocate( sizeof( T ) * m_ReservedSize ) );
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    T& nfe::Vector<T>::operator[]( uint64 idx )
+    T& nfe::Vector<T, ThreadingPolicy>::operator[]( uint64 idx )
   {
+    m_ThreadingPolicy.Lock();
     NF_ASSERT( idx < m_Size, "Index is out of range" );
-    return m_Data[ idx ];
+    T& data = m_Data[ idx ];
+    m_ThreadingPolicy.Unlock();
+    return data;
+
   }
 
-  template< typename T>
-  const T& nfe::Vector<T>::operator[]( uint64 idx ) const
+  template< typename T, typename ThreadingPolicy >
+  const T& nfe::Vector<T, ThreadingPolicy>::operator[]( uint64 idx ) const
   {
+    m_ThreadingPolicy.Lock();
     NF_ASSERT( idx < m_Size, "Index is out of range" );
-    return m_Data[ idx ];
+    const T& data = m_Data[ idx ];
+    m_ThreadingPolicy.Unlock();
+    return data;
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    uint64 nfe::Vector<T>::ReservedSize() const
+    uint64 nfe::Vector<T, ThreadingPolicy>::ReservedSize() const
   {
     return m_ReservedSize;
   }
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T>::~Vector()
+    nfe::Vector<T, ThreadingPolicy>::~Vector()
   {
+    // We should not require a lock here, since when this is being destroyed no one else should access it anyway.
+
     // Check if we are actually valid (e.g. was set invalid from move)
     if( m_Allocator != nullptr && m_Data != nullptr )
     {
@@ -264,11 +309,13 @@ namespace nfe
     }
   }
 
-  template <typename T>
+  template< typename T, typename ThreadingPolicy >
   inline
-    Vector<T>& Vector<T>::operator=( const Vector<T>& rhs )
+    Vector<T, ThreadingPolicy>& Vector<T, ThreadingPolicy>::operator=( const Vector<T, ThreadingPolicy>& rhs )
   {
     // Check if we are actually valid (e.g. was set invalid from move)
+    m_ThreadingPolicy.Lock();
+    rhs.m_ThreadingPolicy.Lock();
     if( m_Allocator != nullptr && m_Data != nullptr )
     {
 
@@ -288,16 +335,38 @@ namespace nfe
 
     for( uint64 idx = 0; idx < m_Size; idx++ )
     {
-      m_Data[ idx ] = rhs[ idx ];
+      m_Data[ idx ] = rhs.m_Data[ idx ];
     }
+    rhs.m_ThreadingPolicy.Unlock();
+    m_ThreadingPolicy.Unlock();
 
     return *this;
   }
 
 
-  template< typename T>
+  template< typename T, typename ThreadingPolicy /*= NoSTLThreadingPolicy */>
+  bool nfe::Vector<T, ThreadingPolicy>::TryPop( T* result )
+  {
+    m_ThreadingPolicy.Lock();
+    if( m_Size > 0 )
+    {
+      *result = m_Data[ m_Size - 1 ];
+      m_Size--;
+      m_ThreadingPolicy.Unlock();
+      return true;
+    }
+    else
+    {
+      m_ThreadingPolicy.Unlock();
+      return false;
+    }
+  }
+
+
+
+  template< typename T, typename ThreadingPolicy >
   inline
-    nfe::uint64 nfe::Vector<T>::Size() const
+    nfe::uint64 nfe::Vector<T, ThreadingPolicy>::Size() const
   {
     return m_Size;
   }
