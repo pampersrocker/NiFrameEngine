@@ -19,6 +19,8 @@ namespace nfe
     Vector< IJob*, STLLockingThreadingPolicy > Jobs;
 
     void ResetTaskGroup();
+
+    bool AreJobsDone() const;
   };
 
   class NIFRAME_API IJob
@@ -64,6 +66,8 @@ namespace nfe
     void Update();
 
     void UpdateTaskGroups();
+    ISemaphore* m_ConsumerSemaphore;
+    ISemaphore* m_ProducerSemaphore;
   private:
 
     WorkerManagerStatus m_Status;

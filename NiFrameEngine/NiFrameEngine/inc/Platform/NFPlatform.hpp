@@ -38,7 +38,7 @@ namespace nfe
     virtual void Update() = 0;
     virtual void Release() = 0;
 
-    virtual IThread* CreateThread( IThread::IThreadFunc* func, const std::string& name = "" ) = 0;
+    virtual IThread* CreateThread( IThread::IThreadFunc* func, uint32 threadAffinity = 0, const std::string& name = "" ) = 0;
     /**
     @brief Destroys the thread handle, but does not stop the thread
 
