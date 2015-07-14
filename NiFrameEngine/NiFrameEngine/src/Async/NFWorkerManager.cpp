@@ -20,7 +20,6 @@ m_Allocator(allocator)
 void nfe::WorkerManager::AddTaskGroup( TaskGroup* group )
 {
   m_TaskGroups.Add( group );
-  //UpdateTaskGroups();
 
 }
 
@@ -33,24 +32,12 @@ void* WorkerManagerFunc( void* data )
     IJob* job;
     if( status->Jobs.TryPop( &job ) )
     {
-      //status->Manager->m_ProducerSemaphore->Signal();
       job->Run();
       job->SetDone();
-      //status->Manager->UpdateTaskGroups();
-      if( status->CurrentTaskGroup->AreJobsDone() )
-      {
-        //status->Manager->m_ProducerSemaphore->Signal();
-      }
     }
 
     else
     {
-      //auto* taskGroup = status->CurrentTaskGroup;
-      //if( taskGroup != nullptr && taskGroup->AreJobsDone() )
-      {
-      }
-      // Wait for jobs to arrive
-      //status->Manager->m_ProducerSemaphore->Signal();
       status->Manager->m_ConsumerSemaphore->Wait();
     }
   }
@@ -63,7 +50,6 @@ void nfe::WorkerManager::Initialize( uint32 numWorkers )
   m_Threads.Resize( numWorkers );
   uint32 threadId = 0;
   m_ConsumerSemaphore = GPlatform->CreateSemaphore( 1024, 0, SemaphoreQueueType::FIFO, "Worker Semaphore" );
-  m_ProducerSemaphore = GPlatform->CreateSemaphore( numWorkers, 0, SemaphoreQueueType::ThreadPriority, "Producer Semaphore" );
   uint32 firstClusterAffinity = 0xF;
   uint32 secondClusterAffinity = 0x30;
   for( IThread*& thread : m_Threads )
@@ -92,7 +78,6 @@ void nfe::WorkerManager::UpdateTaskGroups()
   {
     if( m_TaskGroups.Size() > 0 )
     {
-
       TaskGroup* taskGroup;
       taskGroup = m_TaskGroups[ 0 ];
       m_TaskGroups.RemoveAt( 0 );
@@ -100,18 +85,9 @@ void nfe::WorkerManager::UpdateTaskGroups()
       NF_ASSERT( m_Status.Jobs.Size() == 0, "" );
       for( IJob* job : taskGroup->Jobs )
       {
-        //m_ProducerSemaphore->Wait();
         m_Status.Jobs.Add( job );
       }
       m_ConsumerSemaphore->Signal( taskGroup->Jobs.Size() );
-      for( size_t i = 0; i < m_Status.CurrentTaskGroup->Jobs.Size(); i++ )
-      {
-
-        //NF_ASSERT( m_Status.Jobs[ i ] == m_Status.CurrentTaskGroup->Jobs[ i ], "" );
-      }
-      //NF_ASSERT( m_Status.Jobs.Size() > 0, "" );
-
-
     }
     else
     {
@@ -127,7 +103,6 @@ void nfe::WorkerManager::Update()
   {
     wait = false;
     UpdateTaskGroups();
-    //GPlatform->USleepThread( 1 );
     wait = m_TaskGroups.Size() > 0;
     if( m_Status.CurrentTaskGroup != nullptr )
     {
@@ -141,9 +116,6 @@ void nfe::WorkerManager::Update()
         }
       }
     }
-    //m_ConsumerSemaphore->Signal( m_Threads.Size() );
-    //m_ProducerSemaphore->Wait( m_Threads.Size() );
-
   } while( wait );
   m_Status.CurrentTaskGroup = nullptr;
 }
@@ -163,7 +135,6 @@ void nfe::WorkerManager::Release()
   }
   m_Threads.Clear();
   GPlatform->DestroySemaphore( m_ConsumerSemaphore );
-  GPlatform->DestroySemaphore( m_ProducerSemaphore );
 }
 
 nfe::IJob::IJob() :

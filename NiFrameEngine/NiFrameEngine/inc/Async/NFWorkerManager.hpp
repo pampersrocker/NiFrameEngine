@@ -67,7 +67,6 @@ namespace nfe
 
     void UpdateTaskGroups();
     ISemaphore* m_ConsumerSemaphore;
-    ISemaphore* m_ProducerSemaphore;
   private:
 
     WorkerManagerStatus m_Status;
