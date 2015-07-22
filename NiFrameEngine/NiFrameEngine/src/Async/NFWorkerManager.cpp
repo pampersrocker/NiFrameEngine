@@ -6,7 +6,8 @@ nfe::WorkerManager::WorkerManager( IAllocator* allocator /*= nullptr */ ) :
 m_Status(),
 m_TaskGroups(allocator),
 m_Threads(allocator),
-m_Allocator(allocator)
+m_Allocator(allocator),
+m_TracePushed(false)
 {
   if( !m_Allocator )
   {
@@ -76,11 +77,20 @@ void nfe::WorkerManager::UpdateTaskGroups()
   }
   if( (taskGroupDone || m_Status.CurrentTaskGroup == nullptr) && m_Status.Jobs.Size() == 0 )
   {
+    if( m_Status.CurrentTaskGroup != nullptr )
+    {
+      GPlatform->PopTraceMarker();
+      m_TracePushed = false;
+    }
     if( m_TaskGroups.Size() > 0 )
     {
       TaskGroup* taskGroup;
       taskGroup = m_TaskGroups[ 0 ];
       m_TaskGroups.RemoveAt( 0 );
+
+      GPlatform->PushTraceMarker( ( "Worker Task " + taskGroup->Name ).c_str() );
+      NF_ASSERT( m_TracePushed == false, "too much pushes" );
+      m_TracePushed = true;
       m_Status.CurrentTaskGroup = taskGroup;
       NF_ASSERT( m_Status.Jobs.Size() == 0, "" );
       for( IJob* job : taskGroup->Jobs )
@@ -117,6 +127,11 @@ void nfe::WorkerManager::Update()
       }
     }
   } while( wait );
+  if( m_TracePushed )
+  {
+    GPlatform->PopTraceMarker();
+    m_TracePushed = false;
+  }
   m_Status.CurrentTaskGroup = nullptr;
 }
 

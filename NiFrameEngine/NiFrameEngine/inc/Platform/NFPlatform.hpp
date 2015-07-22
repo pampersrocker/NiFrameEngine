@@ -65,6 +65,8 @@ namespace nfe
 
     virtual void DestroySemaphore(ISemaphore* semaphore) = 0;
 
+    virtual void PushTraceMarker( const char* name ) = 0;
+    virtual void PopTraceMarker() = 0;
 
     virtual void Assert( bool assertion, const char* msg ) = 0;
 

@@ -20,6 +20,8 @@ namespace nfe
 
     void ResetTaskGroup();
 
+    String Name;
+
     bool AreJobsDone() const;
   };
 
@@ -68,7 +70,7 @@ namespace nfe
     void UpdateTaskGroups();
     ISemaphore* m_ConsumerSemaphore;
   private:
-
+    bool m_TracePushed;
     WorkerManagerStatus m_Status;
     Vector< TaskGroup*, STLLockingThreadingPolicy > m_TaskGroups;
     Vector< IThread* > m_Threads;
