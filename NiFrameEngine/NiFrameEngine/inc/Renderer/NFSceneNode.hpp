@@ -11,6 +11,7 @@ namespace nfe
 {
   class SceneNode;
 
+  NIFRAME_TPL_EXPORT template class NIFRAME_API ReferenceCounted<SceneNode>;
   typedef ReferenceCounted < SceneNode > SceneNodePtr;
 
   class NIFRAME_API SceneNode : public MoveableObject

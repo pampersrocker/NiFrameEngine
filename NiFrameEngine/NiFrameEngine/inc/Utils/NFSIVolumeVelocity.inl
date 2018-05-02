@@ -61,7 +61,7 @@ namespace nfe
   inline
     VolumeVelocity operator "" _Q( long double volumeVelocity )
   {
-    return VolumeVelocity( volumeVelocity );
+    return VolumeVelocity(static_cast<Real>(volumeVelocity) );
   }
 
   inline

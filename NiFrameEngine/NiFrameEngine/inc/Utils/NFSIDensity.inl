@@ -60,7 +60,7 @@ namespace nfe
   inline
     Density operator "" _D( long double pa )
   {
-    return Density( pa );
+    return Density(static_cast<Real>(pa));
   }
 
   inline

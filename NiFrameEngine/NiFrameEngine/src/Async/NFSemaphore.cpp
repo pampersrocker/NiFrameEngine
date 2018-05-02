@@ -1,3 +1,4 @@
+#include "NFEnginePCH.hpp"
 #include "Async/NFSemaphore.hpp"
 
 nfe::ISemaphore::~ISemaphore()

@@ -10,13 +10,13 @@ namespace nfe
   public:
 
     Pascal();
-    Pascal( const Pascal& pascal );
+    Pascal( const Pascal& pascal_value );
 
 
-    Pascal operator +( const Pascal& pascal ) const;
-    Pascal& operator +=( const Pascal& pascal );
-    Pascal operator -( const Pascal& pascal ) const;
-    Pascal& operator -=( const Pascal& pascal );
+    Pascal operator +( const Pascal& pascal_value ) const;
+    Pascal& operator +=( const Pascal& pascal_value );
+    Pascal operator -( const Pascal& pascal_value ) const;
+    Pascal& operator -=( const Pascal& pascal_value );
 
     Pascal operator *( Real scalar ) const;
     Pascal& operator *=( Real scalar );

@@ -70,7 +70,7 @@ namespace nfe
   inline
     Metre operator "" _m( long double pa )
   {
-    return Metre( pa );
+    return Metre( static_cast<Real>(pa) );
   }
 
   inline

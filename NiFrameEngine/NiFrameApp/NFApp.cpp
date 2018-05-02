@@ -32,17 +32,18 @@ int main(int argc, _TCHAR* argv[])
 
   cout << "done" << endl;
 
-  SelectParameters(device, selectedValues);
-
-  Resolution* res = static_cast< Resolution* >(device->GetRenderParams()->GetParamterValues("VideoMode")[selectedValues["VideoMode"]]);
+  const Resolution& res = device->GetRenderParams().InternalResolution();
 
   if ( SDL_Init( SDL_INIT_VIDEO ) < 0 || !SDL_GetVideoInfo() )
   {
     return 0;
   }
-  SDL_SetVideoMode( res->GetWidth(), res->GetHeight(), SDL_GetVideoInfo()->vfmt->BitsPerPixel, SDL_RESIZABLE);
+  SDL_SetVideoMode( res.GetWidth(), res.GetHeight(), SDL_GetVideoInfo()->vfmt->BitsPerPixel, SDL_RESIZABLE);
 
-  device->SetupDevice(GetActiveWindow(), selectedValues );
+  RenderWindow Window;
+  Window.Initialize(GetActiveWindow());
+
+  device->SetupDevice(Window, device->GetRenderParams());
 
   VertexBuffer* vBuffer = new VertexBuffer();
   vBuffer->push_back(Vector3(0,0,0)); // 0
@@ -98,48 +99,3 @@ int main(int argc, _TCHAR* argv[])
 
   return 0;
 }
-
-void SelectParameters( RenderDevice* device, nfe::map< nfe::String, uint32> &selectedValues )
-{
-  const RenderDeviceParams* devParams = device->GetRenderParams();
-  int counter = 0;
-  uint32 selectedValue = 0;
-
-  cout << "Select Device:" << endl;
-
-
-  uint32 adapterCount = device->GetDeviceCount();
-  counter = 0;
-  for (uint32 i=0; i < adapterCount; ++i)
-  {
-    cout << counter << ": " << i << " " << device->GetDeviceName(i) << endl;
-    ++counter;
-  }
-  cin >> selectedValue;
-  device->SetCurrentDeviceID(selectedValue);
-
-
-  cout << "Windowed?" << endl;
-  ValueList windowedParams = devParams->GetParamterValues("Windowed");
-  counter = 0;
-  for (auto it : windowedParams)
-  {
-    cout << counter << ": " << it->ToString() << endl;
-    ++counter;
-  }
-  cin >> selectedValue;
-  selectedValues["Windowed"] = selectedValue;
-
-  cout << "Select Video Mode:" << endl;
-  ValueList params = device->GetRenderParams()->GetParamterValues("VideoMode");
-  counter = 0;
-  selectedValue = 0;
-  for (auto it : params)
-  {
-    cout << counter << ": " << it->ToString() << endl;
-    ++counter;
-  }
-  cin >> selectedValue;
-  selectedValues["VideoMode"] = selectedValue;
-}
-

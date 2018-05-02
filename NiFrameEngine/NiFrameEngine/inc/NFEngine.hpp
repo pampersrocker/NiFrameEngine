@@ -39,4 +39,8 @@ namespace nfe
 
   NIFRAME_API extern Engine* GEngine;
 
+
 }
+
+#pragma warning(disable : 4251)
+

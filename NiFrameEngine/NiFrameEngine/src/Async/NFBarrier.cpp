@@ -1,3 +1,4 @@
+#include "NFEnginePCH.hpp"
 #include "Async/NFBarrier.hpp"
 
 const nfe::uint32& nfe::IBarrier::Count() const

@@ -60,7 +60,7 @@ namespace nfe
   inline
     SquareMetre operator "" _m2( long double pa )
   {
-    return SquareMetre( pa );
+    return SquareMetre(static_cast<Real>(pa) );
   }
 
   inline

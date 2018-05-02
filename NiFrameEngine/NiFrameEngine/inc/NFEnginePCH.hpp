@@ -3,6 +3,7 @@
 #ifndef NiFrameEnginePCH_h__
 #define NiFrameEnginePCH_h__
 
+#pragma warning(disable : 4251)
 
 #ifdef WIN32
 
@@ -27,8 +28,9 @@
 #ifdef _DEBUG
 #include "vld.h"
 #endif // DEBUG
-#endif // WIN32
 
+
+#endif // WIN32
 
 
 

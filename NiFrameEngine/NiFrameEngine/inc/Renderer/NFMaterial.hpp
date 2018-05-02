@@ -37,7 +37,8 @@ namespace nfe
 
   };
 
-  typedef ReferenceCounted< Material > MaterialPtr;
+  //typedef ReferenceCounted< Material > MaterialPtr;
+  TYPEDEF_EXPORT_REFCOUNT_PTR(Material);
 
 }
 

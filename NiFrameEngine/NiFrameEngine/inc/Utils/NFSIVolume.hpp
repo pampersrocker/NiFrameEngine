@@ -10,13 +10,13 @@ namespace nfe
   public:
 
     Volume();
-    Volume( const Volume& pascal );
+    Volume( const Volume& volume );
 
 
-    Volume operator +( const Volume& pascal ) const;
-    Volume& operator +=( const Volume& pascal );
-    Volume operator -( const Volume& pascal ) const;
-    Volume& operator -=( const Volume& pascal );
+    Volume operator +( const Volume& volume ) const;
+    Volume& operator +=( const Volume& volume );
+    Volume operator -( const Volume& volume ) const;
+    Volume& operator -=( const Volume& volume );
 
     Volume operator *( Real scalar ) const;
     Volume& operator *=( Real scalar );

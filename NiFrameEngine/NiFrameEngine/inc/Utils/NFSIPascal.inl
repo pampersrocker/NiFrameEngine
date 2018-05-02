@@ -14,8 +14,8 @@ namespace nfe
   }
 
   inline
-    Pascal::Pascal( const Pascal& pascal ) :
-    m_Value( pascal.m_Value )
+    Pascal::Pascal( const Pascal& pascal_value_value ) :
+    m_Value( pascal_value_value.m_Value )
   {
 
   }
@@ -28,39 +28,39 @@ namespace nfe
   }
 
   inline
-    Pascal& Pascal::operator-=( const Pascal& pascal )
+    Pascal& Pascal::operator-=( const Pascal& pascal_value )
   {
-    m_Value -= pascal.m_Value;
+    m_Value -= pascal_value.m_Value;
     return *this;
   }
 
   inline
-    Pascal Pascal::operator-( const Pascal& pascal ) const
+    Pascal Pascal::operator-( const Pascal& pascal_value ) const
   {
     Pascal val( m_Value );
-    val -= pascal;
+    val -= pascal_value;
     return val;
   }
 
   inline
-    Pascal& Pascal::operator+=( const Pascal& pascal )
+    Pascal& Pascal::operator+=( const Pascal& pascal_value )
   {
-    m_Value += pascal.m_Value;
+    m_Value += pascal_value.m_Value;
     return *this;
   }
 
   inline
-    Pascal Pascal::operator+( const Pascal& pascal ) const
+    Pascal Pascal::operator+( const Pascal& pascal_value ) const
   {
     Pascal val( m_Value );
-    val += pascal;
+    val += pascal_value;
     return val;
   }
 
   inline
     Pascal operator "" _Pa( long double pa )
   {
-    return Pascal( pa );
+    return Pascal( static_cast<Real>(pa) );
   }
 
   inline

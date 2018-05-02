@@ -32,6 +32,8 @@ namespace nfe
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector3_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector2_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Matrix4x4_tpl< Real >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Radian_tpl< Real >;
+  NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Degree_tpl< Real >;
 #elif defined(ORBIS)
 
 }
@@ -60,9 +62,6 @@ namespace nfe
     static const Real ONE;
     static const Real NEGATIVE_ONE;
   };
-#ifdef WIN32
-  NIFRAME_API std::string;
-#endif
 
   typedef std::string String;
   typedef std::stringbuf StringBuffer;

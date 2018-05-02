@@ -60,7 +60,7 @@ namespace nfe
   inline
     Acceleration operator "" _a( long double acceleration )
   {
-    return Acceleration( acceleration );
+    return Acceleration(static_cast<Real>(acceleration));
   }
 
   inline

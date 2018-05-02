@@ -1,3 +1,4 @@
+#include "NFEnginePCH.hpp"
 #include "Async/NFWorkerManager.hpp"
 
 using namespace nfe;
@@ -97,7 +98,7 @@ void nfe::WorkerManager::UpdateTaskGroups()
       {
         m_Status.Jobs.Add( job );
       }
-      m_ConsumerSemaphore->Signal( taskGroup->Jobs.Size() );
+      m_ConsumerSemaphore->Signal( static_cast<uint32>(taskGroup->Jobs.Size()) );
     }
     else
     {
@@ -143,7 +144,7 @@ nfe::WorkerManager::~WorkerManager()
 void nfe::WorkerManager::Release()
 {
   m_Status.Terminate = true;
-  m_ConsumerSemaphore->Signal( m_Threads.Size() );
+  m_ConsumerSemaphore->Signal(static_cast<uint32>(m_Threads.Size()) );
   for( auto* thread : m_Threads )
   {
     GPlatform->DestroyThread( thread );

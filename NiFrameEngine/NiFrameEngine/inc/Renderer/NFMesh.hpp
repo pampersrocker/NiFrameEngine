@@ -34,8 +34,8 @@ namespace nfe
 
   };
 
-  typedef ReferenceCounted< Mesh > MeshPtr;
-  //TYPEDEF_EXPORT_REFCOUNT_PTR( Mesh )
+  //typedef ReferenceCounted< Mesh > MeshPtr;
+  TYPEDEF_EXPORT_REFCOUNT_PTR(Mesh);
 
 }
 

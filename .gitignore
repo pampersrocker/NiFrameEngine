@@ -42,3 +42,4 @@ NiFrameEngine/lib/NiFrameEngine/
 bin/
 NiFrameEngine/lib/NiFrameWin32Platform/
 NiFrameEngine/lib/NiFrame*/
+.vs/

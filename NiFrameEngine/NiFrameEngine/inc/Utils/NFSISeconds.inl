@@ -61,7 +61,7 @@ namespace nfe
   inline
     Seconds operator "" _s( long double seconds )
   {
-    return Seconds( seconds );
+    return Seconds(static_cast<Real>(seconds) );
   }
 
   inline

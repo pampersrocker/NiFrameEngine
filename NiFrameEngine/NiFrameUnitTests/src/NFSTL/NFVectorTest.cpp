@@ -280,7 +280,7 @@ SCENARIO("Vector iterator test", "[vector][iterator]")
   GIVEN("A vector with 5 Elements")
   {
     Vector<int> vec;
-    for( size_t i = 0; i < 5; i++ )
+    for( int i = 0; i < 5; i++ )
     {
       vec.Add( i );
     }

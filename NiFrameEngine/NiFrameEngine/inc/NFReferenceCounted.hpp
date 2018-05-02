@@ -8,7 +8,7 @@
 
 namespace nfe
 {
-  class RefCountAllocator : public IAllocator
+  class NIFRAME_API RefCountAllocator : public IAllocator
   {
   public:
     RefCountAllocator(const char* name = "RefCountAllocator") :

@@ -14,8 +14,8 @@ namespace nfe
   }
 
   inline
-    Volume::Volume( const Volume& pascal ) :
-    m_Value( pascal.m_Value )
+    Volume::Volume( const Volume& volume ) :
+    m_Value( volume.m_Value )
   {
 
   }
@@ -28,39 +28,39 @@ namespace nfe
   }
 
   inline
-    Volume& Volume::operator-=( const Volume& pascal )
+    Volume& Volume::operator-=( const Volume& volume )
   {
-    m_Value -= pascal.m_Value;
+    m_Value -= volume.m_Value;
     return *this;
   }
 
   inline
-    Volume Volume::operator-( const Volume& pascal ) const
+    Volume Volume::operator-( const Volume& volume ) const
   {
     Volume val( m_Value );
-    val -= pascal;
+    val -= volume;
     return val;
   }
 
   inline
-    Volume& Volume::operator+=( const Volume& pascal )
+    Volume& Volume::operator+=( const Volume& volume )
   {
-    m_Value += pascal.m_Value;
+    m_Value += volume.m_Value;
     return *this;
   }
 
   inline
-    Volume Volume::operator+( const Volume& pascal ) const
+    Volume Volume::operator+( const Volume& volume ) const
   {
     Volume val( m_Value );
-    val += pascal;
+    val += volume;
     return val;
   }
 
   inline
     Volume operator "" _m3( long double pa )
   {
-    return Volume( pa );
+    return Volume(static_cast<Real>(pa) );
   }
 
   inline
