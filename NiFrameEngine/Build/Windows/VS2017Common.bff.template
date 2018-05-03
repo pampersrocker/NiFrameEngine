@@ -1,0 +1,11 @@
+#once
+
+#import MSVC15DIRX64
+#import MSVC15DIRX86
+
+.MSVC15Settingsx64 = [
+	.CompilerPath = $MSVC15DIRX64$
+]
+.MSVC15Settingsx86 = [
+	.CompilerPath = $MSVC15DIRX86$
+]

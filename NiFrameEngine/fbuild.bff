@@ -1,0 +1,65 @@
+#include "Build/Windows/VS2017Common.bff.template"
+
+
+.Platforms = {"x64", "x86"}
+
+ForEach( .Platform  in .Platforms )
+{
+	Compiler("MSVC15-$Platform$")
+	{
+		Using(.MSVC15Settings$Platform$)
+		.Executable = $CompilerPath$ + "cl.exe"
+		.ExtraFiles = {
+			$CompilerPath$ + "c1.dll"
+			$CompilerPath$ + "c1xx.dll"
+			$CompilerPath$ + "c2.dll"
+			$CompilerPath$ + "msobj140.dll"
+			$CompilerPath$ + "mspdb140.dll"
+			$CompilerPath$ + "mspdbcore.dll"
+			$CompilerPath$ + "mspdbst.dll"
+			$CompilerPath$ + "mspft140.dll"
+			$CompilerPath$ + "vcruntime140.dll"
+			$CompilerPath$ + "1033\clui.dll"
+		}
+	}
+}
+
+
+
+.MSVCBaseConfig = [
+	.DisabledWarnings = "/wd4251" // identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+
+	.CompilerOptions = '"%1"'
+		+ ' /nologo' // Disable logo
+		+ ' /c' // No linking
+		+ ' /W4' // Warning level 4
+		+ ' /WX' // Warning as errors
+		+ .DisabledWarnings
+		+ ' /fp:fast' // Fast floating point processing
+		+ ' /D"PLATFORM_WINDOWS"' // Define windows platform
+		+ ' /D"WIN32_LEAN_AND_MEAN /D__WINDOWS__'
+		+ ' /D"_CRT_SECURE_NO_WARNINGS'
+		+ ' /Zi' // Generate PDB
+		+ ' /GR-' // No runtime type information (rtti)
+		+ ' /analyze' // Code analyzation
+
+	.LibrarianOptions = '/NODEFAULTLIB /WX /NOLOGO /OUT:"%2" "%1"'
+    .LinkerOptions = '/NODEFAULTLIB /WX /NOLOGO /INCREMENTAL:NO /OUT:"%2" "%1" /DEBUG'
+
+    .CompilerDebugOptimizations = ' /MTd /Od /RTC1 /GS /Oy-'
+    .CompilerReleaseOptimizations = ' /MT /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
+    .LibrarianDebugOptimizations = ''
+    .LibrarianReleaseOptimizations = ' /LTCG'
+    .LinkerDebugOptimizations = ''
+    .LinkerReleaseOptimizations = ' /LTCG /OPT:REF,ICF'
+
+]
+
+.MSVCx64BaseConfig = [
+	.Platform = "x64"
+	Using(.MSVCBaseConfig)
+	Using(.MSVC15Settings$Platform$)
+	.Compiler = "MSVC15-$Platform$"
+	.Librarian = "$CompilerPath$\lib.exe"
+	.Linker = "$CompilerPath$\link.exe"
+]
