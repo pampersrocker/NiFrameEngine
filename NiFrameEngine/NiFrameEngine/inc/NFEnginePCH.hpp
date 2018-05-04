@@ -5,7 +5,7 @@
 
 #pragma warning(disable : 4251)
 
-#ifdef WIN32
+#ifdef PLATFORM_WINDOWS
 
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
@@ -13,7 +13,7 @@
 
 #include <windows.h>
 
-#endif // WIN32
+#endif // PLATFORM_WINDOWS
 
 #include <assert.h>
 
@@ -23,18 +23,5 @@
 #include "NFSTLTypes.hpp"
 #include "NFSTL/NFVector.hpp"
 #include "Memory/NFIAllocator.hpp"
-
-#ifdef WIN32
-#ifdef _DEBUG
-#include "vld.h"
-#endif // DEBUG
-
-
-#endif // WIN32
-
-
-
-
-// TODO: reference additional headers your program requires here
 
 #endif // NiFrameEnginePCH_h__

@@ -1,33 +1,49 @@
 #include "Build/Windows/VS2017Common.bff.template"
 
+.OutputBasePath = "Tmp\"
 
-.Platforms = {"x64", "x86"}
-
-ForEach( .Platform  in .Platforms )
+Compiler("MSVC15-x64")
 {
-	Compiler("MSVC15-$Platform$")
-	{
-		Using(.MSVC15Settings$Platform$)
-		.Executable = $CompilerPath$ + "cl.exe"
-		.ExtraFiles = {
-			$CompilerPath$ + "c1.dll"
-			$CompilerPath$ + "c1xx.dll"
-			$CompilerPath$ + "c2.dll"
-			$CompilerPath$ + "msobj140.dll"
-			$CompilerPath$ + "mspdb140.dll"
-			$CompilerPath$ + "mspdbcore.dll"
-			$CompilerPath$ + "mspdbst.dll"
-			$CompilerPath$ + "mspft140.dll"
-			$CompilerPath$ + "vcruntime140.dll"
-			$CompilerPath$ + "1033\clui.dll"
-		}
+	Using(.MSVC15Settingsx64)
+	.Executable = '$CompilerPath$\cl.exe'
+	.ExtraFiles = {
+		"$CompilerPath$\c1.dll"
+		"$CompilerPath$\c1xx.dll"
+		"$CompilerPath$\c2.dll"
+		"$CompilerPath$\msobj140.dll"
+		"$CompilerPath$\mspdb140.dll"
+		"$CompilerPath$\mspdbcore.dll"
+		"$CompilerPath$\mspdbst.dll"
+		"$CompilerPath$\mspft140.dll"
+		"$CompilerPath$\vcruntime140.dll"
+		"$CompilerPath$\1033\clui.dll"
 	}
 }
 
+Compiler("MSVC15-x86")
+{
+	Using(.MSVC15Settingsx86)
+	.Executable = '$CompilerPath$\cl.exe'
+	.ExtraFiles = {
+		"$CompilerPath$\c1.dll"
+		"$CompilerPath$\c1xx.dll"
+		"$CompilerPath$\c2.dll"
+		"$CompilerPath$\msobj140.dll"
+		"$CompilerPath$\mspdb140.dll"
+		"$CompilerPath$\mspdbcore.dll"
+		"$CompilerPath$\mspdbst.dll"
+		"$CompilerPath$\mspft140.dll"
+		"$CompilerPath$\vcruntime140.dll"
+		"$CompilerPath$\1033\clui.dll"
+	}
+}
 
+#import MATHLIB_API
 
 .MSVCBaseConfig = [
-	.DisabledWarnings = "/wd4251" // identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+	.DisabledWarnings = " /wd4251" // identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+		+ " /wd4201" // nonstandard extension used: nameless struct/union
+		+ " /wd4100" // unrefenced formal parameter
 
 	.CompilerOptions = '"%1"'
 		+ ' /nologo' // Disable logo
@@ -42,24 +58,188 @@ ForEach( .Platform  in .Platforms )
 		+ ' /Zi' // Generate PDB
 		+ ' /GR-' // No runtime type information (rtti)
 		+ ' /analyze' // Code analyzation
+		+ ' /D"_HAS_EXCEPTIONS=0"'
 
-	.LibrarianOptions = '/NODEFAULTLIB /WX /NOLOGO /OUT:"%2" "%1"'
-    .LinkerOptions = '/NODEFAULTLIB /WX /NOLOGO /INCREMENTAL:NO /OUT:"%2" "%1" /DEBUG'
+	.PCHOptions = .CompilerOptions
+		+ ' /Fp"%2" /Fo"%3"'
+	.CompilerOptions + ' /Fo"%2"'
+	.LibrarianOptions = '/WX /NOLOGO /OUT:"%2" "%1"'
+	.LinkerOptions = '/WX /NOLOGO /INCREMENTAL:NO /OUT:"%2" "%1"'
 
-    .CompilerDebugOptimizations = ' /MTd /Od /RTC1 /GS /Oy-'
-    .CompilerReleaseOptimizations = ' /MT /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
-    .LibrarianDebugOptimizations = ''
-    .LibrarianReleaseOptimizations = ' /LTCG'
-    .LinkerDebugOptimizations = ''
-    .LinkerReleaseOptimizations = ' /LTCG /OPT:REF,ICF'
+
+	.CompilerDebugOptimizations = ' /MTd /Od /RTC1 /GS /Oy-'
+	.CompilerReleaseOptimizations = ' /MT /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
+	.LibrarianDebugOptimizations = ''
+	.LibrarianReleaseOptimizations = ' /LTCG'
+	.LinkerDebugOptimizations = ''
+	.LinkerReleaseOptimizations = ' /LTCG /OPT:REF,ICF'
+
+	.BaseIncludePaths = ' /I"./NiFrameEngine/"'
+		+ ' /I"./NiFrameEngine/inc"'
+		+ ' /I"./NiFrameEngine/"'
+		+ ' /I"$MATHLIB_API$/include/"'
+		+ ' /I"$MSVCDIR$\include"'
+		+ ' /I"$WINDOWSSDKDIR$\include\shared\"'
+		+ ' /I"$WINDOWSSDKDIR$\include\um\"'
+
+	.CompilerOptions + .BaseIncludePaths
+	.PCHOptions + .BaseIncludePaths
 
 ]
 
 .MSVCx64BaseConfig = [
 	.Platform = "x64"
 	Using(.MSVCBaseConfig)
-	Using(.MSVC15Settings$Platform$)
+	Using(.MSVC15Settingsx64)
 	.Compiler = "MSVC15-$Platform$"
 	.Librarian = "$CompilerPath$\lib.exe"
 	.Linker = "$CompilerPath$\link.exe"
+
+	.CompilerOptions + ' /DWIN64'
+	.PCHOptions + ' /DWIN64'
+	.LinkerOptions + " /MACHINE:X64"
+		+ ' /LIBPATH:"$MSVCDIR$\lib\x64"'
+		+ ' /LIBPATH:"$WINDOWSSDKDIR$\Lib\winv6.3\um\$Platform$"'
+
 ]
+
+.MSVCx64DebugConfig = [
+	Using(.MSVCx64BaseConfig)
+	.Config="Debug"
+
+	.CompilerOptions + .CompilerDebugOptimizations
+		+ ' /D"_DEBUG"'
+	.LinkerOptions + .LinkerDebugOptimizations
+	.PCHOptions + .CompilerDebugOptimizations
+		+ ' /D"_DEBUG"'
+
+]
+
+.MSVCx64ReleaseConfig = [
+	Using(.MSVCx64BaseConfig)
+	.Config="Release"
+
+	.CompilerOptions + .CompilerReleaseOptimizations
+	.LinkerOptions + .LinkerReleaseOptimizations
+	.PCHOptions + .CompilerReleaseOptimizations
+
+]
+
+.MSVCx86BaseConfig = [
+	.Platform = "x86"
+	Using(.MSVCBaseConfig)
+	Using(.MSVC15Settingsx86)
+	.Compiler = "MSVC15-$Platform$"
+	.Librarian = "$CompilerPath$\lib.exe"
+	.Linker = "$CompilerPath$\link.exe"
+	.CompilerOptions + ' /arch:SSE2'
+		+ ' /DWIN32'
+	.PCHOptions + ' /arch:SSE2'
+		+ ' /DWIN32'
+	.LinkerOptions + " /LARGEADRESSAWARE"
+		+ " /MACHINE:X86"
+		+ ' /LIBPATH:"$MSVCDIR$\lib\x86"'
+		+ ' /LIBPATH:"$WINDOWSSDKDIR$\Lib\winv6.3\um\$Platform$"'
+]
+
+.MSVCx86DebugConfig = [
+	Using(.MSVCx86BaseConfig)
+	.Config="Debug"
+	.CompilerOptions + .CompilerDebugOptimizations
+		+ ' /D"_DEBUG"'
+	.LinkerOptions + .LinkerDebugOptimizations
+	.PCHOptions + .CompilerDebugOptimizations
+		+ ' /D"_DEBUG"'
+]
+
+.MSVCx86ReleaseConfig = [
+	Using(.MSVCx86BaseConfig)
+	.Config="Release"
+
+	.CompilerOptions + .CompilerReleaseOptimizations
+	.LinkerOptions + .LinkerReleaseOptimizations
+	.PCHOptions + .CompilerReleaseOptimizations
+]
+
+//------------------------------------------------------------------------------
+// VisualStudio Project Generation
+//------------------------------------------------------------------------------
+.ProjectCommon =
+[
+	.ProjectBuildCommand        = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache ^$(ProjectName)-DLL-^$(Platform)-^$(Configuration)'
+	.ProjectRebuildCommand      = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache -clean ^$(ProjectName)-DLL-^$(Platform)-^$(Configuration)'
+	.OutputDirectory            = '^$(SolutionDir)\$OutputBasePath$\'
+	.IntermediateDirectory      = '^$(SolutionDir)\$OutputBasePath$\'
+	.BuildLogFile               = '^$(SolutionDir)\$OutputBasePath$\^$(ProjectName)-^$(Platform)-^$(Configuration).log'
+	.PlatformToolset = 'v141'
+]
+
+.ProjectX86Debug        = [ Using( .ProjectCommon ) .Platform='x86' .Config = 'Debug' ]
+.ProjectX86Release      = [ Using( .ProjectCommon ) .Platform='x86' .Config = 'Release' ]
+.ProjectX64Debug        = [ Using( .ProjectCommon ) .Platform='x64' .Config = 'Debug' ]
+.ProjectX64Release      = [ Using( .ProjectCommon ) .Platform='x64' .Config = 'Release' ]
+
+.ProjectConfigs = { .ProjectX86Debug, .ProjectX86Release,
+					.ProjectX64Debug, .ProjectX64Release }
+
+// Project to compile everything
+VCXProject( 'All-proj' )
+{
+	.ProjectOutput              = '$OutputBasePath$/VisualStudio/Projects/All.vcxproj'
+	.ProjectFiles           = { '.\fbuild.bff' }
+	.ProjectBasePath            = '.\'
+}
+
+// Project to regenerate projects/solutions
+VCXProject( 'UpdateSolution-proj' )
+{
+	.ProjectOutput              = '$OutputBasePath$/VisualStudio/Projects/UpdateSolution.vcxproj'
+	.ProjectFiles           = { '.\fbuild.bff' }
+	.ProjectBasePath            = '.\'
+
+	.GenerateProjectsCommands =
+	[
+		.ProjectBuildCommand        = 'cd ^$(SolutionDir) &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe solution -vs'
+		.ProjectRebuildCommand      = 'cd ^$(SolutionDir) &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe solution -vs -clean'
+	]
+
+	.ProjectX86Debug        = [ Using( .ProjectX86Debug )       Using( .GenerateProjectsCommands ) ]
+	.ProjectX86Release      = [ Using( .ProjectX86Release )     Using( .GenerateProjectsCommands ) ]
+	.ProjectX64Debug        = [ Using( .ProjectX64Debug )       Using( .GenerateProjectsCommands ) ]
+	.ProjectX64Release      = [ Using( .ProjectX64Release )     Using( .GenerateProjectsCommands ) ]
+
+	.ProjectConfigs = { .ProjectX86Debug, .ProjectX86Release,
+						.ProjectX64Debug, .ProjectX64Release }
+}
+
+// Configurations
+//------------------------------------------------------------------------------
+.Configs = { .MSVCx86DebugConfig, .MSVCx86ReleaseConfig,
+			 .MSVCx64DebugConfig, .MSVCx64ReleaseConfig }
+
+.Configs_Windows_MSVC = { .MSVCx86DebugConfig, .MSVCx86ReleaseConfig,
+			 .MSVCx64DebugConfig, .MSVCx64ReleaseConfig }
+
+
+#include "NiFrameEngine/NiFrameEngine.bff"
+
+// Visual Studio Solution
+//------------------------------------------------------------------------------
+VSSolution( 'solution' )
+{
+	.SolutionOutput     = 'NiFrameEngine.sln'
+	.SolutionProjects   = { 'NiFrameEngine-proj',
+							'All-proj',
+							'UpdateSolution-proj',
+						  }
+	.SolutionBuildProject = 'All-proj'
+	.SolutionConfigs    = .ProjectConfigs
+
+	// Work around for Visual Studio F5 behaviour up-to-date check
+	.Deps               = [
+							.Projects = { }
+							.Dependencies = { 'All-proj' }
+						  ]
+	.SolutionDependencies = { .Deps }
+	.SolutionVisualStudioVersion="15.0.25807.0"
+}

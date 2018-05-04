@@ -4,6 +4,7 @@
 
 using namespace nfe;
 
+const uint64 INVALID_BLOCK_ID = 0xFFFFFFFFFF;
 
 nfe::BlockAllocator::BlockAllocator(
   const char* name /*= "NFBlockAllocator"*/,
@@ -63,7 +64,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
   {
     return nullptr;
   }
-  uint64 blockIdx = -1;
+  uint64 blockIdx = INVALID_BLOCK_ID;
   switch (m_AllocatorType)
   {
   case BlockAllocatorType::BestFit:
@@ -80,7 +81,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
     break;
   }
 
-  if (blockIdx == -1)
+  if (blockIdx == INVALID_BLOCK_ID)
   {
     uint64 newBlockSize = 0;
 
@@ -142,14 +143,14 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
   return block.Pointer;
 }
 
-void nfe::BlockAllocator::Deallocate( void* address )
+void nfe::BlockAllocator::Deallocate( void* InAddress )
 {
-  if( address != nullptr )
+  if(InAddress != nullptr )
   {
     uint64 idx = 0;
     for( auto& chunk : m_UsedMemoryChunks )
     {
-      if( chunk.Pointer == address )
+      if( chunk.Pointer == InAddress)
       {
         break;
       }
@@ -187,7 +188,7 @@ void nfe::BlockAllocator::Deallocate( void* address )
 nfe::uint64 nfe::BlockAllocator::FindFirstFitBlock( uint64 size )
 {
   uint64 idx = 0;
-  uint64 firstIdx = -1;
+  uint64 firstIdx = INVALID_BLOCK_ID;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if (chunk.Size >= size)
@@ -203,13 +204,13 @@ nfe::uint64 nfe::BlockAllocator::FindFirstFitBlock( uint64 size )
 
 nfe::uint64 nfe::BlockAllocator::FindBestFitBlock( uint64 size )
 {
-  uint64 bestidx = -1;
+  uint64 bestidx = INVALID_BLOCK_ID;
   uint64 idx = 0;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if( chunk.Size >= size )
     {
-      if (bestidx != -1)
+      if (bestidx != INVALID_BLOCK_ID)
       {
         if (m_FreeMemoryChunks[bestidx] > chunk)
         {
@@ -230,13 +231,13 @@ nfe::uint64 nfe::BlockAllocator::FindBestFitBlock( uint64 size )
 nfe::uint64 nfe::BlockAllocator::FindWorstFitBlock( uint64 size )
 {
 
-  uint64 worstIdx = -1;
+  uint64 worstIdx = INVALID_BLOCK_ID;
   uint64 idx = 0;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if( chunk.Size >= size )
     {
-      if( worstIdx != -1 )
+      if( worstIdx != INVALID_BLOCK_ID)
       {
         if( m_FreeMemoryChunks[ worstIdx ] < chunk )
         {
@@ -274,15 +275,15 @@ void nfe::BlockAllocator::SplitBlock(uint64 size, BlockAllocatorChunk& firstHalf
 
 bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk )
 {
-  uint64 preAllocatorIdx = -1;
-  uint64 postAllocatorIdx = -1;
+  uint64 preAllocatorIdx = INVALID_BLOCK_ID;
+  uint64 postAllocatorIdx = INVALID_BLOCK_ID;
   uint64 idx = 0;
   for( auto& chunk : m_FreeMemoryChunks )
   {
     if( chunk.EndAddress == mergeChunk.Pointer )
     {
       preAllocatorIdx = idx;
-      if( postAllocatorIdx != -1 )
+      if( postAllocatorIdx != INVALID_BLOCK_ID)
       {
         break;
       }
@@ -290,7 +291,7 @@ bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk 
     else if( chunk.Pointer == mergeChunk.EndAddress )
     {
       postAllocatorIdx = idx;
-      if( preAllocatorIdx != -1 )
+      if( preAllocatorIdx != INVALID_BLOCK_ID)
       {
         break;
       }
@@ -298,9 +299,9 @@ bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk 
     idx++;
   }
 
-  if (preAllocatorIdx != -1)
+  if (preAllocatorIdx != INVALID_BLOCK_ID)
   {
-    if (postAllocatorIdx != -1)
+    if (postAllocatorIdx != INVALID_BLOCK_ID)
     {
       BlockAllocatorChunk& preBlock = m_FreeMemoryChunks[ preAllocatorIdx ];
       preBlock.Size += mergeChunk.Size + m_FreeMemoryChunks[ postAllocatorIdx ].Size;
@@ -317,7 +318,7 @@ bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk 
       return true;
     }
   }
-  else if (postAllocatorIdx != -1)
+  else if (postAllocatorIdx != INVALID_BLOCK_ID)
   {
     BlockAllocatorChunk& postBlock = m_FreeMemoryChunks[ postAllocatorIdx ];
     postBlock.Pointer = mergeChunk.Pointer;

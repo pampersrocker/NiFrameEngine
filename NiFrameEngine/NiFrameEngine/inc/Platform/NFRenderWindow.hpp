@@ -5,9 +5,9 @@
 
 namespace nfe
 {
-#ifdef WIN32
+#ifdef PLATFORM_WINDOWS
   typedef HWND NativeWindow;
-#elif defined(ORBIS)
+#elif defined(PLATFORM_PS4)
   // There is no actual Window on the PS4 but we need a type anyway
   typedef uint32 NativeWindow;
 #endif

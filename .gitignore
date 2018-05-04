@@ -43,3 +43,7 @@ bin/
 NiFrameEngine/lib/NiFrameWin32Platform/
 NiFrameEngine/lib/NiFrame*/
 .vs/
+*.VC.db
+*.fdb
+*.pdb
+*.sln

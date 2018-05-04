@@ -2,11 +2,11 @@
 #ifndef NiFrameMacros_h__
 #define NiFrameMacros_h__
 
-#if !defined(WIN32) && !defined(ORBIS)
+#if !defined(PLATFORM_WINDOWS) && !defined(PLATFORM_PS4)
 #error "No Platform defined"
 #endif
 
-#ifdef WIN32
+#ifdef PLATFORM_WINDOWS
 
 #ifdef NIFRAME_DLL_BUILD
 #define NIFRAME_API __declspec( dllexport )
@@ -16,7 +16,7 @@
 #define NIFRAME_TPL_EXPORT extern
 #endif
 
-#elif ORBIS
+#elif PLATFORM_PS4
 
 
 #ifdef NIFRAME_DLL_BUILD
@@ -37,7 +37,7 @@
 #define NF_FORCE_INLINE inline
 #endif
 
-#ifdef WIN32
+#ifdef PLATFORM_WINDOWS
 #define EXPORT_STL( tpl ) \
   namespace std{\
   NIFRAME_TPL_EXPORT template class NIFRAME_API tpl;\
@@ -49,7 +49,7 @@
 
 #define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl> tpl ## Ptr; \
   EXPORT_TPL( nfe::ReferenceCounted< tpl > )
-#elif ORBIS
+#elif PLATFORM_PS4
 
 #define EXPORT_STL( tpl ) \
   namespace std{\
@@ -70,7 +70,7 @@
     pointer = nullptr;    \
   }
 #ifdef _DEBUG
-#define NF_ASSERT(assertion, msg) do{if(GPlatform!= nullptr){GPlatform->Assert( assertion, msg );}else{assert(assertion&& msg);}}while(0)
+#define NF_ASSERT(assertion, msg) do{if(GPlatform!= nullptr){GPlatform->Assert( assertion, msg );}else{assert(assertion&& msg);} if(!(assertion)) exit(1);}while(0)
 #else
 #define NF_ASSERT(assertion, msg) (void*)0
 #endif

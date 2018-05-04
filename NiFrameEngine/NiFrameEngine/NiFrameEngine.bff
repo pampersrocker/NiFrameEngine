@@ -1,0 +1,69 @@
+{
+	.ProjectName = "NiFrameEngine"
+	.ProjectPath= "NiFrameEngine"
+	.PCHName = "NFEnginePCH"
+
+	{
+		.UnityInputPath = "$ProjectPath$\src"
+		.UnityOutputPath = "$OutputBasePath$\Unity\$ProjectPath$\"
+
+		Unity( "$ProjectName$-Unity-Windows" )
+		{
+			.UnityPCH = "$PCHName$.hpp"
+		}
+	}
+
+	// Windows (MSVC)
+	//--------------------------------------------------------------------------
+	ForEach( .MSVCConfig in .Configs_Windows_MSVC )
+	{
+		Using( .MSVCConfig )
+		.OutputBasePath + '\$Platform$-$Config$'
+
+		// Static Library
+		Library( '$ProjectName$-Lib-$Platform$-$Config$' )
+		{
+			// Precompiled Header Creation/Use
+			.PCHInputFile = '$ProjectPath$\src\$PCHName$.cpp'
+			.PCHOutputFile = '$OutputBasePath$\$ProjectName$\$PCHName$.pch'
+			.PCHOptions + ' /Yc"$PCHName$.hpp"'
+			.CompilerOptions + ' /Yu"$PCHName$.hpp" /Fp"$PCHOutputFile$"'
+				+ ' /D"NIFRAME_DLL_BUILD"'
+			.PCHOptions + ' /D"NIFRAME_DLL_BUILD"'
+
+			// Input (Unity)
+			.CompilerInputUnity = '$ProjectName$-Unity-Windows'
+
+			// Output
+			.CompilerOutputPath = '$OutputBasePath$\$ProjectName$\'
+			.LibrarianOutput = '$OutputBasePath$\$ProjectName$\$ProjectName$.lib'
+		}
+
+		DLL( "$ProjectName$-DLL-$Platform$-$Config$" )
+		{
+			.Libraries = { "$ProjectName$-Lib-$Platform$-$Config$" }
+			.LinkerOutput = "$OutputBasePath$\$ProjectName$\$ProjectName$.dll"
+			.LinkerOptions + " /SUBSYSTEM:CONSOLE"
+				+ " /DLL"
+		}
+	}
+
+	// Visual Studio Project Generation
+	//--------------------------------------------------------------------------
+	VCXProject( '$ProjectName$-proj' )
+	{
+		.ProjectOutput              = '$OutputBasePath$/VisualStudio/Projects/$ProjectName$.vcxproj'
+		.ProjectInputPaths          = '$ProjectPath$\'
+		.ProjectBasePath            = '$ProjectPath$\'
+
+		// Exclude Tests
+		.ProjectInputPathsExclude   = '$ProjectPath$\CoreTest\'
+
+		.ProjectX86Debug        = [ Using( .ProjectX86Debug )           .Target = '$ProjectName$-DLL-x86-Debug' ]
+		.ProjectX86Release      = [ Using( .ProjectX86Release )         .Target = '$ProjectName$-DLL-x86-Release' ]
+		.ProjectX64Debug        = [ Using( .ProjectX64Debug )           .Target = '$ProjectName$-DLL-x64-Debug' ]
+		.ProjectX64Release      = [ Using( .ProjectX64Release )         .Target = '$ProjectName$-DLL-x64-Release' ]
+		.ProjectConfigs         = { .ProjectX86Debug, .ProjectX86Release,
+									.ProjectX64Debug, .ProjectX64Release }
+	}
+}

@@ -25,15 +25,15 @@ namespace nfe
     void RemoveWorld( World* world );
 
 
-    void AddSubsystem( ISubsystem system );
-    void RemoveSubsystems( ISubsystem system );
+    void AddSubsystem( ISubsystem* system );
+    void RemoveSubsystems( ISubsystem* system );
 
     const Vector< World* >& Worlds() const;
 
   private:
 
-    Vector< World* >* m_Worlds;
-    Vector< ISubsystem >* m_Subsystems;
+    Vector< World* > m_Worlds;
+    Vector< ISubsystem* > m_Subsystems;
 
   };
 

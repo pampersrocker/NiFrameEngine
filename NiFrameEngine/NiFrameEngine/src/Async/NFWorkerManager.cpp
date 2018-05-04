@@ -52,8 +52,6 @@ void nfe::WorkerManager::Initialize( uint32 numWorkers )
   m_Threads.Resize( numWorkers );
   uint32 threadId = 0;
   m_ConsumerSemaphore = GPlatform->CreateSemaphore( 1024, 0, SemaphoreQueueType::FIFO, "Worker Semaphore" );
-  uint32 firstClusterAffinity = 0xF;
-  uint32 secondClusterAffinity = 0x30;
   for( IThread*& thread : m_Threads )
   {
     thread = GPlatform->CreateThread( &WorkerManagerFunc, 0, "Worker Thread " + std::to_string( threadId++ ) );

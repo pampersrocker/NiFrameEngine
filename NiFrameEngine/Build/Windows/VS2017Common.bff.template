@@ -2,10 +2,14 @@
 
 #import MSVC15DIRX64
 #import MSVC15DIRX86
+#import MSVC15VCDIR
+#import WINDOWSSDKDIR
+
+.MSVCDIR = "$MSVC15VCDIR$"
 
 .MSVC15Settingsx64 = [
-	.CompilerPath = $MSVC15DIRX64$
+	.CompilerPath = "$MSVC15DIRX64$"
 ]
 .MSVC15Settingsx86 = [
-	.CompilerPath = $MSVC15DIRX86$
+	.CompilerPath = "$MSVC15DIRX86$"
 ]
