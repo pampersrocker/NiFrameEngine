@@ -27,7 +27,7 @@ IAllocator* nfe::GetDefaultAllocator()
   return ::nfe::GPlatform->GetDefaultAllocator();
 }
 
-nfe::uint64 nfe::alignedSize( uint64 size, uint32 alignment )
+NFSize nfe::alignedSize(NFSize size, uint32 alignment )
 {
   if( size == 0 )
   {

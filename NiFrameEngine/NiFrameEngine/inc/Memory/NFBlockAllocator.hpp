@@ -32,7 +32,7 @@ namespace nfe
 
     uint8* Pointer;
     uint8* EndAddress;
-    uint64 Size;
+    NFSize Size;
     uint32 Offset;
 
     void CalculateEndAddress();
@@ -77,7 +77,7 @@ namespace nfe
       const char* name = "NFBlockAllocator",
       uint32 alignment = 4U,
       BlockAllocatorType allocationType = BlockAllocatorType::FirstFit,
-      uint64 initialAllocationSize = 0U,
+      NFSize initialAllocationSize = 0U,
       IAllocator* parentAllocator = nullptr,
       IAllocator* internalAllocator = nullptr);
     virtual ~BlockAllocator();
@@ -85,16 +85,16 @@ namespace nfe
     nfe::BlockAllocatorType GetAllocatorType() const;
     void SetAllocatorType( nfe::BlockAllocatorType val );
 
-    virtual void* Allocate( uint64 size, uint32 alignment = 0 ) override;
+    virtual void* Allocate(NFSize size, uint32 alignment = 0 ) override;
 
     virtual void Deallocate( void* address ) override;
 
 
   private:
     // Different implementations for the allocator algorithm
-    uint64 FindFirstFitBlock( uint64 size );
-    uint64 FindBestFitBlock( uint64 size );
-    uint64 FindWorstFitBlock( uint64 size );
+    NFSize FindFirstFitBlock(NFSize size );
+    NFSize FindBestFitBlock(NFSize size );
+    NFSize FindWorstFitBlock(NFSize size );
 
     /**
     @brief Tries to merge the given chunk with the preceding or follow up block if those are free as well,
@@ -111,7 +111,7 @@ namespace nfe
     @param BlockAllocatorChunk & firstHalf Serves first a input of the block to split, will be modified if the block needs to be splitted
     @param BlockAllocatorChunk & secondHalf Output if the block is splitted, otherwise set to nullptr
     */
-    void SplitBlock( uint64 size, BlockAllocatorChunk& firstHalf, BlockAllocatorChunk& secondHalf );
+    void SplitBlock(NFSize size, BlockAllocatorChunk& firstHalf, BlockAllocatorChunk& secondHalf );
 
     uint32 m_Alignment;
 

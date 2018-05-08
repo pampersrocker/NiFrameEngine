@@ -12,7 +12,7 @@ namespace nfe
     IAllocator( const char* name );
     virtual ~IAllocator();
 
-    virtual  void* Allocate( uint64 size, uint32 alignment = 0 ) = 0;
+    virtual  void* Allocate( NFSize size, uint32 alignment = 0 ) = 0;
     virtual void Deallocate( void* address ) = 0;
 
     const char* GetName() const;
@@ -35,7 +35,7 @@ namespace nfe
   template< typename T>
   void nfdeleteArray( T* object, IAllocator* allocator = nullptr );
 
-  NIFRAME_API uint64 alignedSize( uint64 size, uint32 alignment = 4U );
+  NIFRAME_API NFSize alignedSize(NFSize size, uint32 alignment = 4U );
 }
 
 template< typename T>

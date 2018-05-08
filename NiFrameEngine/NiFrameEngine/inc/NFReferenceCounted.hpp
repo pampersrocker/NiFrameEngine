@@ -26,7 +26,7 @@ namespace nfe
       Deallocate( pointer );
     }
 
-    virtual void* Allocate( uint64 size, uint32 alignment = 0 ) override
+    virtual void* Allocate( NFSize size, uint32 alignment = 0 ) override
     {
       return GPlatform->GetDefaultAllocator()->Allocate( size );
 

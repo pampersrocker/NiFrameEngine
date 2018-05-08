@@ -23,7 +23,7 @@ nfe::ProxyAllocator::~ProxyAllocator()
 void nfe::ProxyAllocator::Deallocate( void* address )
 {
   bool found = false;
-  for( uint64 i = 0; i < m_AllocationInfos.Size(); i++ )
+  for(NFSize i = 0; i < m_AllocationInfos.Size(); i++ )
   {
     if (m_AllocationInfos[i].Pointer == address)
     {
@@ -36,7 +36,7 @@ void nfe::ProxyAllocator::Deallocate( void* address )
   m_ParentAllocator->Deallocate( address );
 }
 
-void* nfe::ProxyAllocator::Allocate( uint64 size, uint32 alignment )
+void* nfe::ProxyAllocator::Allocate(NFSize size, uint32 alignment )
 {
   void* m_Pointer = m_ParentAllocator->Allocate( size, alignment == 0 ? m_DefaultAlignment : alignment );
   ProxyAllocationInfo info;

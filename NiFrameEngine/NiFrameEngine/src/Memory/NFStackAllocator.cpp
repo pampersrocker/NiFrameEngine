@@ -4,7 +4,7 @@
 
 
 nfe::StackAllocator::StackAllocator(
-  uint64 size,
+  NFSize size,
   uint32 alignment /*= sizeof(void*)*/,
   IAllocator* parentAllocator /*= nullptr*/,
   const char* name /*= "NFStackAllocator"*/ ) :
@@ -20,7 +20,7 @@ nfe::StackAllocator::StackAllocator(
     m_ParentAllocator = GetDefaultAllocator();
   }
 
-  uint64 alignedSize = ::nfe::alignedSize( size, alignment );
+  NFSize alignedSize = ::nfe::alignedSize( size, alignment );
 
   m_Memory = static_cast< uint8* >( m_ParentAllocator->Allocate( alignedSize, alignment ) );
 
@@ -35,10 +35,10 @@ nfe::StackAllocator::~StackAllocator()
   m_CurrentMarker = nullptr;
 }
 
-void* nfe::StackAllocator::Allocate( uint64 size, uint32 alignment )
+void* nfe::StackAllocator::Allocate(NFSize size, uint32 alignment )
 {
   uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
-  uint64 alignedSize = nfe::alignedSize( size, usedAlignment );
+  NFSize alignedSize = nfe::alignedSize( size, usedAlignment );
   uintptr_t maxPtr = reinterpret_cast< uintptr_t >( m_Memory ) +m_Size;
   m_LastAllocation = m_CurrentMarker;
 

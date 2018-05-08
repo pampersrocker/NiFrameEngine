@@ -96,6 +96,7 @@ Compiler("MSVC15-x86")
 	.Linker = "$CompilerPath$\link.exe"
 
 	.CompilerOptions + ' /DWIN64'
+		+ ' /DPLATFORM_X64'
 	.PCHOptions + ' /DWIN64'
 	.LinkerOptions + " /MACHINE:X64"
 		+ ' /LIBPATH:"$MSVCDIR$\lib\x64"'
@@ -134,9 +135,10 @@ Compiler("MSVC15-x86")
 	.Linker = "$CompilerPath$\link.exe"
 	.CompilerOptions + ' /arch:SSE2'
 		+ ' /DWIN32'
+		+ ' /DPLATFORM_X86'
 	.PCHOptions + ' /arch:SSE2'
 		+ ' /DWIN32'
-	.LinkerOptions + " /LARGEADRESSAWARE"
+	.LinkerOptions + " /LARGEADDRESSAWARE"
 		+ " /MACHINE:X86"
 		+ ' /LIBPATH:"$MSVCDIR$\lib\x86"'
 		+ ' /LIBPATH:"$WINDOWSSDKDIR$\Lib\winv6.3\um\$Platform$"'
@@ -166,16 +168,16 @@ Compiler("MSVC15-x86")
 //------------------------------------------------------------------------------
 .ProjectCommon =
 [
-	.ProjectBuildCommand        = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache ^$(ProjectName)-DLL-^$(Platform)-^$(Configuration)'
-	.ProjectRebuildCommand      = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache -clean ^$(ProjectName)-DLL-^$(Platform)-^$(Configuration)'
+	.ProjectBuildCommand        = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache ^$(ProjectName)-DLL-^$(PlatformTarget)-^$(Configuration)'
+	.ProjectRebuildCommand      = 'cd ^$(SolutionDir)\ &amp; call Build\ThirdParty\FindMSVC15Path.bat &amp; Build\ThirdParty\fbuild.exe -vs -dist -monitor -fastcancel -cache -clean ^$(ProjectName)-DLL-^$(PlatformTarget)-^$(Configuration)'
 	.OutputDirectory            = '^$(SolutionDir)\$OutputBasePath$\'
 	.IntermediateDirectory      = '^$(SolutionDir)\$OutputBasePath$\'
-	.BuildLogFile               = '^$(SolutionDir)\$OutputBasePath$\^$(ProjectName)-^$(Platform)-^$(Configuration).log'
+	.BuildLogFile               = '^$(SolutionDir)\$OutputBasePath$\^$(ProjectName)-^$(PlatformTarget)-^$(Configuration).log'
 	.PlatformToolset = 'v141'
 ]
 
-.ProjectX86Debug        = [ Using( .ProjectCommon ) .Platform='x86' .Config = 'Debug' ]
-.ProjectX86Release      = [ Using( .ProjectCommon ) .Platform='x86' .Config = 'Release' ]
+.ProjectX86Debug        = [ Using( .ProjectCommon ) .Platform='Win32' .Config = 'Debug' ]
+.ProjectX86Release      = [ Using( .ProjectCommon ) .Platform='Win32' .Config = 'Release' ]
 .ProjectX64Debug        = [ Using( .ProjectCommon ) .Platform='x64' .Config = 'Debug' ]
 .ProjectX64Release      = [ Using( .ProjectCommon ) .Platform='x64' .Config = 'Release' ]
 
@@ -237,7 +239,7 @@ VSSolution( 'solution' )
 
 	// Work around for Visual Studio F5 behaviour up-to-date check
 	.Deps               = [
-							.Projects = { }
+							.Projects = {  }
 							.Dependencies = { 'All-proj' }
 						  ]
 	.SolutionDependencies = { .Deps }

@@ -3,14 +3,17 @@
 #include "Platform/NFPlatform.hpp"
 
 using namespace nfe;
-
-const uint64 INVALID_BLOCK_ID = 0xFFFFFFFFFF;
+#if PLATFORM_X64
+const NFSize INVALID_BLOCK_ID = 0xFFFFFFFFFFFFFFFF;
+#else
+const NFSize INVALID_BLOCK_ID = 0xFFFFFFFF;
+#endif
 
 nfe::BlockAllocator::BlockAllocator(
   const char* name /*= "NFBlockAllocator"*/,
   uint32 alignment,
   BlockAllocatorType allocationType /*= BlockAllocatorType::FirstFit*/,
-  uint64 initialAllocationSize /*= 0U*/,
+  NFSize initialAllocationSize /*= 0U*/,
   IAllocator* parentAllocator /*= nullptr*/,
   IAllocator* internalAllocator) :
   IAllocator(name),
@@ -28,7 +31,7 @@ nfe::BlockAllocator::BlockAllocator(
   if( initialAllocationSize > 0 )
   {
     BlockAllocatorChunk initalBlock;
-    uint64 alignedSize = ::nfe::alignedSize( initialAllocationSize, alignment );
+    NFSize alignedSize = ::nfe::alignedSize( initialAllocationSize, alignment );
 
     uint8* ptr = static_cast< uint8* >( m_ParentAllocator->Allocate( alignedSize ) );
     initalBlock.Pointer = ptr;
@@ -54,17 +57,17 @@ nfe::BlockAllocatorType nfe::BlockAllocator::GetAllocatorType() const
   return m_AllocatorType;
 }
 
-void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
+void* nfe::BlockAllocator::Allocate(NFSize size, uint32 alignment )
 {
   uint32 usedAlignment = alignment == 0 ? m_Alignment : alignment;
   // Add usedAlignment for the case we need to offset the allocation, so we have enough memory for the movement
-  uint64 alignedSize = ::nfe::alignedSize( size, usedAlignment ) + usedAlignment + 4;
+  NFSize alignedSize = ::nfe::alignedSize( size, usedAlignment ) + usedAlignment + 4;
   NF_ASSERT( alignedSize > 0, "One cannot simply allocate a size of 0!" );
   if( alignedSize <= 0 )
   {
     return nullptr;
   }
-  uint64 blockIdx = INVALID_BLOCK_ID;
+  NFSize blockIdx = INVALID_BLOCK_ID;
   switch (m_AllocatorType)
   {
   case BlockAllocatorType::BestFit:
@@ -83,7 +86,7 @@ void* nfe::BlockAllocator::Allocate( uint64 size, uint32 alignment )
 
   if (blockIdx == INVALID_BLOCK_ID)
   {
-    uint64 newBlockSize = 0;
+    NFSize newBlockSize = 0;
 
     if (m_AllocatedBlocks.Size() > 0)
     {
@@ -147,7 +150,7 @@ void nfe::BlockAllocator::Deallocate( void* InAddress )
 {
   if(InAddress != nullptr )
   {
-    uint64 idx = 0;
+    NFSize idx = 0;
     for( auto& chunk : m_UsedMemoryChunks )
     {
       if( chunk.Pointer == InAddress)
@@ -185,10 +188,10 @@ void nfe::BlockAllocator::Deallocate( void* InAddress )
   }
 }
 
-nfe::uint64 nfe::BlockAllocator::FindFirstFitBlock( uint64 size )
+nfe::NFSize nfe::BlockAllocator::FindFirstFitBlock(NFSize size )
 {
-  uint64 idx = 0;
-  uint64 firstIdx = INVALID_BLOCK_ID;
+	NFSize idx = 0;
+	NFSize firstIdx = INVALID_BLOCK_ID;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if (chunk.Size >= size)
@@ -199,13 +202,13 @@ nfe::uint64 nfe::BlockAllocator::FindFirstFitBlock( uint64 size )
     idx++;
   }
 
-  return firstIdx;
+  return static_cast<NFSize>(firstIdx);
 }
 
-nfe::uint64 nfe::BlockAllocator::FindBestFitBlock( uint64 size )
+nfe::NFSize nfe::BlockAllocator::FindBestFitBlock(NFSize size )
 {
-  uint64 bestidx = INVALID_BLOCK_ID;
-  uint64 idx = 0;
+	NFSize bestidx = INVALID_BLOCK_ID;
+	NFSize idx = 0;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if( chunk.Size >= size )
@@ -225,14 +228,14 @@ nfe::uint64 nfe::BlockAllocator::FindBestFitBlock( uint64 size )
     idx++;
   }
 
-  return bestidx;
+  return static_cast<NFSize>(bestidx);
 }
 
-nfe::uint64 nfe::BlockAllocator::FindWorstFitBlock( uint64 size )
+nfe::NFSize nfe::BlockAllocator::FindWorstFitBlock(NFSize size )
 {
 
-  uint64 worstIdx = INVALID_BLOCK_ID;
-  uint64 idx = 0;
+	NFSize worstIdx = INVALID_BLOCK_ID;
+	NFSize idx = 0;
   for( auto chunk : m_FreeMemoryChunks )
   {
     if( chunk.Size >= size )
@@ -252,10 +255,10 @@ nfe::uint64 nfe::BlockAllocator::FindWorstFitBlock( uint64 size )
     idx++;
   }
 
-  return worstIdx;
+  return static_cast<NFSize>(worstIdx);
 }
 
-void nfe::BlockAllocator::SplitBlock(uint64 size, BlockAllocatorChunk& firstHalf, BlockAllocatorChunk& secondHalf )
+void nfe::BlockAllocator::SplitBlock(NFSize size, BlockAllocatorChunk& firstHalf, BlockAllocatorChunk& secondHalf )
 {
   if (firstHalf.Size == size)
   {
@@ -263,7 +266,7 @@ void nfe::BlockAllocator::SplitBlock(uint64 size, BlockAllocatorChunk& firstHalf
   }
   else
   {
-    uint64 originalSize = firstHalf.Size;
+    NFSize originalSize = firstHalf.Size;
     firstHalf.Size = size;
     firstHalf.CalculateEndAddress();
     secondHalf.Pointer = firstHalf.EndAddress;
@@ -275,9 +278,9 @@ void nfe::BlockAllocator::SplitBlock(uint64 size, BlockAllocatorChunk& firstHalf
 
 bool nfe::BlockAllocator::TryMergeBlocks( const BlockAllocatorChunk& mergeChunk )
 {
-  uint64 preAllocatorIdx = INVALID_BLOCK_ID;
-  uint64 postAllocatorIdx = INVALID_BLOCK_ID;
-  uint64 idx = 0;
+	NFSize preAllocatorIdx = INVALID_BLOCK_ID;
+	NFSize postAllocatorIdx = INVALID_BLOCK_ID;
+	NFSize idx = 0;
   for( auto& chunk : m_FreeMemoryChunks )
   {
     if( chunk.EndAddress == mergeChunk.Pointer )

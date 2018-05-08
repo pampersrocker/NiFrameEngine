@@ -34,8 +34,8 @@ namespace nfe
     {
       m_Allocator = GetDefaultAllocator();
     }
-    m_Data = static_cast< T* >( m_Allocator->Allocate( m_ReservedSize * sizeof( T ) ) );
-    for( uint64 idx = 0; idx < m_Size; idx++ )
+    m_Data = static_cast< T* >( m_Allocator->Allocate( static_cast<NFSize>(m_ReservedSize * sizeof( T )) ) );
+    for( NFSize idx = 0; idx < m_Size; idx++ )
     {
       m_Data[ idx ] = rhs.m_Data[ idx ];
     }
@@ -73,7 +73,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    void nfe::Vector<T, ThreadingPolicy>::Resize( uint64 newSize )
+    void nfe::Vector<T, ThreadingPolicy>::Resize( NFSize newSize )
   {
     m_ThreadingPolicy.Lock();
     if( newSize != m_Size )
@@ -81,7 +81,7 @@ namespace nfe
       // Destruct the entries which are going to be deleted
       if( newSize < m_Size )
       {
-        for( uint64 i = newSize; i < m_Size; i++ )
+        for( NFSize i = newSize; i < m_Size; i++ )
         {
           m_Data[ i ].~T();
         }
@@ -92,7 +92,7 @@ namespace nfe
         T* newData = static_cast< T* >( m_Allocator->Allocate( newSize * sizeof( T ) ) );
         NF_ASSERT( newData, "Failed to allocate memory for resizing" );
         // Copy over data to new Block
-        for( uint64 i = 0; i < newSize && i < m_Size; i++ )
+        for( NFSize i = 0; i < newSize && i < m_Size; i++ )
         {
           newData[ i ] = m_Data[ i ];
         }
@@ -104,7 +104,7 @@ namespace nfe
       // If we increased the size, default construct the new members
       if( newSize > m_Size )
       {
-        for( uint64 i = m_Size; i < newSize; i++ )
+        for( NFSize i = m_Size; i < newSize; i++ )
         {
           constructWithAllocatorIfPossible( m_Data + i, m_Allocator );
           //m_Data[ i ] = T();
@@ -127,7 +127,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    void nfe::Vector<T, ThreadingPolicy>::Reserve( uint64 newReserve )
+    void nfe::Vector<T, ThreadingPolicy>::Reserve( NFSize newReserve )
   {
     //m_ThreadingPolicy.Lock();
 
@@ -138,7 +138,7 @@ namespace nfe
       T* newData = static_cast< T* >( m_Allocator->Allocate( newReserve * sizeof( T ) ) );
       NF_ASSERT( newData, "Failed to allocate memory for resizing" );
       // Copy over data to new Block
-      for( uint64 i = 0; i < m_Size; i++ )
+      for( NFSize i = 0; i < m_Size; i++ )
       {
         new ( &newData[ i ] ) T();
         newData[ i ] = m_Data[ i ];
@@ -153,7 +153,7 @@ namespace nfe
   }
 
   template< typename T, typename ThreadingPolicy >
-  void nfe::Vector<T, ThreadingPolicy>::RemoveAt( uint64 idx )
+  void nfe::Vector<T, ThreadingPolicy>::RemoveAt( NFSize idx )
   {
     m_ThreadingPolicy.Lock();
 
@@ -161,7 +161,7 @@ namespace nfe
 
     m_Data[ idx ].~T();
 
-    for( uint64 i = idx; i < m_Size - 1; i++ )
+    for( NFSize i = idx; i < m_Size - 1; i++ )
     {
       m_Data[ i ] = m_Data[ i + 1 ];
     }
@@ -174,7 +174,7 @@ namespace nfe
   {
     m_ThreadingPolicy.Lock();
 
-    for( uint64 i = 0; i < m_Size; i++ )
+    for( NFSize i = 0; i < m_Size; i++ )
     {
       if( member == m_Data[ i ] )
       {
@@ -190,7 +190,7 @@ namespace nfe
   }
 
   template< typename T, typename ThreadingPolicy >
-  void nfe::Vector<T, ThreadingPolicy>::Insert( uint64 idx, const T& member )
+  void nfe::Vector<T, ThreadingPolicy>::Insert(NFSize idx, const T& member )
   {
     m_ThreadingPolicy.Lock();
     NF_ASSERT( idx <= m_Size, "Index is out of range for insertion" );
@@ -205,7 +205,7 @@ namespace nfe
       m_ThreadingPolicy.Lock();
 
     }
-    for( uint64 i = m_Size; i >= idx && i != -1; i-- )
+    for(NFSize i = m_Size; i >= idx && i != -1; i-- )
     {
       m_Data[ i + 1 ] = m_Data[ i ];
     }
@@ -246,7 +246,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    nfe::Vector<T, ThreadingPolicy>::Vector( uint64 reservedSize, IAllocator* allocator /*= nullptr */ ) :
+    nfe::Vector<T, ThreadingPolicy>::Vector(NFSize reservedSize, IAllocator* allocator /*= nullptr */ ) :
     m_Size( 0U ),
     m_ReservedSize( reservedSize ),
     m_Allocator( allocator ),
@@ -261,7 +261,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    T& nfe::Vector<T, ThreadingPolicy>::operator[]( uint64 idx )
+    T& nfe::Vector<T, ThreadingPolicy>::operator[](NFSize idx )
   {
     m_ThreadingPolicy.Lock();
     NF_ASSERT( idx < m_Size, "Index is out of range" );
@@ -272,7 +272,7 @@ namespace nfe
   }
 
   template< typename T, typename ThreadingPolicy >
-  const T& nfe::Vector<T, ThreadingPolicy>::operator[]( uint64 idx ) const
+  const T& nfe::Vector<T, ThreadingPolicy>::operator[](NFSize idx ) const
   {
     m_ThreadingPolicy.Lock();
     NF_ASSERT( idx < m_Size, "Index is out of range" );
@@ -283,7 +283,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    uint64 nfe::Vector<T, ThreadingPolicy>::ReservedSize() const
+    NFSize nfe::Vector<T, ThreadingPolicy>::ReservedSize() const
   {
     return m_ReservedSize;
   }
@@ -298,7 +298,7 @@ namespace nfe
     if( m_Allocator != nullptr && m_Data != nullptr )
     {
 
-      for( uint64 idx = 0; idx < m_Size; idx++ )
+      for(NFSize idx = 0; idx < m_Size; idx++ )
       {
         m_Data[ idx ].~T();
       }
@@ -319,7 +319,7 @@ namespace nfe
     if( m_Allocator != nullptr && m_Data != nullptr )
     {
 
-      for( uint64 idx = 0; idx < m_Size; idx++ )
+      for(NFSize idx = 0; idx < m_Size; idx++ )
       {
         m_Data[ idx ].~T();
       }
@@ -333,7 +333,7 @@ namespace nfe
     m_Size = rhs.m_Size;
     m_ReservedSize = rhs.m_ReservedSize;
 
-    for( uint64 idx = 0; idx < m_Size; idx++ )
+    for(NFSize idx = 0; idx < m_Size; idx++ )
     {
       m_Data[ idx ] = rhs.m_Data[ idx ];
     }
@@ -366,7 +366,7 @@ namespace nfe
 
   template< typename T, typename ThreadingPolicy >
   inline
-    nfe::uint64 nfe::Vector<T, ThreadingPolicy>::Size() const
+    nfe::NFSize nfe::Vector<T, ThreadingPolicy>::Size() const
   {
     return m_Size;
   }
