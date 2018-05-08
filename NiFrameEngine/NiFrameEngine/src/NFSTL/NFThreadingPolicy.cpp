@@ -15,14 +15,12 @@ void nfe::NoSTLThreadingPolicy::Lock()
 
 nfe::STLLockingThreadingPolicy::STLLockingThreadingPolicy()
 {
-  NF_ASSERT( GPlatform, "No platform available!" );
-  m_Semaphore = GPlatform->CreateSemaphore( 1, 1, SemaphoreQueueType::FIFO, "ThreadingPolicySemaphore" );
+  m_Semaphore = NFPlatform::CreateSemaphore( 1, 1, SemaphoreQueueType::FIFO, "ThreadingPolicySemaphore" );
 }
 
 nfe::STLLockingThreadingPolicy::~STLLockingThreadingPolicy()
 {
-  NF_ASSERT( GPlatform, "No platform available!" );
-  GPlatform->DestroySemaphore( m_Semaphore );
+  NFPlatform::DestroySemaphore( m_Semaphore );
 }
 
 void nfe::STLLockingThreadingPolicy::Lock()

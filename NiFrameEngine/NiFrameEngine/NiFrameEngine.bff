@@ -45,6 +45,7 @@
 			.LinkerOutput = "$OutputBasePath$\$ProjectName$\$ProjectName$.dll"
 			.LinkerOptions + " /SUBSYSTEM:CONSOLE"
 				+ " /DLL"
+				+ " User32.lib"
 		}
 	}
 

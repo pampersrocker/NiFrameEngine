@@ -2,7 +2,7 @@
 
 #include "NFSTL/NFVector.hpp"
 #include "NFTraits.hpp"
-#include "Platform/NFPlatform.hpp"
+#include "Platform/NFGenericPlatform.hpp"
 
 namespace nfe
 {

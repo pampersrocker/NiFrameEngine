@@ -28,13 +28,13 @@ namespace nfe
 
     virtual void* Allocate( NFSize size, uint32 alignment = 0 ) override
     {
-      return GPlatform->GetDefaultAllocator()->Allocate( size );
+      return NFPlatform::GetDefaultAllocator()->Allocate( size );
 
     }
 
     virtual void Deallocate( void* address ) override
     {
-      GPlatform->GetDefaultAllocator()->Deallocate( address );
+      NFPlatform::GetDefaultAllocator()->Deallocate( address );
     }
 
   };

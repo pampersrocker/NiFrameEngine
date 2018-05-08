@@ -1,9 +1,8 @@
-#include "stdafx.h"
-
+#pragma once
 #include "NFEnginePCH.hpp"
 #include "Platform/NFNativeModule.hpp"
 
-class NIFRAMEWIN32PLATFORM_API NFWin32NativeModule : public nfe::INativeModule
+class NIFRAME_API NFWin32NativeModule : public nfe::INativeModule
 {
 public:
 

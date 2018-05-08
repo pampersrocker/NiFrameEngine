@@ -70,7 +70,7 @@
     pointer = nullptr;    \
   }
 #ifdef _DEBUG
-#define NF_ASSERT(assertion, msg) do{if(GPlatform!= nullptr){GPlatform->Assert( assertion, msg );}else{assert(assertion&& msg);} if(!(assertion)) exit(1);}while(0)
+#define NF_ASSERT(assertion, msg) do{NFPlatform::Assert( assertion, msg );if(!(assertion)) exit(1);}while(0)
 #else
 #define NF_ASSERT(assertion, msg) (void*)0
 #endif

@@ -35,10 +35,7 @@ void nfe::Engine::Run()
 
 void nfe::Engine::Update()
 {
-  if( GPlatform )
-  {
-    GPlatform->Update();
-  }
+  NFPlatform::Update();
 
   for( auto& subsystem : m_Subsystems )
   {
@@ -48,21 +45,19 @@ void nfe::Engine::Update()
 
 void nfe::Engine::Initialize()
 {
-  NF_ASSERT( GPlatform, "Not platform on initialization!" );
-  GPlatform->Initialize();
-  new (&m_Worlds) Vector<World*>(GPlatform->GetDefaultAllocator());
-  new (&m_Subsystems) Vector<ISubsystem*>(GPlatform->GetDefaultAllocator());
+  NFPlatform::Initialize();
+  new (&m_Worlds) Vector<World*>(NFPlatform::GetDefaultAllocator());
+  new (&m_Subsystems) Vector<ISubsystem*>(NFPlatform::GetDefaultAllocator());
 
 }
 
 void nfe::Engine::Release()
 {
-  NF_ASSERT( GPlatform, "Not platform on release!" );
   for( auto& system : m_Subsystems )
   {
     system->Release();
   }
-  GPlatform->Release();
+  NFPlatform::Release();
 }
 
 void nfe::Engine::AddWorld( World* world )

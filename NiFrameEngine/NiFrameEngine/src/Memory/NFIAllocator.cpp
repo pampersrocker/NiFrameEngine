@@ -23,8 +23,7 @@ m_Name(name)
 
 IAllocator* nfe::GetDefaultAllocator()
 {
-  NF_ASSERT( GPlatform, "No platform existing yet" );
-  return ::nfe::GPlatform->GetDefaultAllocator();
+  return ::nfe::NFPlatform::GetDefaultAllocator();
 }
 
 NFSize nfe::alignedSize(NFSize size, uint32 alignment )

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "NFWin32NativeModule.hpp"
+#include "NFEnginePCH.hpp"
+#include "Windows/NFWin32NativeModule.hpp"
 
 
 

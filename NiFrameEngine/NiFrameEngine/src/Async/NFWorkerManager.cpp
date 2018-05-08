@@ -12,7 +12,7 @@ m_TracePushed(false)
 {
   if( !m_Allocator )
   {
-    m_Allocator = GPlatform->GetDefaultAllocator();
+    m_Allocator = NFPlatform::GetDefaultAllocator();
   }
   m_Status.CurrentTaskGroup = nullptr;
   m_Status.Manager = this;
@@ -51,10 +51,10 @@ void nfe::WorkerManager::Initialize( uint32 numWorkers )
   NF_ASSERT( numWorkers > 0, "Need at least 1 worker" );
   m_Threads.Resize( numWorkers );
   uint32 threadId = 0;
-  m_ConsumerSemaphore = GPlatform->CreateSemaphore( 1024, 0, SemaphoreQueueType::FIFO, "Worker Semaphore" );
+  m_ConsumerSemaphore = NFPlatform::CreateSemaphore( 1024, 0, SemaphoreQueueType::FIFO, "Worker Semaphore" );
   for( IThread*& thread : m_Threads )
   {
-    thread = GPlatform->CreateThread( &WorkerManagerFunc, 0, "Worker Thread " + std::to_string( threadId++ ) );
+    thread = NFPlatform::CreateThread( &WorkerManagerFunc, 0, "Worker Thread " + std::to_string( threadId++ ) );
     thread->Run( &m_Status );
   }
 }
@@ -78,7 +78,7 @@ void nfe::WorkerManager::UpdateTaskGroups()
   {
     if( m_Status.CurrentTaskGroup != nullptr )
     {
-      GPlatform->PopTraceMarker();
+		  NFPlatform::PopTraceMarker();
       m_TracePushed = false;
     }
     if( m_TaskGroups.Size() > 0 )
@@ -87,7 +87,7 @@ void nfe::WorkerManager::UpdateTaskGroups()
       taskGroup = m_TaskGroups[ 0 ];
       m_TaskGroups.RemoveAt( 0 );
 
-      GPlatform->PushTraceMarker( ( "Worker Task " + taskGroup->Name ).c_str() );
+      NFPlatform::PushTraceMarker( ( "Worker Task " + taskGroup->Name ).c_str() );
       NF_ASSERT( m_TracePushed == false, "too much pushes" );
       m_TracePushed = true;
       m_Status.CurrentTaskGroup = taskGroup;
@@ -128,7 +128,7 @@ void nfe::WorkerManager::Update()
   } while( wait );
   if( m_TracePushed )
   {
-    GPlatform->PopTraceMarker();
+    NFPlatform::PopTraceMarker();
     m_TracePushed = false;
   }
   m_Status.CurrentTaskGroup = nullptr;
@@ -145,10 +145,10 @@ void nfe::WorkerManager::Release()
   m_ConsumerSemaphore->Signal(static_cast<uint32>(m_Threads.Size()) );
   for( auto* thread : m_Threads )
   {
-    GPlatform->DestroyThread( thread );
+    NFPlatform::DestroyThread( thread );
   }
   m_Threads.Clear();
-  GPlatform->DestroySemaphore( m_ConsumerSemaphore );
+  NFPlatform::DestroySemaphore( m_ConsumerSemaphore );
 }
 
 nfe::IJob::IJob() :
