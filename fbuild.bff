@@ -53,8 +53,9 @@ Compiler("MSVC15-x86")
 		+ .DisabledWarnings
 		+ ' /fp:fast' // Fast floating point processing
 		+ ' /D"PLATFORM_WINDOWS"' // Define windows platform
-		+ ' /D"WIN32_LEAN_AND_MEAN /D__WINDOWS__'
-		+ ' /D"_CRT_SECURE_NO_WARNINGS'
+		+ ' /D"WIN32_LEAN_AND_MEAN"'
+		+ ' /D__WINDOWS__'
+		+ ' /D"_CRT_SECURE_NO_WARNINGS"'
 		+ ' /Zi' // Generate PDB
 		+ ' /GR-' // No runtime type information (rtti)
 		+ ' /analyze' // Code analyzation
