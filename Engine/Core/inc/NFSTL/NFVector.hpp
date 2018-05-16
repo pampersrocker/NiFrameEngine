@@ -33,7 +33,7 @@ namespace nfe
 
     void Add( const T& member );
     void Insert(NFSize idx, const T& member );
-    void Remove( const T& member );
+    bool Remove( const T& member );
     void RemoveAt(NFSize idx );
     void Resize(NFSize newSize );
     void Reserve(NFSize newReserve );
@@ -54,6 +54,8 @@ namespace nfe
 
   private:
 
+    void RemoveAt_Unsynchronized(NFSize Index);
+
     T* m_Data;
     NFSize m_Size;
 
@@ -61,6 +63,8 @@ namespace nfe
     IAllocator* m_Allocator;
     mutable ThreadingPolicy m_ThreadingPolicy;
   };
+
+
 
 
 }

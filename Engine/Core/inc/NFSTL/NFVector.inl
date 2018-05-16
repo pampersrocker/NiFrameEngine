@@ -157,20 +157,26 @@ namespace nfe
   {
     m_ThreadingPolicy.Lock();
 
-    NF_ASSERT( idx < m_Size, "Idx is out of range" );
-
-    m_Data[ idx ].~T();
-
-    for( NFSize i = idx; i < m_Size - 1; i++ )
-    {
-      m_Data[ i ] = m_Data[ i + 1 ];
-    }
-    --m_Size;
+    RemoveAt_Unsynchronized(idx);
     m_ThreadingPolicy.Unlock();
   }
 
+  template< typename T, typename ThreadingPolicy /*= NoSTLThreadingPolicy */>
+  void nfe::Vector<T, ThreadingPolicy>::RemoveAt_Unsynchronized(NFSize Index)
+  {
+    NF_ASSERT(Index < m_Size, "Idx is out of range");
+
+    m_Data[Index].~T();
+
+    for (NFSize i = Index; i < m_Size - 1; i++)
+    {
+      m_Data[i] = m_Data[i + 1];
+    }
+    --m_Size;
+  }
+
   template< typename T, typename ThreadingPolicy >
-  void nfe::Vector<T, ThreadingPolicy>::Remove( const T& member )
+  bool nfe::Vector<T, ThreadingPolicy>::Remove( const T& member )
   {
     m_ThreadingPolicy.Lock();
 
@@ -178,15 +184,13 @@ namespace nfe
     {
       if( member == m_Data[ i ] )
       {
-        // Need to unlock here, because RemoveAt does lock
-        m_ThreadingPolicy.Unlock();
-        RemoveAt( i );
-        return;
+        RemoveAt_Unsynchronized( i );
+        return true;
       }
     }
-    NF_ASSERT( false, "Could not find member" );
-    // Should never be reached
+
     m_ThreadingPolicy.Unlock();
+    return false;
   }
 
   template< typename T, typename ThreadingPolicy >
