@@ -75,8 +75,8 @@ Compiler("MSVC15-x86")
 	.LinkerReleaseOptimizations = ' /LTCG /OPT:REF,ICF'
 
 	.BaseIncludePaths = ' /I"./NiFrameEngine/"'
-		+ ' /I"./NiFrameEngine/inc"'
-		+ ' /I"./NiFrameEngine/"'
+		+ ' /I"./Engine/Core/inc"'
+		+ ' /I"./Engine/Core/"'
 		+ ' /I"$MATHLIB_API$/include/"'
 		+ ' /I"$MSVCDIR$\include"'
 		+ ' /I"$WINDOWSSDKDIR$\include\shared\"'
@@ -223,18 +223,18 @@ VCXProject( 'UpdateSolution-proj' )
 			 .MSVCx64DebugConfig, .MSVCx64ReleaseConfig }
 
 
-#include "NiFrameEngine/NiFrameEngine.bff"
+#include "Engine/Core/Core.bff"
+#include "Engine/Engine.bff"
 
 // Visual Studio Solution
 //------------------------------------------------------------------------------
 VSSolution( 'solution' )
 {
 	.SolutionOutput     = 'NiFrameEngine.sln'
-	.SolutionProjects   = { 'NiFrameEngine-proj',
-							'All-proj',
+	.SolutionProjects   = { 'Engine-proj',
 							'UpdateSolution-proj',
 						  }
-	.SolutionBuildProject = 'All-proj'
+	.SolutionBuildProject = 'Engine-proj'
 	.SolutionConfigs    = .ProjectConfigs
 
 	// Work around for Visual Studio F5 behaviour up-to-date check

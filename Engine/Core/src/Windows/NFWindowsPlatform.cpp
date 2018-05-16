@@ -34,6 +34,7 @@ void NFWindowsPlatform::ReleaseModule(nfe::INativeModule* module)
 {
   NFWin32NativeModule* nativeModule = static_cast<NFWin32NativeModule*>(module);
   FreeLibrary(nativeModule->GetHMODULE());
+  delete nativeModule;
 }
 
 nfe::Resolution NFWindowsPlatform::GetNativeResolution(uint32 monitorIdx)

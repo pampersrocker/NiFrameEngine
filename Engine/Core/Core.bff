@@ -1,6 +1,6 @@
 {
-	.ProjectName = "NiFrameEngine"
-	.ProjectPath= "NiFrameEngine"
+	.ProjectName = "Core"
+	.ProjectPath= "Engine/Core"
 	.PCHName = "NFEnginePCH"
 
 	{
@@ -49,22 +49,5 @@
 		}
 	}
 
-	// Visual Studio Project Generation
-	//--------------------------------------------------------------------------
-	VCXProject( '$ProjectName$-proj' )
-	{
-		.ProjectOutput              = '$OutputBasePath$/VisualStudio/Projects/$ProjectName$.vcxproj'
-		.ProjectInputPaths          = '$ProjectPath$\'
-		.ProjectBasePath            = '$ProjectPath$\'
-
-		// Exclude Tests
-		.ProjectInputPathsExclude   = '$ProjectPath$\CoreTest\'
-
-		.ProjectX86Debug        = [ Using( .ProjectX86Debug )           .Target = '$ProjectName$-DLL-x86-Debug' ]
-		.ProjectX86Release      = [ Using( .ProjectX86Release )         .Target = '$ProjectName$-DLL-x86-Release' ]
-		.ProjectX64Debug        = [ Using( .ProjectX64Debug )           .Target = '$ProjectName$-DLL-x64-Debug' ]
-		.ProjectX64Release      = [ Using( .ProjectX64Release )         .Target = '$ProjectName$-DLL-x64-Release' ]
-		.ProjectConfigs         = { .ProjectX86Debug, .ProjectX86Release,
-									.ProjectX64Debug, .ProjectX64Release }
-	}
+	
 }

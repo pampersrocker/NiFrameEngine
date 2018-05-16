@@ -1,9 +1,9 @@
 #Special Folders
-NiFrameEngine/bin32
-NiFrameEngine/bin64
-NiFrameEngine/tmp
-NiFrameEngine/lib32
-NiFrameEngine/lib64
+bin32/
+bin64/
+[tT]mp/
+lib32/
+lib64/
 ipch
 Intermediate/
 
@@ -38,10 +38,8 @@ $RECYCLE.BIN/
 *.la
 *.a
 
-NiFrameEngine/lib/NiFrameEngine/
+/lib/Engine/
 bin/
-NiFrameEngine/lib/NiFrameWin32Platform/
-NiFrameEngine/lib/NiFrame*/
 .vs/
 *.VC.db
 *.fdb
