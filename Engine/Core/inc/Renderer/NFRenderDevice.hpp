@@ -4,7 +4,6 @@
 
 #include "NFEnginePCH.hpp"
 #include "NFMesh.hpp"
-#include "Platform/NFRenderWindow.hpp"
 #include "NFSTL/NFVector.hpp"
 
 namespace nfe
@@ -19,7 +18,6 @@ namespace nfe
   public:
 
     virtual void SetupDevice(
-      const RenderWindow& mainWindow,
       const RenderDeviceParams& renderDeviceParameters ) = 0;
 
     virtual void Initialize() = 0;
