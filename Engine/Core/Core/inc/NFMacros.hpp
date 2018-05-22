@@ -39,10 +39,6 @@
 #endif
 
 #ifdef PLATFORM_WINDOWS
-#define EXPORT_STL( tpl ) \
-  namespace std{\
-  NIFRAME_TPL_EXPORT template class NIFRAME_API tpl;\
-  }
 
 
 #define EXPORT_TPL( tpl ) \
@@ -51,11 +47,6 @@
 #define TYPEDEF_EXPORT_REFCOUNT_PTR( tpl ) typedef nfe::ReferenceCounted< tpl> tpl ## Ptr; \
   EXPORT_TPL( nfe::ReferenceCounted< tpl > )
 #elif PLATFORM_PS4
-
-#define EXPORT_STL( tpl ) \
-  namespace std{\
-  NIFRAME_TPL_EXPORT template NIFRAME_API tpl;\
-        }
 
 
 #define EXPORT_TPL( tpl ) \
@@ -71,7 +62,7 @@
     pointer = nullptr;    \
   }
 #ifdef _DEBUG
-#define NF_ASSERT(assertion, msg) do{NFPlatform::Assert( assertion, msg );if(!(assertion)) exit(1);}while(0)
+#define NF_ASSERT(assertion, msg) do{const bool Result = (assertion); NFPlatform::Assert( Result, msg ); if(!(Result)) {NFPlatform::Exit(1);}}while(0)
 #else
 #define NF_ASSERT(assertion, msg) (void*)0
 #endif

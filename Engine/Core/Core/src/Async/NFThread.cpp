@@ -4,7 +4,7 @@
 
 
 
-void nfe::IThread::Init( IThreadFunc* func, uint32 affinity, const std::string& name /*= "" */ )
+void nfe::IThread::Init( IThreadFunc* func, uint32 affinity, const nfe::String& name /*= "" */ )
 {
   NF_ASSERT( func != nullptr, "No func given to a thread to execute" );
   m_Func = func;
@@ -12,12 +12,12 @@ void nfe::IThread::Init( IThreadFunc* func, uint32 affinity, const std::string& 
   m_Affinity = affinity;
 }
 
-void nfe::IThread::Name( const std::string& val )
+void nfe::IThread::Name( const nfe::String& val )
 {
   m_Name = val;
 }
 
-const std::string& nfe::IThread::Name() const
+const nfe::String& nfe::IThread::Name() const
 {
   return m_Name;
 }

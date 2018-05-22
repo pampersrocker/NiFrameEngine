@@ -72,11 +72,17 @@ Compiler("MSVC15-x86")
 		+ ' /Fp"%2" /Fo"%3"'
 	.CompilerOptions + ' /Fo"%2"'
 	.LibrarianOptions = '/WX /NOLOGO /OUT:"%2" "%1"'
-	.LinkerOptions = '/WX /NOLOGO /INCREMENTAL:NO /OUT:"%2" "%1"'
+	.LinkerOptions
+		= ' /WX'
+		+' /NOLOGO'
+		+' /NODEFAULTLIB'
+		+' /INCREMENTAL:NO'
+		+ ' /OUT:"%2"'
+		+' "%1"'
 
 
-	.CompilerDebugOptimizations = ' /MTd /Od /RTC1 /GS /Oy-'
-	.CompilerReleaseOptimizations = ' /MT /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
+	.CompilerDebugOptimizations = ' /Od /GS /Oy-'
+	.CompilerReleaseOptimizations = ' /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
 	.LibrarianDebugOptimizations = ''
 	.LibrarianReleaseOptimizations = ' /LTCG'
 	.LinkerDebugOptimizations = ''
@@ -87,7 +93,6 @@ Compiler("MSVC15-x86")
 		+ ' /I"./Engine/Core/Core/inc"'
 		+ ' /I"./Engine/Core/Core/"'
 		+ ' /I"$MATHLIB_API$/include/"'
-		+ ' /I"$MSVCDIR$\include"'
 		+ ' /I"$WINDOWSSDKDIR$\include\shared\"'
 		+ ' /I"$WINDOWSSDKDIR$\include\um\"'
 

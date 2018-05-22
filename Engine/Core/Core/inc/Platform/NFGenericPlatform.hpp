@@ -69,8 +69,8 @@ namespace nfe
 	  static void PopTraceMarker();
 
 	  static void Assert(bool assertion, const char* msg);
-
 	  static Resolution GetNativeResolution(uint32 monitorIdx);
+
 
 	  static File* OpenFile(const String& path, const String& mode, IAllocator* allocator = nullptr);
 	  static void CloseFile(File* file);

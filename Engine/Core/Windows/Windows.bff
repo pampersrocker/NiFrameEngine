@@ -30,7 +30,7 @@
 			.PCHOptions + ' /Yc"$PCHName$.hpp"'
 			.CompilerOptions
 				+ ' /Yu"$PCHName$.hpp"'
-				+' /Fp"$PCHOutputFile$"'
+				+ ' /Fp"$PCHOutputFile$"'
 				+ ' /D"NIFRAME_DLL_BUILD"'
 				+ ' /Fd$PDBPath$'
 			.PCHOptions

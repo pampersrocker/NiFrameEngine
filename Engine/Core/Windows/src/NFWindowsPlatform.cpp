@@ -152,7 +152,25 @@ void nfe::NFWindowsPlatform::PopTraceMarker()
 
 void nfe::NFWindowsPlatform::Assert(bool assertion, const char* msg)
 {
+  if (!assertion)
+  {
+    Exit(1);
+  }
+}
 
+void nfe::NFWindowsPlatform::Exit(uint32 ReturnCode)
+{
+  ExitProcess(ReturnCode);
+}
+
+void nfe::NFWindowsPlatform::DebugBreak()
+{
+#if DEBUG
+  if (IsDebuggerPresent())
+  {
+    __debugbreak();
+  }
+#endif
 }
 
 nfe::File* nfe::NFWindowsPlatform::OpenFile(const String& path, const String& mode, IAllocator* allocator /*= nullptr*/)
@@ -178,7 +196,8 @@ void nfe::NFWindowsPlatform::OnDeallocation(void* address, uint64 size)
 
 const nfe::GamePad& nfe::NFWindowsPlatform::GetGamePadStatus(uint8 playerIdx)
 {
-	return NFGenericPlatform::GetGamePadStatus(playerIdx);
+  static nfe::GamePad Pad;
+  return Pad;
 }
 
 void nfe::NFWindowsPlatform::USleepThread(uint32 uSeconds)

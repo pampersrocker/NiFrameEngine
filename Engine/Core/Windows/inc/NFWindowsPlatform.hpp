@@ -69,6 +69,9 @@ namespace nfe
     static void PopTraceMarker();
 
     static void Assert(bool assertion, const char* msg);
+    static void NF_NO_RETURN Exit(uint32 ReturnCode);
+
+    static void DebugBreak();
 
     static Resolution GetNativeResolution(uint32 monitorIdx);
 

@@ -96,7 +96,6 @@ void nfe::NFGenericPlatform::PopTraceMarker()
 
 void nfe::NFGenericPlatform::Assert(bool assertion, const char* msg)
 {
-
 }
 
 nfe::Resolution nfe::NFGenericPlatform::GetNativeResolution(uint32 monitorIdx)

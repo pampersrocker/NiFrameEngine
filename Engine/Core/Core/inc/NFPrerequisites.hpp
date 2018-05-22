@@ -4,7 +4,6 @@
 
 #include "NFMacros.hpp"
 #include "String/NFString.hpp"
-#include <stdint.h>
 
 // Import MathLib
   #include <LinearMath/Vector2.hpp>
@@ -28,7 +27,7 @@ namespace nfe
   #else  // Use single precision
   typedef float Real;
   #endif  // USE_DOUBLE_PRECISSION
-#ifdef WIN32
+#ifdef PLATFORM_WINDOWS
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector3_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Vector2_tpl< Real >;
   NIFRAME_TPL_EXPORT template class NIFRAME_API LinearMath::Matrix4x4_tpl< Real >;
@@ -63,17 +62,17 @@ namespace nfe
     static const Real NEGATIVE_ONE;
   };
 
-  typedef uint64_t uint64;
-  typedef uint32_t uint32;
-  typedef uint16_t uint16;
-  typedef uint8_t uint8;
+  typedef unsigned long long uint64;
+  typedef unsigned int uint32;
+  typedef unsigned short uint16;
+  typedef BYTE uint8;
 
   static_assert( sizeof( uint8 ) == 1, "Size of uint8 is incorrect!" );
 
-  typedef int64_t int64;
-  typedef int32_t int32;
-  typedef int16_t int16;
-  typedef int8_t int8;
+  typedef long long int64;
+  typedef int int32;
+  typedef short int16;
+  typedef char int8;
 
   typedef size_t NFSize;
 }

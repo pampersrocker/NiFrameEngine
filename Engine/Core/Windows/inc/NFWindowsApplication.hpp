@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Platform/NFPlatformTypes.hpp"
+#include "NFSTL/NFVector.hpp"
 
 
 namespace nfe
