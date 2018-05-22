@@ -2,8 +2,8 @@
 //
 
 #include "NFEnginePCH.hpp"
-#include "Windows/NFWindowsPlatform.hpp"
-#include "Windows/NFWin32NativeModule.hpp"
+#include "NFWindowsPlatform.hpp"
+#include "NFWin32NativeModule.hpp"
 
 using namespace nfe;
 // This is the constructor of a class that has been exported.

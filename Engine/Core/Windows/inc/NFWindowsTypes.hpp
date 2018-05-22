@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Windows/NFWindowsCommon.hpp"
+#include "NFWindowsCommon.hpp"
 
 typedef HWND NFHandle;
 typedef HINSTANCE NFInstance;

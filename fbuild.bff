@@ -1,6 +1,9 @@
 #include "Build/Windows/VS2017Common.bff.template"
 
+.UnityNumFiles = 8
+
 .OutputBasePath = "Tmp\"
+.OutputBuildPath = "Bin\"
 
 Compiler("MSVC15-x64")
 {
@@ -41,11 +44,13 @@ Compiler("MSVC15-x86")
 #import MATHLIB_API
 
 .MSVCBaseConfig = [
-	.DisabledWarnings = " /wd4251" // identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
+	.DisabledWarnings
+		= " /wd4251" // identifier' : class 'type' needs to have dll-interface to be used by clients of class 'type2'
 		+ " /wd4201" // nonstandard extension used: nameless struct/union
 		+ " /wd4100" // unrefenced formal parameter
 
-	.CompilerOptions = '"%1"'
+	.CompilerOptions
+		= '"%1"'
 		+ ' /nologo' // Disable logo
 		+ ' /c' // No linking
 		+ ' /W4' // Warning level 4
@@ -60,8 +65,10 @@ Compiler("MSVC15-x86")
 		+ ' /GR-' // No runtime type information (rtti)
 		+ ' /analyze' // Code analyzation
 		+ ' /D"_HAS_EXCEPTIONS=0"'
+		+ ' /FS'
 
-	.PCHOptions = .CompilerOptions
+	.PCHOptions
+		= .CompilerOptions
 		+ ' /Fp"%2" /Fo"%3"'
 	.CompilerOptions + ' /Fo"%2"'
 	.LibrarianOptions = '/WX /NOLOGO /OUT:"%2" "%1"'
@@ -75,13 +82,18 @@ Compiler("MSVC15-x86")
 	.LinkerDebugOptimizations = ''
 	.LinkerReleaseOptimizations = ' /LTCG /OPT:REF,ICF'
 
-	.BaseIncludePaths = ' /I"./NiFrameEngine/"'
-		+ ' /I"./Engine/Core/inc"'
-		+ ' /I"./Engine/Core/"'
+	.BaseIncludePaths
+		= ' /I"./NiFrameEngine/"'
+		+ ' /I"./Engine/Core/Core/inc"'
+		+ ' /I"./Engine/Core/Core/"'
 		+ ' /I"$MATHLIB_API$/include/"'
 		+ ' /I"$MSVCDIR$\include"'
 		+ ' /I"$WINDOWSSDKDIR$\include\shared\"'
 		+ ' /I"$WINDOWSSDKDIR$\include\um\"'
+
+	#if __WINDOWS__
+		.BaseIncludePaths + ' /I"./Engine/Core/Windows/inc/"'
+	#endif
 
 	.CompilerOptions + .BaseIncludePaths
 	.PCHOptions + .BaseIncludePaths
@@ -96,10 +108,12 @@ Compiler("MSVC15-x86")
 	.Librarian = "$CompilerPath$\lib.exe"
 	.Linker = "$CompilerPath$\link.exe"
 
-	.CompilerOptions + ' /DWIN64'
+	.CompilerOptions
+		+ ' /DWIN64'
 		+ ' /DPLATFORM_X64'
 	.PCHOptions + ' /DWIN64'
-	.LinkerOptions + " /MACHINE:X64"
+	.LinkerOptions
+		+ " /MACHINE:X64"
 		+ ' /LIBPATH:"$MSVCDIR$\lib\x64"'
 		+ ' /LIBPATH:"$WINDOWSSDKDIR$\Lib\winv6.3\um\$Platform$"'
 
@@ -109,10 +123,12 @@ Compiler("MSVC15-x86")
 	Using(.MSVCx64BaseConfig)
 	.Config="Debug"
 
-	.CompilerOptions + .CompilerDebugOptimizations
+	.CompilerOptions
+		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 	.LinkerOptions + .LinkerDebugOptimizations
-	.PCHOptions + .CompilerDebugOptimizations
+	.PCHOptions
+		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 
 ]
@@ -134,12 +150,15 @@ Compiler("MSVC15-x86")
 	.Compiler = "MSVC15-$Platform$"
 	.Librarian = "$CompilerPath$\lib.exe"
 	.Linker = "$CompilerPath$\link.exe"
-	.CompilerOptions + ' /arch:SSE2'
+	.CompilerOptions
+		+ ' /arch:SSE2'
 		+ ' /DWIN32'
 		+ ' /DPLATFORM_X86'
-	.PCHOptions + ' /arch:SSE2'
+	.PCHOptions
+		+ ' /arch:SSE2'
 		+ ' /DWIN32'
-	.LinkerOptions + " /LARGEADDRESSAWARE"
+	.LinkerOptions
+		+ " /LARGEADDRESSAWARE"
 		+ " /MACHINE:X86"
 		+ ' /LIBPATH:"$MSVCDIR$\lib\x86"'
 		+ ' /LIBPATH:"$WINDOWSSDKDIR$\Lib\winv6.3\um\$Platform$"'
@@ -148,10 +167,12 @@ Compiler("MSVC15-x86")
 .MSVCx86DebugConfig = [
 	Using(.MSVCx86BaseConfig)
 	.Config="Debug"
-	.CompilerOptions + .CompilerDebugOptimizations
+	.CompilerOptions
+		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 	.LinkerOptions + .LinkerDebugOptimizations
-	.PCHOptions + .CompilerDebugOptimizations
+	.PCHOptions
+		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 ]
 
@@ -224,7 +245,8 @@ VCXProject( 'UpdateSolution-proj' )
 			 .MSVCx64DebugConfig, .MSVCx64ReleaseConfig }
 
 
-#include "Engine/Core/Core.bff"
+#include "Engine/Core/Windows/Windows.bff"
+#include "Engine/Core/Core/Core.bff"
 #include "Engine/Engine.bff"
 
 // Visual Studio Solution

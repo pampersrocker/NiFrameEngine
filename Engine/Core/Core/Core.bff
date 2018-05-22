@@ -1,0 +1,58 @@
+{
+	.ProjectName = "Core"
+	.ProjectPath= "Engine/Core/Core"
+	.PCHName = "NFEnginePCH"
+
+	{
+		.UnityInputPath = "$ProjectPath$\src"
+		.UnityOutputPath = "$OutputBasePath$\Unity\"
+		.UnityOutputPattern = "Module-$ProjectName$*.cpp"
+
+
+		Unity( "$ProjectName$-Unity-Windows" )
+		{
+			.UnityPCH = "$PCHName$.hpp"
+		}
+	}
+
+	// Windows (MSVC)
+	//--------------------------------------------------------------------------
+	ForEach( .MSVCConfig in .Configs_Windows_MSVC )
+	{
+		Using( .MSVCConfig )
+		.OutputBasePath + '\$Platform$\$Config$'
+
+		// Static Library
+		Library( '$ProjectName$-Lib-$Platform$-$Config$' )
+		{
+			// Precompiled Header Creation/Use
+			.PCHInputFile = '$ProjectPath$\src\$PCHName$.cpp'
+			.PCHOutputFile = '$OutputBasePath$\$ProjectName$\$PCHName$.pch'
+			.PCHOptions + ' /Yc"$PCHName$.hpp"'
+			.CompilerOptions
+				+ ' /Yu"$PCHName$.hpp"'
+				+ ' /Fp"$PCHOutputFile$"'
+				+ ' /D"NIFRAME_DLL_BUILD"'
+			.PCHOptions + ' /D"NIFRAME_DLL_BUILD"'
+
+			// Input (Unity)
+			.CompilerInputUnity = '$ProjectName$-Unity-Windows'
+
+			// Output
+			.CompilerOutputPath = '$OutputBasePath$\$ProjectName$\'
+			.LibrarianOutput = '$OutputBasePath$\$Platform$\$Config$\$ProjectName$.lib'
+		}
+
+		DLL( "$ProjectName$-DLL-$Platform$-$Config$" )
+		{
+			.Libraries = { "$ProjectName$-Lib-$Platform$-$Config$", "Windows-Lib-$Platform$-$Config$" }
+			.LinkerOutput = "$OutputBuildPath$\$Platform$\$Config$\$ProjectName$-$Config$.dll"
+			.LinkerOptions
+				+ " /SUBSYSTEM:WINDOWS"
+				+ " /DLL"
+				+ " User32.Lib"
+		}
+	}
+
+
+}

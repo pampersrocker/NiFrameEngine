@@ -1,7 +1,7 @@
 #pragma once
 
 #if PLATFORM_WINDOWS
-#include "Windows/NFWindowsPlatform.hpp"
+#include "NFWindowsPlatform.hpp"
 #else
 #include "NFGenericPlatform.hpp"
 #endif

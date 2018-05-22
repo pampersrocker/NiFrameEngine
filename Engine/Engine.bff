@@ -10,7 +10,7 @@
 		Alias("$ProjectName$-DLL-$Platform$-$Config$")
 		{
 			.Targets={
-				"Core-DLL-$Platform$-$Config$",
+				"Core-DLL-$Platform$-$Config$"
 			}
 		}
 	}

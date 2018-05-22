@@ -27,6 +27,7 @@
 #define NIFRAME_TPL_EXPORT extern
 #endif
 #endif
+
 #ifndef _DEBUG
 #if defined(_MSC_VER)
 #define NF_FORCE_INLINE inline __forceinline

@@ -1,5 +1,5 @@
 #include "NFEnginePCH.hpp"
-#include "Windows/NFWindowsApplication.hpp"
+#include "NFWindowsApplication.hpp"
 
 LPCTSTR nfe::WindowsApplication::ClassName = "NFEngineWindow";
 
