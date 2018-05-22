@@ -2,9 +2,9 @@
 #ifndef NiFramePrerequisites_h__
   #define NiFramePrerequisites_h__
 
-  #include "NFMacros.hpp"
-  #include <string>
-  #include <stdint.h>
+#include "NFMacros.hpp"
+#include "String/NFString.hpp"
+#include <stdint.h>
 
 // Import MathLib
   #include <LinearMath/Vector2.hpp>
@@ -63,9 +63,6 @@ namespace nfe
     static const Real NEGATIVE_ONE;
   };
 
-  typedef std::string String;
-  typedef std::stringbuf StringBuffer;
-
   typedef uint64_t uint64;
   typedef uint32_t uint32;
   typedef uint16_t uint16;
@@ -79,14 +76,5 @@ namespace nfe
   typedef int8_t int8;
 
   typedef size_t NFSize;
-#ifdef WIN32
-  typedef HWND NativeHandle;
-  typedef HRESULT NativeInstance;
-#elif ORBIS
-  //TODO
-  typedef uint32 NativeInstance;
-  typedef uint32 NativeHandle;
-#endif
-  typedef std::exception exception;
 }
 #endif  // NiFramePrerequisites_h__

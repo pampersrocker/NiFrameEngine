@@ -11,8 +11,6 @@ namespace nfe
   class RenderDeviceParams;
   class Shader;
 
-  typedef map< String, uint32> SelectedRenderDevVals;
-
   class NIFRAME_API RenderDevice
   {
   public:

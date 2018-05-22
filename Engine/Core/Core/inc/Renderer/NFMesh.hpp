@@ -5,8 +5,8 @@
 #include "NFEnginePCH.hpp"
 #include "NFReferenceCounted.hpp"
 
-typedef nfe::vector<nfe::Vector3> VertexBuffer;
-typedef nfe::vector<nfe::uint32> IndexBuffer;
+typedef nfe::Vector<nfe::Vector3> VertexBuffer;
+typedef nfe::Vector<nfe::uint32> IndexBuffer;
 
 namespace nfe
 {

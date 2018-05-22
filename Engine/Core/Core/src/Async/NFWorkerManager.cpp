@@ -54,7 +54,7 @@ void nfe::WorkerManager::Initialize( uint32 numWorkers )
   m_ConsumerSemaphore = NFPlatform::CreateSemaphore( 1024, 0, SemaphoreQueueType::FIFO, "Worker Semaphore" );
   for( IThread*& thread : m_Threads )
   {
-    thread = NFPlatform::CreateThread( &WorkerManagerFunc, 0, "Worker Thread " + std::to_string( threadId++ ) );
+    thread = NFPlatform::CreateThread( &WorkerManagerFunc, 0, "Worker Thread " + StringUtils::ToString( threadId++ ) );
     thread->Run( &m_Status );
   }
 }
@@ -87,7 +87,7 @@ void nfe::WorkerManager::UpdateTaskGroups()
       taskGroup = m_TaskGroups[ 0 ];
       m_TaskGroups.RemoveAt( 0 );
 
-      NFPlatform::PushTraceMarker( ( "Worker Task " + taskGroup->Name ).c_str() );
+      NFPlatform::PushTraceMarker( *( "Worker Task " + taskGroup->Name ) );
       NF_ASSERT( m_TracePushed == false, "too much pushes" );
       m_TracePushed = true;
       m_Status.CurrentTaskGroup = taskGroup;

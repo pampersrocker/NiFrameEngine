@@ -7,22 +7,26 @@ namespace nfe
 
   nfe::String StringUtils::ToString( unsigned int value )
   {
-    return std::to_string( value );
+    NF_ASSERT(0, "TODO: Implement");
+    return String();
   }
 
   nfe::String StringUtils::ToString( int value )
   {
-    return std::to_string( value );
+      NF_ASSERT(0, "TODO: Implement");
+      return String();
   }
 
   nfe::String StringUtils::ToString( Real value )
   {
-    return std::to_string( value );
+    NF_ASSERT(0, "TODO: Implement");
+    return String();
   }
 
   nfe::String StringUtils::ToString( const Rational& value )
   {
-    return ToString( value.GetNominator() ) + "/" + ToString( value.GetDenominator() );
+    NF_ASSERT(0, "TODO: Implement");
+    return String();
   }
 
 }

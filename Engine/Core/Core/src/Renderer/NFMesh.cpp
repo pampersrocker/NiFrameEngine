@@ -8,9 +8,6 @@ namespace nfe
     m_Vertices( vertexBuffer ),
     m_Indices( indexBuffer )
   {
-    //Those vector normally don't grow so we can adjust the length to save memory
-    m_Indices->shrink_to_fit();
-    m_Vertices->shrink_to_fit();
   }
 
   Mesh::~Mesh( void )
@@ -26,12 +23,12 @@ namespace nfe
 
   nfe::NFSize Mesh::GetIndexCount( void ) const
   {
-    return m_Indices->size();
+    return m_Indices->Size();
   }
 
   nfe::NFSize Mesh::GetVertexCount( void ) const
   {
-    return m_Vertices->size();
+    return m_Vertices->Size();
   }
 
 }

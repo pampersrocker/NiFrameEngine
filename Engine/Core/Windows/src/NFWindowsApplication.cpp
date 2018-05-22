@@ -69,4 +69,3 @@ LRESULT CALLBACK nfe::WindowsApplication::WindowProc(HWND Handle, UINT Message, 
 {
   return DefWindowProc(Handle, Message, WParam, LParam);
 }
-

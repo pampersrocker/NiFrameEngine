@@ -27,7 +27,7 @@ void nfe::WindowsWindow::Create(const Resolution& Resolution)
   m_NativeHandle = CreateWindowEx(
     ExtendedStyle,
     MAKEINTATOM(Application->GetRegisteredWindowClass()),
-    WindowName.c_str(),
+    *WindowName,
     Style,
     CW_USEDEFAULT,
     CW_USEDEFAULT,

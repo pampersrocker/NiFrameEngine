@@ -107,7 +107,7 @@ void nfe::NFWindowsPlatform::Release()
 
 }
 
-nfe::IThread* nfe::NFWindowsPlatform::CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const std::string& name /*= ""*/)
+nfe::IThread* nfe::NFWindowsPlatform::CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const String& name /*= ""*/)
 {
 	return nullptr;
 
