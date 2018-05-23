@@ -173,8 +173,7 @@ void nfe::BlockAllocator::Deallocate( void* InAddress )
     NF_ASSERT( address[ 1 ] == 0xDF, "Heap corruption detected!" );
     NF_ASSERT( address[ 2 ] == 0x00, "Heap corruption detected!" );
     NF_ASSERT( address[ 3 ] == 0x0D, "Heap corruption detected!" );
-    memset( chunk.Pointer, 0xFE, chunk.Size );
-
+    MemSet( chunk.Pointer, 0xFE, chunk.Size );
     if( !TryMergeBlocks( chunk ) )
     {
       m_FreeMemoryChunks.Add( chunk );

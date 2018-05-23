@@ -17,3 +17,17 @@ void nfe::MemZero(void* InAddress, NFSize Size)
 		++Address;
 	}
 }
+
+void nfe::MemSet(void* InAddress, uint8 Value, NFSize Size)
+{
+  if (!InAddress)
+  {
+    return;
+  }
+  NFSize Position = 0;
+  for (uint8* Address = static_cast<uint8*>(InAddress); Position < Size; ++Position)
+  {
+    *Address = Value;
+    ++Address;
+  }
+}

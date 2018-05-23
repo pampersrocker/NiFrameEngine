@@ -5,7 +5,7 @@
 namespace nfe
 {
   /**
-  @brief Implements a default new/delete Allocator used for basic allocation
+  @brief Implements a default Platform Allocator used for basic allocation
   */
   class NIFRAME_API DefaultAllocator : public IAllocator
   {

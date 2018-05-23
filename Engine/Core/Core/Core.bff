@@ -51,6 +51,7 @@
 				+ " /SUBSYSTEM:WINDOWS"
 				+ " /DLL"
 				+ " User32.Lib"
+				+ " Kernel32.Lib"
 		}
 	}
 
