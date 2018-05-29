@@ -38,7 +38,7 @@ namespace nfe
 	  static void Update();
 	  static void Release();
 
-	  static IThread* CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const std::string& name = "");
+	  static IThread* CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const String& name = "");
     /**
     @brief Destroys the thread handle, but does not stop the thread
 

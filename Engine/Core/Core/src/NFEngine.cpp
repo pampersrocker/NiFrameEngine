@@ -35,7 +35,7 @@ void nfe::Engine::Run()
 
 void nfe::Engine::Update()
 {
-  NFPlatform::Update();
+  Platform::Update();
 
   for( auto& subsystem : m_Subsystems )
   {
@@ -45,9 +45,9 @@ void nfe::Engine::Update()
 
 void nfe::Engine::Initialize()
 {
-  NFPlatform::Initialize();
-  new (&m_Worlds) Vector<World*>(NFPlatform::GetDefaultAllocator());
-  new (&m_Subsystems) Vector<ISubsystem*>(NFPlatform::GetDefaultAllocator());
+  Platform::Initialize();
+  new (&m_Worlds) Vector<World*>(Platform::GetDefaultAllocator());
+  new (&m_Subsystems) Vector<ISubsystem*>(Platform::GetDefaultAllocator());
 
 }
 
@@ -57,7 +57,7 @@ void nfe::Engine::Release()
   {
     system->Release();
   }
-  NFPlatform::Release();
+  Platform::Release();
 }
 
 void nfe::Engine::AddWorld( World* world )

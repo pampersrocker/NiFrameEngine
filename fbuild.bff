@@ -81,7 +81,7 @@ Compiler("MSVC15-x86")
 		+' "%1"'
 
 
-	.CompilerDebugOptimizations = ' /Od /GS /Oy-'
+	.CompilerDebugOptimizations = ' /Od /GS- /Oy-'
 	.CompilerReleaseOptimizations = ' /Ox /Oi /GS- /GF /GL /Gr /Gy /Gw'
 	.LibrarianDebugOptimizations = ''
 	.LibrarianReleaseOptimizations = ' /LTCG'
@@ -90,9 +90,9 @@ Compiler("MSVC15-x86")
 
 	.BaseIncludePaths
 		= ' /I"./NiFrameEngine/"'
+		+ ' /I"./Engine/Core/Math/inc"'
 		+ ' /I"./Engine/Core/Core/inc"'
 		+ ' /I"./Engine/Core/Core/"'
-		+ ' /I"$MATHLIB_API$/include/"'
 		+ ' /I"$WINDOWSSDKDIR$\include\shared\"'
 		+ ' /I"$WINDOWSSDKDIR$\include\um\"'
 
@@ -132,6 +132,8 @@ Compiler("MSVC15-x86")
 		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 	.LinkerOptions + .LinkerDebugOptimizations
+	.LinkerOptions
+		+ " BufferOverFlowU.lib"
 	.PCHOptions
 		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
@@ -176,6 +178,8 @@ Compiler("MSVC15-x86")
 		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
 	.LinkerOptions + .LinkerDebugOptimizations
+	.LinkerOptions
+		+ " BufferOverFlowU.lib"
 	.PCHOptions
 		+ .CompilerDebugOptimizations
 		+ ' /D"_DEBUG"'
@@ -250,6 +254,7 @@ VCXProject( 'UpdateSolution-proj' )
 			 .MSVCx64DebugConfig, .MSVCx64ReleaseConfig }
 
 
+#include "Engine/Core/Math/Math.bff"
 #include "Engine/Core/Windows/Windows.bff"
 #include "Engine/Core/Core/Core.bff"
 #include "Engine/Engine.bff"

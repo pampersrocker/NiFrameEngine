@@ -23,7 +23,7 @@ namespace nfe
 #ifdef WIN32
     if( apiName == "DirectX" )
     {
-      INativeModule* renderModule = NFPlatform::LoadModule( "NiFrameD3DX.dll" );
+      INativeModule* renderModule = Platform::LoadModule( "NiFrameD3DX.dll" );
       m_RenderModule = renderModule;
       decltype( CreateRenderDevice )* _CreateRenderDevice = nullptr;
 
@@ -37,7 +37,7 @@ namespace nfe
     }
 #elif ORBIS
     // On the PS4 only one device exists
-    m_RenderModule = NFPlatform::LoadModule( "RenderDevice" );
+    m_RenderModule = Platform::LoadModule( "RenderDevice" );
     decltype( CreateRenderDevice )* _CreateRenderDevice = nullptr;
 
     //Get CreateRenderDevice function pointer from dll

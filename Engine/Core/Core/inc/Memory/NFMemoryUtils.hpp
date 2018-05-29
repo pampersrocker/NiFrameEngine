@@ -9,3 +9,6 @@ namespace nfe
   void InitializeGlobalDefaultAllocator();
   void ShutdownGlobalDefaultAllocator();
 }
+
+void * operator new (nfe::NFSize, void *Address);
+void * operator new[](nfe::NFSize, void *Address);

@@ -90,5 +90,5 @@ namespace nfe
 
   };
 
-  typedef NFWindowsPlatform NFPlatform;
+  typedef NFWindowsPlatform Platform;
 }

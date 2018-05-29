@@ -23,7 +23,7 @@ m_Name(name)
 
 IAllocator* nfe::GetDefaultAllocator()
 {
-  return ::nfe::NFPlatform::GetDefaultAllocator();
+  return ::nfe::Platform::GetDefaultAllocator();
 }
 
 NFSize nfe::alignedSize(NFSize size, uint32 alignment )

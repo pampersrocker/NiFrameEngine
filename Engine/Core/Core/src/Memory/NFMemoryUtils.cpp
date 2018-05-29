@@ -31,3 +31,12 @@ void nfe::MemSet(void* InAddress, uint8 Value, NFSize Size)
     ++Address;
   }
 }
+
+void * operator new (nfe::NFSize, void *Address)
+{
+  return Address;
+}
+void * operator new[](nfe::NFSize, void *Address)
+{
+  return Address;
+}

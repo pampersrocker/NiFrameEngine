@@ -10,7 +10,7 @@ _invalid_parameter(
   _In_ uintptr_t      const reserved)
 {
 #if DEBUG
-  nfe::NFPlatform::DebugBreak();
+  nfe::Platform::DebugBreak();
 #endif
 }
 
@@ -18,7 +18,7 @@ extern "C" void __cdecl
 _invalid_parameter_noinfo(void)
 {
 #if DEBUG
-  nfe::NFPlatform::DebugBreak();
+  nfe::Platform::DebugBreak();
 #endif
 
 }
@@ -26,7 +26,7 @@ _invalid_parameter_noinfo(void)
 extern "C" __declspec(noreturn) void __cdecl
 _invalid_parameter_noinfo_noreturn(void)
 {
-  nfe::NFPlatform::Assert(false, "Invalid parameter detected");
+  nfe::Platform::Assert(false, "Invalid parameter detected");
 }
 
 extern "C" __declspec(noreturn) void __cdecl
@@ -37,5 +37,5 @@ _invoke_watson(
   _In_ unsigned int   const line_number,
   _In_ uintptr_t      const reserved)
 {
-  nfe::NFPlatform::Assert(false, "Invalid parameter detected");
+  nfe::Platform::Assert(false, "Invalid parameter detected");
 }

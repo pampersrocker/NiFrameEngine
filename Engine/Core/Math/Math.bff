@@ -1,7 +1,7 @@
 {
-	.ProjectName = "Windows"
-	.ProjectPath= "Engine/Core/Windows"
-	.PCHName = "NFWindowsPCH"
+	.ProjectName = "Math"
+	.ProjectPath= "Engine/Core/Math"
+	.PCHName = "NFMathPCH"
 
 	{
 		.UnityInputPath = "$ProjectPath$\src"

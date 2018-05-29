@@ -2,8 +2,7 @@
 
 
 
-typedef int (*InitializerWithReturnFunctionPointer)(void);
-typedef void (*InitializerFunctionPointer)(void);
+
 
 #pragma section(".CRT$XCA",    long, read) // First C++ Initializer
 #pragma section(".CRT$XCZ",    long, read) // Last C++ Initializer

@@ -51,7 +51,7 @@ void nfe::NFGenericPlatform::Release()
 
 }
 
-nfe::IThread* nfe::NFGenericPlatform::CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const std::string& name /*= ""*/)
+nfe::IThread* nfe::NFGenericPlatform::CreateThread(IThread::IThreadFunc* func, uint32 threadAffinity, const String& name /*= ""*/)
 {
   return nullptr;
 

@@ -1,14 +1,174 @@
 #pragma once
 #include "NFPrerequisites.hpp"
-
 namespace nfe
 {
   class IAllocator;
   template<class F>
   struct function_traits;
 
+  template<class ...Types>
+  class tuple;
+
+  template<>
+  class tuple<>
+  {
+    //Empty version
+  };
+
+  template<class ThisType, class... Others>
+  class tuple<ThisType, Others...> :
+    private tuple<Others...>
+  {
+
+  };
+
+  template< NFSize I, class T >
+  struct tuple_element;
+
+  // recursive case
+  template< NFSize I, class Head, class... Tail >
+  struct tuple_element<I, tuple<Head, Tail...>>
+    : tuple_element<I - 1, tuple<Tail...>> { };
+
+  // base case
+  template< class Head, class... Tail >
+  struct tuple_element<0, tuple<Head, Tail...>> {
+    typedef Head type;
+  };
+
+  template <class T, T Constant>
+  struct IntegralConstant
+  {
+    static constexpr T value = Constant;
+    using type = IntegralConstant;
+  };
+
+  template<bool Constant>
+  using BoolConstant = IntegralConstant<bool, Constant>;
+
+  using FalseType = BoolConstant<false>;
+  using TrueType = BoolConstant<true>;
+
+  template<bool Condition,
+    class TypeIfTrue,
+    class TypeIfFalse>
+    struct Conditional
+  {
+    using Type = TypeIfFalse;
+  };
+
+  template<
+    class TypeIfTrue,
+    class TypeIfFalse>
+    struct Conditional<true, TypeIfTrue, TypeIfFalse>
+  {
+    using Type = TypeIfTrue;
+  };
+
+  template<class T>
+  struct IsConst
+    : FalseType
+  {	
+  };
+
+  template<class T>
+  struct IsConst<const T>
+    : TrueType
+  {	
+  };
+
+  template<class T>
+  struct IsPointer
+    : FalseType
+  {
+  };
+
+  template<class T>
+  struct IsPointer<T*>
+    : TrueType
+  {
+  };
+
+  template<class T>
+  struct IsReference
+    : FalseType
+  {
+  };
+
+  template<class T>
+  struct IsReference<T&>
+    : TrueType
+  {
+  };
+
+#if PLATFORM_WINDOWS
+  template<class T, class ...ConstructorArguments>
+  struct IsConstructible :
+    BoolConstant<__is_constructible(T, ConstructorArguments...)>
+  {};
+
+  template<class To,
+    class From>
+    struct IsAssignable
+    : BoolConstant<__is_assignable(To, From)>
+  {	
+  };
+#else
+#error "Need platform template implementation"
+#endif
+
+
+  template<class... _Types>
+  using void_t = void;
+
+  template<class T,
+    class = void>
+    struct AddReference
+  {
+    using Lvalue = T;
+    using Rvalue = T;
+  };
+
+
+  template<class T>
+  struct AddReference<T, void_t<T&>>
+  {
+    using Lvalue = T&;
+    using Rvalue = T&&;
+  };
+
+  template<class T>
+  struct AddLValueReference
+  {
+    using type = typename AddReference<T>::Lvalue;
+  };
+
+  template<class T>
+  using AddLValueReferenceType = typename AddLValueReference<T>::type;
+
+  template<class T>
+  struct AddRValueReference
+  {
+    using type = typename AddReference<T>::Rvalue;
+  };
+
+  template<class T>
+  using AddRValueReferenceType = typename AddRValueReference<T>::type;
+
+
+  template<class T>
+  struct IsCopyAssignable
+    : IsAssignable<
+    AddLValueReferenceType<T>,
+    AddLValueReferenceType<const T>
+    >::type
+  {	
+  };
+
+
+
   // function pointer
-  template<class R, class... Args>
+  template<class R, class ...Args>
   struct function_traits<R( *)( Args... )> : public function_traits < R( Args... ) >
   {};
 
@@ -23,10 +183,10 @@ namespace nfe
     struct argument
     {
       static_assert( N < arity, "error: invalid parameter index." );
-      using type = typename std::tuple_element<N, std::tuple<Args...>>::type;
-      using isConst = std::is_const < type > ;
-      using isPointer = std::is_pointer < type > ;
-      using isReference = std::is_reference< type > ;
+      using type = typename tuple_element<N, tuple<Args...>>::type;
+      using isConst = IsConst < type > ;
+      using isPointer = IsPointer < type > ;
+      using isReference = IsReference< type > ;
     };
   };
 
@@ -47,14 +207,14 @@ namespace nfe
 
   template<typename T, typename ...Args>
   inline
-    void construct_( T* ptr, IAllocator* allocator, std::true_type*, Args...arguments )
+    void construct_( T* ptr, IAllocator* allocator, TrueType*, Args...arguments )
   {
     new (ptr) T( allocator, arguments... );
   }
 
   template<typename T, typename ...Args>
   inline
-    void construct_( T* ptr, IAllocator* allocator, std::false_type*, Args...arguments )
+    void construct_( T* ptr, IAllocator* allocator, FalseType*, Args...arguments )
   {
     new (ptr) T(arguments...);
   }
@@ -75,11 +235,11 @@ namespace nfe
   inline
     void constructWithAllocatorIfPossible( T* ptr, IAllocator* allocator, Args...arguments )
   {
-    static_assert( std::is_constructible<T, Args...>::value || std::is_constructible<T, IAllocator*, Args...>::value,
+    static_assert( IsConstructible<T, Args...>::value || IsConstructible<T, IAllocator*, Args...>::value,
       "A type of T can not constructed with the given arguments, with or without allocator" );
     construct_( ptr, allocator,
-      static_cast< typename std::conditional <
-      std::is_constructible< T, IAllocator*, Args...>::value, typename std::true_type, std::false_type>::type* >( nullptr ),
+      static_cast< typename Conditional <
+      IsConstructible< T, IAllocator*, Args...>::value, TrueType, FalseType>::Type* >( nullptr ),
       arguments... );
   }
 

@@ -9,7 +9,7 @@
 		.UnityOutputPattern = "Module-$ProjectName$*.cpp"
 
 
-		Unity( "$ProjectName$-Unity-Windows" )
+		Unity( "$ProjectName$-Unity" )
 		{
 			.UnityPCH = "$PCHName$.hpp"
 		}
@@ -36,7 +36,7 @@
 			.PCHOptions + ' /D"NIFRAME_DLL_BUILD"'
 
 			// Input (Unity)
-			.CompilerInputUnity = '$ProjectName$-Unity-Windows'
+			.CompilerInputUnity = '$ProjectName$-Unity'
 
 			// Output
 			.CompilerOutputPath = '$OutputBasePath$\$ProjectName$\'
@@ -45,13 +45,18 @@
 
 		DLL( "$ProjectName$-DLL-$Platform$-$Config$" )
 		{
-			.Libraries = { "$ProjectName$-Lib-$Platform$-$Config$", "Windows-Lib-$Platform$-$Config$" }
+			.Libraries = {
+				"$ProjectName$-Lib-$Platform$-$Config$",
+				"Windows-Lib-$Platform$-$Config$",
+				"Math-Lib-$Platform$-$Config$"
+			}
 			.LinkerOutput = "$OutputBuildPath$\$Platform$\$Config$\$ProjectName$-$Config$.dll"
 			.LinkerOptions
 				+ " /SUBSYSTEM:WINDOWS"
 				+ " /DLL"
 				+ " User32.Lib"
 				+ " Kernel32.Lib"
+				+ " /ENTRY:DllEntry"
 		}
 	}
 

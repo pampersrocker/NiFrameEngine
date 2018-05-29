@@ -62,7 +62,7 @@
     pointer = nullptr;    \
   }
 #ifdef _DEBUG
-#define NF_ASSERT(assertion, msg) do{const bool AssertionResult = (assertion); NFPlatform::Assert( AssertionResult , msg ); if(!(AssertionResult)) {NFPlatform::Exit(1);}}while(0)
+#define NF_ASSERT(assertion, msg) do{const bool AssertionResult = (assertion); ::nfe::Platform::Assert( AssertionResult , msg ); if(!(AssertionResult)) {::nfe::Platform::Exit(1);}}while(0)
 #else
 #define NF_ASSERT(assertion, msg) (void*)0
 #endif

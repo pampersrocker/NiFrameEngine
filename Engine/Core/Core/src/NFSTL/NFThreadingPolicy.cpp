@@ -15,12 +15,12 @@ void nfe::NoSTLThreadingPolicy::Lock()
 
 nfe::STLLockingThreadingPolicy::STLLockingThreadingPolicy()
 {
-  m_Semaphore = NFPlatform::CreateSemaphore( 1, 1, SemaphoreQueueType::FIFO, "ThreadingPolicySemaphore" );
+  m_Semaphore = Platform::CreateSemaphore( 1, 1, SemaphoreQueueType::FIFO, "ThreadingPolicySemaphore" );
 }
 
 nfe::STLLockingThreadingPolicy::~STLLockingThreadingPolicy()
 {
-  NFPlatform::DestroySemaphore( m_Semaphore );
+  Platform::DestroySemaphore( m_Semaphore );
 }
 
 void nfe::STLLockingThreadingPolicy::Lock()

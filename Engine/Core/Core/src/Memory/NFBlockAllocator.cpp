@@ -130,7 +130,7 @@ void* nfe::BlockAllocator::Allocate(NFSize size, uint32 alignment )
   {
     m_FreeMemoryChunks.RemoveAt( blockIdx );
   }
-  NFPlatform::OnAllocation( block.Pointer, alignedSize );
+  Platform::OnAllocation( block.Pointer, alignedSize );
   uint8* address = (uint8*)block.Pointer;
   address -= block.Offset;
   address += block.Size - 4;
@@ -162,7 +162,7 @@ void nfe::BlockAllocator::Deallocate( void* InAddress )
 
     BlockAllocatorChunk chunk = m_UsedMemoryChunks[ idx ];
 
-    NFPlatform::OnDeallocation( chunk.Pointer, chunk.Size );
+    Platform::OnDeallocation( chunk.Pointer, chunk.Size );
     m_UsedMemoryChunks.RemoveAt( idx );
     chunk.Pointer -= chunk.Offset;
     chunk.Offset = 0;

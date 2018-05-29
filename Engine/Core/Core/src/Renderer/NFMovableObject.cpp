@@ -18,7 +18,7 @@ namespace nfe
   {
     if( m_Allocator == nullptr )
     {
-      m_Allocator = NFPlatform::GetDefaultAllocator();
+      m_Allocator = Platform::GetDefaultAllocator();
     }
   }
 

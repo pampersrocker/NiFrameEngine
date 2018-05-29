@@ -21,8 +21,8 @@ namespace nfe
     template < class Vector >
     friend class VectorIterator;
 
-    static_assert( std::is_constructible<T>::value, "Template Type for Vector must have a default constructor" );
-    static_assert( std::is_copy_assignable<T>::value, "Template Type for Vector must be assignable" );
+    static_assert( IsConstructible<T>::value, "Template Type for Vector must have a default constructor" );
+    static_assert( IsCopyAssignable<T>::value, "Template Type for Vector must be assignable" );
     Vector( IAllocator* allocator = nullptr );
     Vector(NFSize reservedSize, IAllocator* allocator = nullptr );
     Vector( const Vector<T, ThreadingPolicy>& rhs );

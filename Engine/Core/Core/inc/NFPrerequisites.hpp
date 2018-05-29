@@ -75,5 +75,7 @@ namespace nfe
   typedef char int8;
 
   typedef size_t NFSize;
+
+  typedef decltype(__nullptr) nullptr_t;
 }
 #endif  // NiFramePrerequisites_h__

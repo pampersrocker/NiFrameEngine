@@ -1,6 +1,8 @@
 #include "NFEnginePCH.hpp"
 #include "Memory\NFDefaultAllocator.hpp"
 
+
+
 #if PLATFORM_WINDOWS
 #pragma warning(push)
 // This warning is about missing SAL annotations to the new operator, which I cannot find anywhere, as it is a compiler internal definition
