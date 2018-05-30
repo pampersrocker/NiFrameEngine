@@ -56,7 +56,7 @@
 				+ " /DLL"
 				+ " User32.Lib"
 				+ " Kernel32.Lib"
-				+ " /ENTRY:DllEntry"
+				+ " /ENTRY:DLLEntry"
 		}
 	}
 

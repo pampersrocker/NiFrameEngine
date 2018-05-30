@@ -1,6 +1,6 @@
+#include "NFWindowsPCH.hpp"
 
-
-void DllEntry()
+BOOL WINAPI DLLEntry(HINSTANCE const hInstance, DWORD const fdwReason, LPVOID const lpReserved)
 {
-
+  return true;
 }
