@@ -3,5 +3,7 @@
 
 int _purecall()
 {
+  ::nfe::Platform::DebugBreak();
+
   return 0;
 }
