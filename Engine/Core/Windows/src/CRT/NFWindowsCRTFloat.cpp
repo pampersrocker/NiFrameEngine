@@ -86,4 +86,100 @@ extern "C"
 
 #endif
 
+  _Check_return_ double __CRTDECL log10(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL log(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL pow(_In_ double X, _In_ double Y)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL sin(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL sinh(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL sqrt(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL tan(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL tanh(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL acos(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL asin(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL atan2(_In_ double Y, _In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL atan(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL ceil(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL cos(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL cosh(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
+  _Check_return_ double __CRTDECL exp(_In_ double X)
+  {
+    NF_ASSERT(false, "TODO: Implement");
+    return X;
+  }
+
 }
